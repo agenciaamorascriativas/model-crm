@@ -46,6 +46,15 @@ function EquipePage() {
     },
   });
 
+  const { data: roles } = useQuery({
+    queryKey: ["roles"],
+    queryFn: async () => {
+      const { data, error } = await supabase.from("user_roles").select("user_id, role");
+      if (error) throw error;
+      return data as { user_id: string; role: string }[];
+    },
+  });
+
   const { data: myRole } = useQuery({
     queryKey: ["my-role", meId],
     queryFn: async () => {
@@ -58,13 +67,8 @@ function EquipePage() {
     },
   });
 
-  const invalidate = () => {
-    queryClient.invalidateQueries({ queryKey: ["profiles"] });
-- };
-  const [loadedRole, setLoadedRole] = useState<Profile | null>(null);
-  void loadedRole;
-  void setLoadedRole;
-  void invalidate;
+  const roleOf = (userId: string) =>
+    roles?.some((r) => r.user_id === userId && r.role === "admin") ? "admin" : "member";
 
   return (
     <div className="mx-auto max-w-3xl p-8">
