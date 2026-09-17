@@ -9,9 +9,10 @@ Seu CRM antigo é React/Next.js — a mesma família de tecnologia usada aqui. I
 1. Você conecta o GitHub pelo card que vou abrir no chat (login OAuth, um clique).
 2. Com isso eu leio o repositório privado, mapeio as telas, funcionalidades e o modelo de dados, e te entrego um **inventário**: o que existe, o que serve e o que fica de fora.
 
-## Fase 2 — Cortes
+## Fase 2 — Cortes e rebranding
 
 3. Com base no inventário, você marca o que não serve (você disse que tem muita coisa sobrando). Só então construímos, para não trazer lixo.
+4. **Rebranding completo (regra firme)**: nada do Deskcomm aparece no produto final — nenhum nome do autor, link, comentário de crédito, logotipo ou metadado do sistema original. Todas as telas e termos são renomeados para o vocabulário de vocês (ex.: "Inbox" vira "WhatsApp"). Faremos uma varredura final procurando qualquer menção remanescente antes de considerar pronto.
 
 ## Fase 3 — Migração do que serve
 
