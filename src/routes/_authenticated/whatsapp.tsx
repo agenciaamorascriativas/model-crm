@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Plus, Loader2, Phone, Mail, Building2, Search } from "lucide-react";
+import { Send, Plus, Loader2, Search } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { Contact, Conversation, Message } from "@/lib/types";

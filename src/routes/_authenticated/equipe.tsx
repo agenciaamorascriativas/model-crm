@@ -96,9 +96,12 @@ function EquipePage() {
           <MemberCard
             key={p.id}
             profile={p}
+            role={roleOf(p.user_id)}
             isAdmin={myRole === "admin"}
             isMe={p.user_id === meId}
-            onChanged={() => queryClient.invalidateQueries({ queryKey: ["profiles"] })}
+            onChanged={() => {
+              queryClient.invalidateQueries({ queryKey: ["roles"] });
+            }}
           />
         ))}
       </div>
@@ -110,16 +113,17 @@ function EquipePage() {
 
 function MemberCard({
   profile,
+  role,
   isAdmin,
   isMe,
   onChanged,
 }: {
   profile: Profile;
+  role: "admin" | "member";
   isAdmin: boolean;
   isMe: boolean;
   onChanged: () => void;
 }) {
-  const [role, setRole] = useState<"admin" | "member" | null>(null);
   const [saving, setSaving] = useState(false);
 
   const displayName = profile.full_name || profile.email?.split("@")[0] || "Membro";
@@ -134,7 +138,6 @@ function MemberCard({
     setSaving(true);
     try {
       await setUserRole({ data: { userId: profile.user_id, role: next } });
-      setRole(next);
       toast.success(next === "admin" ? "Agora é administrador." : "Agora é membro.");
       onChanged();
     } catch (err) {
@@ -160,7 +163,7 @@ function MemberCard({
       </div>
       {isAdmin && !isMe ? (
         <select
-          value={role ?? "member"}
+          value={role}
           onChange={(e) => changeRole(e.target.value as "admin" | "member")}
           disabled={saving}
           className="rounded-lg border bg-background px-3 py-1.5 text-sm outline-none focus:ring-2 focus:ring-ring"
@@ -171,7 +174,7 @@ function MemberCard({
       ) : (
         <Badge variant="secondary" className="gap-1">
           <ShieldCheck className="h-3 w-3" />
-          {role === "admin" || (role === null && isMe && isAdmin) ? "Administrador" : "Membro"}
+          {role === "admin" ? "Administrador" : "Membro"}
         </Badge>
       )}
     </div>
