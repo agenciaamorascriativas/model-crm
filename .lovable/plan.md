@@ -16,15 +16,15 @@ Seu CRM antigo é React/Next.js — a mesma família de tecnologia usada aqui. I
 
 ## Fase 3 — Migração do que serve
 
-4. **Banco de dados e lógica**: recriamos a estrutura de dados aqui no backend gerenciado (Lovable Cloud), com permissões por usuário. As chamadas de API do Next.js viram funções no servidor desta plataforma — mesma lógica, formato novo.
-5. **Telas e visual**: os componentes React do repositório são reaproveitados quase direto; páginas do Next.js viram rotas equivalentes aqui. Onde o CRM antigo usava recursos exclusivos do Next (carregamento no servidor, login próprio, imagens otimizadas), fazemos o equivalente desta plataforma.
-6. **Login**: recriamos o acesso de usuários com o login gerenciado daqui (e-mail/senha, e Google se quiser).
+5. **Banco de dados e lógica**: recriamos a estrutura de dados aqui no backend gerenciado (Lovable Cloud), com permissões por usuário. As chamadas de API do Next.js viram funções no servidor desta plataforma — mesma lógica, formato novo.
+6. **Telas e visual**: os componentes React do repositório são reaproveitados quase direto; páginas do Next.js viram rotas equivalentes aqui. Onde o CRM antigo usava recursos exclusivos do Next (carregamento no servidor, login próprio, imagens otimizadas), fazemos o equivalente desta plataforma.
+7. **Login**: recriamos o acesso de usuários com o login gerenciado daqui (e-mail/senha, e Google se quiser).
 
 ## Fase 4 — Rodar no seu Portainer (depois)
 
-7. Conectamos o projeto ao GitHub (sincronização automática de código).
-8. O código exportado é padrão e roda em qualquer servidor: criamos um `Dockerfile` e um `docker-compose.yml` prontos para você subir no Portainer.
-9. **Ressalva importante**: o container roda a interface e as regras do sistema, mas o banco de dados e o login continuam hospedados no backend gerenciado (nuvem). Se um dia quiser 100% no seu servidor, o caminho é migrar para um Supabase próprio — possível, mas é uma etapa separada.
+8. Conectamos o projeto ao GitHub (sincronização automática de código).
+9. O código exportado é padrão e roda em qualquer servidor: criamos um `Dockerfile` e um `docker-compose.yml` prontos para você subir no Portainer.
+10. **Ressalva importante**: o container roda a interface e as regras do sistema, mas o banco de dados e o login continuam hospedados no backend gerenciado (nuvem). Se um dia quiser 100% no seu servidor, o caminho é migrar para um Supabase próprio — possível, mas é uma etapa separada.
 
 ## Ordem e economia
 
