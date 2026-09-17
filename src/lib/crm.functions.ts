@@ -35,7 +35,7 @@ export const ensureProfile = createServerFn({ method: "POST" })
         { user_id: userId, role: "admin" },
         { onConflict: "user_id,role" },
       );
-et   } else {
+    } else {
       await supabaseAdmin
         .from("user_roles")
         .upsert({ user_id: userId, role: "member" }, { onConflict: "user_id,role" });
