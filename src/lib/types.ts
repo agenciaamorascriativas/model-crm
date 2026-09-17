@@ -1,4 +1,7 @@
-export interface Contact {
+import type { Contact } from "./contact-shared";
+
+export interface Contact
+  extends ContactShared {}
   id: string;
   name: string;
   phone: string | null;
