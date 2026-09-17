@@ -329,20 +329,6 @@ function NewLeadDialog({
             </div>
           </div>
           <div className="space-y-1.5">
-            <Label>Estágio inicial</Label>
-            <select
-              value={stageId ?? ""}
-              onChange={(e) => setCreatingIn(e.target.value)}
-              className="w-full rounded-lg border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
-            >
-              {stages.map((s) => (
-                <option key={s.id} value={s.id}>
-                  {s.name}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className="space-y-1.5">
             <Label>Observações</Label>
             <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={2} />
           </div>

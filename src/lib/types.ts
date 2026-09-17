@@ -1,7 +1,4 @@
-import type { Contact } from "./contact-shared";
-
-export interface Contact
-  extends ContactShared {}
+export interface Contact {
   id: string;
   name: string;
   phone: string | null;
@@ -22,7 +19,7 @@ export interface Conversation {
   last_message_at: string;
   created_at: string;
   updated_at: string;
-  contacts?: Contact;
+  contacts?: Contact | null;
 }
 
 export interface Message {
@@ -96,6 +93,7 @@ export interface Appointment {
   owner_id: string | null;
   created_at: string;
   updated_at: string;
+  contacts?: { name: string } | null;
 }
 
 export interface Task {
