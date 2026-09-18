@@ -4,16 +4,8 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ensureProfile } from "@/lib/crm.functions";
 import { Brand } from "@/routes/auth";
-import {
-  MessageCircle,
-  Users,
-  KanbanSquare,
-  CalendarDays,
-  CheckSquare,
-  UserCog,
-  Settings,
-  LogOut,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
+import { NAV_GROUPS } from "@/lib/nav";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
