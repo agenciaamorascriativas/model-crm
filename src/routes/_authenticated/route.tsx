@@ -25,15 +25,6 @@ export const Route = createFileRoute("/_authenticated")({
   ),
 });
 
-const NAV = [
-  { to: "/whatsapp", label: "WhatsApp", icon: MessageCircle },
-  { to: "/contatos", label: "Contatos", icon: Users },
-  { to: "/funil", label: "Funil de Vendas", icon: KanbanSquare },
-  { to: "/agenda", label: "Agenda", icon: CalendarDays },
-  { to: "/tarefas", label: "Tarefas", icon: CheckSquare },
-  { to: "/equipe", label: "Equipe", icon: UserCog },
-  { to: "/configuracoes", label: "Configurações", icon: Settings },
-] as const;
 
 function AppLayout({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
