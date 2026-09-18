@@ -3,12 +3,14 @@
 Fora de escopo permanente: menções a Deskcomm, ao autor (Rafael), configuração da Hostgator, conexão Nuvemshop, painel de administração da plataforma (multi-empresa/cobrança).
 
 ## Fase 1 — Visual de todas as telas (dados de exemplo)
-- [x] Menu lateral completo por grupos (Início, Atendimento, Vendas, Agenda, IA, Relatórios, Administração)
+- [x] Menu lateral completo por grupos (Início, Conversas, Atendimento, CRM, Agenda, IA, Relatórios, Marketing, Integrações, Administração)
+- [x] ChatBot visual separado do WhatsApp, com busca, conversa e ações de atendimento
 - [ ] Atendimento: fila, respostas rápidas, modelos de mensagem, canal oficial
 - [ ] Vendas: ficha do contato, ficha do negócio, funis e estágios, produtos, atividades
 - [ ] IA: visão geral, agentes, habilidades, roteamento, conhecimento, memória, casos, propostas, follow-up, execuções, conversas, provedores, consumo, evolução
 - [ ] Relatórios: painel, métricas, análise, radar, auditoria, privacidade (LGPD)
 - [x] Revisar Configurações: visão geral em cards, Marca livre, Distribuição separada, Marketing e Integrações no menu principal
+- [x] Marca persistente em todo o CRM, com logo, cor e ícone; retornos em Equipe e Privacidade
 - [ ] Entrada e apoio: esqueci/redefinir senha, verificação em duas etapas, primeiros passos, páginas de erro, termos e privacidade, agendamento público
 
 ## Fase 2 — Ligar ao banco

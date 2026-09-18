@@ -32,6 +32,7 @@ import {
   ShieldCheck,
   Megaphone,
   Plug,
+  MessagesSquare,
   type LucideIcon,
 } from "lucide-react";
 
@@ -46,9 +47,16 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [{ to: "/painel", label: "Painel", icon: LayoutDashboard }],
   },
   {
-    label: "Atendimento",
+    label: "Conversas",
     items: [
       { to: "/whatsapp", label: "WhatsApp", icon: MessageCircle },
+      { to: "/chatbot", label: "ChatBot", icon: MessagesSquare },
+    ],
+  },
+  {
+    label: "Atendimento",
+    items: [
+      { to: "/radar", label: "Radar", icon: Radar },
       { to: "/fila", label: "Fila de atendimento", icon: Inbox },
       { to: "/respostas-rapidas", label: "Respostas rápidas", icon: Zap },
       { to: "/modelos", label: "Modelos de mensagem", icon: FileText },
@@ -56,11 +64,11 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "Vendas",
+    label: "CRM",
     items: [
       { to: "/contatos", label: "Contatos", icon: Users },
       { to: "/funil", label: "Funil de Vendas", icon: KanbanSquare },
-      { to: "/funis", label: "Funis e estágios", icon: GitBranch },
+      { to: "/funis", label: "Etapas do Funil", icon: GitBranch },
       { to: "/produtos", label: "Produtos", icon: Package },
       { to: "/atividades", label: "Atividades", icon: ListChecks },
     ],
@@ -96,7 +104,6 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { to: "/metricas", label: "Métricas", icon: BarChart3 },
       { to: "/analise", label: "Análise", icon: LineChart },
-      { to: "/radar", label: "Radar", icon: Radar },
       { to: "/auditoria", label: "Auditoria", icon: ScrollText },
     ],
   },

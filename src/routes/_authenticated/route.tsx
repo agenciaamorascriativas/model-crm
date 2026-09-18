@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ensureProfile } from "@/lib/crm.functions";
-import { Brand } from "@/routes/auth";
+import { AppBrand } from "@/components/app-brand";
 import { LogOut, Menu } from "lucide-react";
 import { NAV_GROUPS } from "@/lib/nav";
 import { toast } from "sonner";
@@ -80,7 +80,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen">
       <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b bg-sidebar px-4 text-sidebar-foreground md:hidden">
-        <Brand dark />
+        <AppBrand dark />
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-foreground" aria-label="Abrir menu">
@@ -103,7 +103,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
 
 function SidebarContent({ pathname, displayName, email, initials, onSignOut, closeLinks = false }: { pathname: string; displayName: string; email: string; initials: string; onSignOut: () => void; closeLinks?: boolean }) {
   return <>
-    <div className="flex h-16 shrink-0 items-center border-b border-sidebar-border px-5"><Brand dark /></div>
+    <div className="flex h-16 shrink-0 items-center border-b border-sidebar-border px-5"><AppBrand dark /></div>
     <nav className="flex-1 space-y-5 overflow-y-auto px-3 py-4">
       {NAV_GROUPS.map((group) => <div key={group.label} className="space-y-1">
         <p className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-sidebar-foreground/40">{group.label}</p>
