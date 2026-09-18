@@ -10,7 +10,7 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import type { AppSettings, Profile } from "@/lib/types";
 
-export const Route = createFileRoute("/_authenticated/configuracoes/")({
+export const Route = createFileRoute("/_authenticated/configuracoes/organizacao")({
   ssr: false,
   head: () => ({
     meta: [

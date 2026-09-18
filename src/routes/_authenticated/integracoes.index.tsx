@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { conexoesDemo } from "@/lib/demo/configuracoes";
 
-export const Route = createFileRoute("/_authenticated/integracoes")({
+export const Route = createFileRoute("/_authenticated/integracoes/")({
   ssr: false,
   head: () => ({
     meta: [
