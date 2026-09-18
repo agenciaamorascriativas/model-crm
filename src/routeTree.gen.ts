@@ -35,6 +35,7 @@ import { Route as AuthenticatedIaAgentesRouteImport } from './routes/_authentica
 import { Route as AuthenticatedIaFollowupsRouteImport } from './routes/_authenticated/ia.followups'
 import { Route as AuthenticatedIaHabilidadesRouteImport } from './routes/_authenticated/ia.habilidades'
 import { Route as AuthenticatedIaPropostasRouteImport } from './routes/_authenticated/ia.propostas'
+import { Route as AuthenticatedIaRoteamentoRouteImport } from './routes/_authenticated/ia.roteamento'
 import { Route as AuthenticatedNegociosIdRouteImport } from './routes/_authenticated/negocios.$id'
 
 const IndexRoute = IndexRouteImport.update({
@@ -173,6 +174,12 @@ const AuthenticatedIaPropostasRoute =
     path: '/ia/propostas',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedIaRoteamentoRoute =
+  AuthenticatedIaRoteamentoRouteImport.update({
+    id: '/ia/roteamento',
+    path: '/ia/roteamento',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedNegociosIdRoute = AuthenticatedNegociosIdRouteImport.update({
   id: '/negocios/$id',
   path: '/negocios/$id',
@@ -203,6 +210,7 @@ export interface FileRoutesByFullPath {
   '/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
   '/ia/propostas': typeof AuthenticatedIaPropostasRoute
+  '/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
   '/negocios/$id': typeof AuthenticatedNegociosIdRoute
   '/configuracoes/': typeof AuthenticatedConfiguracoesIndexRoute
   '/ia/': typeof AuthenticatedIaIndexRoute
@@ -230,6 +238,7 @@ export interface FileRoutesByTo {
   '/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
   '/ia/propostas': typeof AuthenticatedIaPropostasRoute
+  '/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
   '/negocios/$id': typeof AuthenticatedNegociosIdRoute
   '/configuracoes': typeof AuthenticatedConfiguracoesIndexRoute
   '/ia': typeof AuthenticatedIaIndexRoute
@@ -260,6 +269,7 @@ export interface FileRoutesById {
   '/_authenticated/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/_authenticated/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
   '/_authenticated/ia/propostas': typeof AuthenticatedIaPropostasRoute
+  '/_authenticated/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
   '/_authenticated/negocios/$id': typeof AuthenticatedNegociosIdRoute
   '/_authenticated/configuracoes/': typeof AuthenticatedConfiguracoesIndexRoute
   '/_authenticated/ia/': typeof AuthenticatedIaIndexRoute
@@ -290,6 +300,7 @@ export interface FileRouteTypes {
     | '/ia/followups'
     | '/ia/habilidades'
     | '/ia/propostas'
+    | '/ia/roteamento'
     | '/negocios/$id'
     | '/configuracoes/'
     | '/ia/'
@@ -317,6 +328,7 @@ export interface FileRouteTypes {
     | '/ia/followups'
     | '/ia/habilidades'
     | '/ia/propostas'
+    | '/ia/roteamento'
     | '/negocios/$id'
     | '/configuracoes'
     | '/ia'
@@ -346,6 +358,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ia/followups'
     | '/_authenticated/ia/habilidades'
     | '/_authenticated/ia/propostas'
+    | '/_authenticated/ia/roteamento'
     | '/_authenticated/negocios/$id'
     | '/_authenticated/configuracoes/'
     | '/_authenticated/ia/'
@@ -544,6 +557,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIaPropostasRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ia/roteamento': {
+      id: '/_authenticated/ia/roteamento'
+      path: '/ia/roteamento'
+      fullPath: '/ia/roteamento'
+      preLoaderRoute: typeof AuthenticatedIaRoteamentoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/negocios/$id': {
       id: '/_authenticated/negocios/$id'
       path: '/negocios/$id'
@@ -599,6 +619,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIaFollowupsRoute: typeof AuthenticatedIaFollowupsRoute
   AuthenticatedIaHabilidadesRoute: typeof AuthenticatedIaHabilidadesRoute
   AuthenticatedIaPropostasRoute: typeof AuthenticatedIaPropostasRoute
+  AuthenticatedIaRoteamentoRoute: typeof AuthenticatedIaRoteamentoRoute
   AuthenticatedNegociosIdRoute: typeof AuthenticatedNegociosIdRoute
   AuthenticatedIaIndexRoute: typeof AuthenticatedIaIndexRoute
 }
@@ -621,6 +642,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIaFollowupsRoute: AuthenticatedIaFollowupsRoute,
   AuthenticatedIaHabilidadesRoute: AuthenticatedIaHabilidadesRoute,
   AuthenticatedIaPropostasRoute: AuthenticatedIaPropostasRoute,
+  AuthenticatedIaRoteamentoRoute: AuthenticatedIaRoteamentoRoute,
   AuthenticatedNegociosIdRoute: AuthenticatedNegociosIdRoute,
   AuthenticatedIaIndexRoute: AuthenticatedIaIndexRoute,
 }
