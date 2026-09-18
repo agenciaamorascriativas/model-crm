@@ -8,7 +8,7 @@ Fora de escopo permanente: menções a Deskcomm, ao autor (Rafael), configuraç�
 - [ ] Vendas: ficha do contato, ficha do negócio, funis e estágios, produtos, atividades
 - [ ] IA: visão geral, agentes, habilidades, roteamento, conhecimento, memória, casos, propostas, follow-up, execuções, conversas, provedores, consumo, evolução
 - [ ] Relatórios: painel, métricas, análise, radar, auditoria, privacidade (LGPD)
-- [ ] Revisar Configurações: visão geral em cards, Marca livre, Distribuição separada, Marketing e Integrações no menu principal
+- [x] Revisar Configurações: visão geral em cards, Marca livre, Distribuição separada, Marketing e Integrações no menu principal
 - [ ] Entrada e apoio: esqueci/redefinir senha, verificação em duas etapas, primeiros passos, páginas de erro, termos e privacidade, agendamento público
 
 ## Fase 2 — Ligar ao banco

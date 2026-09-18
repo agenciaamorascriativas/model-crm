@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
 import { PageHeader } from "@/components/page-shell";
 import {
   Building2, CalendarDays, KeyRound, Palette, Bell, ShieldCheck,
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/_authenticated/configuracoes/")({
   component: ConfiguracoesOverview,
 });
 
-type Item = { title: string; description: string; to: string; icon: LucideIcon };
+type Item = { title: string; description: string; to: NonNullable<LinkProps["to"]>; icon: LucideIcon };
 
 const groups: { label: string; items: Item[] }[] = [
   { label: "Sua empresa", items: [

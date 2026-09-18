@@ -15,8 +15,8 @@ export function PageHeader({
   demo?: boolean | undefined;
 }) {
   return (
-    <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
-      <div>
+    <div className="mb-6 grid grid-cols-[minmax(0,1fr)_auto] items-start gap-4 sm:flex sm:flex-wrap sm:justify-between">
+      <div className="min-w-0">
         <div className="flex items-center gap-2">
           <h1 className="font-display text-2xl font-bold">{title}</h1>
           {demo && (
@@ -27,7 +27,7 @@ export function PageHeader({
         </div>
         {description && <p className="mt-1 text-sm text-muted-foreground">{description}</p>}
       </div>
-      {actions && <div className="flex flex-wrap items-center gap-2">{actions}</div>}
+      {actions && <div className="flex shrink-0 flex-wrap items-center gap-2">{actions}</div>}
     </div>
   );
 }
@@ -43,7 +43,7 @@ export function PageContainer({
   wide?: boolean | undefined;
 }) {
   return (
-    <div className={cn("mx-auto p-8", wide ? "max-w-7xl" : "max-w-6xl", className)}>{children}</div>
+    <div className={cn("mx-auto px-4 py-6 sm:p-8", wide ? "max-w-7xl" : "max-w-6xl", className)}>{children}</div>
   );
 }
 

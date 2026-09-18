@@ -7,9 +7,9 @@ export const Route = createFileRoute("/_authenticated/configuracoes")({
   head: () => ({
     meta: [
       { title: "Configurações — Amoras CRM" },
-      { name: "description", content: "Preferências do sistema, marca, atendimento, integrações e segurança." },
+      { name: "description", content: "Sua conta, os dados da empresa e quem tem acesso ao quê." },
       { property: "og:title", content: "Configurações — Amoras CRM" },
-      { property: "og:description", content: "Preferências do sistema, marca, atendimento, integrações e segurança." },
+      { property: "og:description", content: "Sua conta, os dados da empresa e quem tem acesso ao quê." },
     ],
   }),
   component: ConfiguracoesLayout,
