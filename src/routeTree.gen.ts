@@ -25,6 +25,8 @@ import { Route as AuthenticatedTarefasRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedWhatsappRouteImport } from './routes/_authenticated/whatsapp'
 import { Route as AuthenticatedContatosIdRouteImport } from './routes/_authenticated/contatos.$id'
 import { Route as AuthenticatedIaIndexRouteImport } from './routes/_authenticated/ia.index'
+import { Route as AuthenticatedIaAgentesRouteImport } from './routes/_authenticated/ia.agentes'
+import { Route as AuthenticatedIaPropostasRouteImport } from './routes/_authenticated/ia.propostas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -108,6 +110,17 @@ const AuthenticatedIaIndexRoute = AuthenticatedIaIndexRouteImport.update({
   path: '/ia/',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedIaAgentesRoute = AuthenticatedIaAgentesRouteImport.update({
+  id: '/ia/agentes',
+  path: '/ia/agentes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIaPropostasRoute =
+  AuthenticatedIaPropostasRouteImport.update({
+    id: '/ia/propostas',
+    path: '/ia/propostas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -124,6 +137,8 @@ export interface FileRoutesByFullPath {
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/ia/': typeof AuthenticatedIaIndexRoute
 }
 export interface FileRoutesByTo {
@@ -141,6 +156,8 @@ export interface FileRoutesByTo {
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/ia': typeof AuthenticatedIaIndexRoute
 }
 export interface FileRoutesById {
@@ -160,6 +177,8 @@ export interface FileRoutesById {
   '/_authenticated/tarefas': typeof AuthenticatedTarefasRoute
   '/_authenticated/whatsapp': typeof AuthenticatedWhatsappRoute
   '/_authenticated/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/_authenticated/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/_authenticated/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/_authenticated/ia/': typeof AuthenticatedIaIndexRoute
 }
 export interface FileRouteTypes {
@@ -179,6 +198,8 @@ export interface FileRouteTypes {
     | '/tarefas'
     | '/whatsapp'
     | '/contatos/$id'
+    | '/ia/agentes'
+    | '/ia/propostas'
     | '/ia/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -196,6 +217,8 @@ export interface FileRouteTypes {
     | '/tarefas'
     | '/whatsapp'
     | '/contatos/$id'
+    | '/ia/agentes'
+    | '/ia/propostas'
     | '/ia'
   id:
     | '__root__'
@@ -214,6 +237,8 @@ export interface FileRouteTypes {
     | '/_authenticated/tarefas'
     | '/_authenticated/whatsapp'
     | '/_authenticated/contatos/$id'
+    | '/_authenticated/ia/agentes'
+    | '/_authenticated/ia/propostas'
     | '/_authenticated/ia/'
   fileRoutesById: FileRoutesById
 }
@@ -337,6 +362,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIaIndexRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ia/agentes': {
+      id: '/_authenticated/ia/agentes'
+      path: '/ia/agentes'
+      fullPath: '/ia/agentes'
+      preLoaderRoute: typeof AuthenticatedIaAgentesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/propostas': {
+      id: '/_authenticated/ia/propostas'
+      path: '/ia/propostas'
+      fullPath: '/ia/propostas'
+      preLoaderRoute: typeof AuthenticatedIaPropostasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -365,6 +404,8 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedRespostasRapidasRoute: typeof AuthenticatedRespostasRapidasRoute
   AuthenticatedTarefasRoute: typeof AuthenticatedTarefasRoute
   AuthenticatedWhatsappRoute: typeof AuthenticatedWhatsappRoute
+  AuthenticatedIaAgentesRoute: typeof AuthenticatedIaAgentesRoute
+  AuthenticatedIaPropostasRoute: typeof AuthenticatedIaPropostasRoute
   AuthenticatedIaIndexRoute: typeof AuthenticatedIaIndexRoute
 }
 
@@ -380,6 +421,8 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedRespostasRapidasRoute: AuthenticatedRespostasRapidasRoute,
   AuthenticatedTarefasRoute: AuthenticatedTarefasRoute,
   AuthenticatedWhatsappRoute: AuthenticatedWhatsappRoute,
+  AuthenticatedIaAgentesRoute: AuthenticatedIaAgentesRoute,
+  AuthenticatedIaPropostasRoute: AuthenticatedIaPropostasRoute,
   AuthenticatedIaIndexRoute: AuthenticatedIaIndexRoute,
 }
 
