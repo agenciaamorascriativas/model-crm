@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { eventosConversaoDemo, funisDemo } from "@/lib/demo/configuracoes";
 
-export const Route = createFileRoute("/_authenticated/configuracoes/conversoes")({
+export const Route = createFileRoute("/_authenticated/marketing/conversoes")({
   ssr: false,
   head: () => ({
     meta: [

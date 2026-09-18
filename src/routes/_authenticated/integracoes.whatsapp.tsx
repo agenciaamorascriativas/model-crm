@@ -9,7 +9,7 @@ import { toast } from "sonner";
 import { Copy, PlugZap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export const Route = createFileRoute("/_authenticated/configuracoes/whatsapp")({
+export const Route = createFileRoute("/_authenticated/integracoes/whatsapp")({
   ssr: false,
   head: () => ({
     meta: [
