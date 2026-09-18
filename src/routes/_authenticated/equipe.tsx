@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
@@ -15,7 +15,7 @@ import {
   DialogTitle,
   DialogFooter,
 } from "@/components/ui/dialog";
-import { Plus, Loader2, ShieldCheck } from "lucide-react";
+import { Plus, Loader2, ShieldCheck, ArrowLeft } from "lucide-react";
 import { toast } from "sonner";
 import type { Profile } from "@/lib/types";
 
@@ -72,6 +72,9 @@ function EquipePage() {
 
   return (
     <div className="mx-auto max-w-3xl p-8">
+      <Link to="/configuracoes" className="mb-5 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+        <ArrowLeft className="h-4 w-4" /> Voltar para Configurações
+      </Link>
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
         <div>
           <h1 className="font-display text-2xl font-bold">Equipe</h1>

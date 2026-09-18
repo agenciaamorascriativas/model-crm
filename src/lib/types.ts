@@ -113,6 +113,8 @@ export interface AppSettings {
   id: number;
   brand_name: string;
   logo_url: string | null;
+  primary_color: string;
+  favicon_url: string | null;
   whatsapp_number: string | null;
   updated_at: string;
 }

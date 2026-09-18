@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { PageHeader, PageContainer, Panel, StatCard } from "@/components/page-shell";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +14,7 @@ import {
   SheetFooter,
 } from "@/components/ui/sheet";
 import { toast } from "sonner";
-import { ShieldCheck, Clock, AlertOctagon, Download, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Clock, AlertOctagon, Download, CheckCircle2, ArrowLeft } from "lucide-react";
 import {
   indicadoresLGPD,
   solicitacoesLGPD,
@@ -57,6 +57,9 @@ function PrivacidadePage() {
 
   return (
     <PageContainer wide>
+      <Link to="/configuracoes" className="mb-5 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground">
+        <ArrowLeft className="h-4 w-4" /> Voltar para Configurações
+      </Link>
       <PageHeader
         title="Privacidade (LGPD)"
         description="Gerencie pedidos de titulares de dados, retenção e consentimento."

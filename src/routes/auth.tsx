@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
+import { AppBrand } from "@/components/app-brand";
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
@@ -163,22 +164,5 @@ function Centered({ children }: { children: React.ReactNode }) {
 }
 
 export function Brand({ dark = false }: { dark?: boolean }) {
-  return (
-    <div className="flex items-center gap-2.5">
-      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden>
-          <circle cx="9" cy="13" r="6" opacity="0.9" />
-          <circle cx="15" cy="13" r="6" opacity="0.75" />
-          <circle cx="12" cy="9" r="6" opacity="0.85" />
-        </svg>
-      </div>
-      <span
-        className={`font-display text-lg font-bold tracking-tight ${
-          dark ? "text-sidebar-foreground" : "text-foreground"
-        }`}
-      >
-        Amoras CRM
-      </span>
-    </div>
-  );
+  return <AppBrand dark={dark} />;
 }

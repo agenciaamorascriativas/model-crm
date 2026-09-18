@@ -17,22 +17,28 @@ export type Database = {
       app_settings: {
         Row: {
           brand_name: string
+          favicon_url: string | null
           id: number
           logo_url: string | null
+          primary_color: string
           updated_at: string
           whatsapp_number: string | null
         }
         Insert: {
           brand_name?: string
+          favicon_url?: string | null
           id?: number
           logo_url?: string | null
+          primary_color?: string
           updated_at?: string
           whatsapp_number?: string | null
         }
         Update: {
           brand_name?: string
+          favicon_url?: string | null
           id?: number
           logo_url?: string | null
+          primary_color?: string
           updated_at?: string
           whatsapp_number?: string | null
         }
