@@ -43,11 +43,21 @@ import { Route as LegalTermosRouteImport } from './routes/legal.termos'
 import { Route as SenhaEsqueciRouteImport } from './routes/senha.esqueci'
 import { Route as SenhaRedefinirRouteImport } from './routes/senha.redefinir'
 import { Route as AuthenticatedConfiguracoesIndexRouteImport } from './routes/_authenticated/configuracoes.index'
+import { Route as AuthenticatedConfiguracoesAgendaRouteImport } from './routes/_authenticated/configuracoes.agenda'
+import { Route as AuthenticatedConfiguracoesAtendimentoRouteImport } from './routes/_authenticated/configuracoes.atendimento'
+import { Route as AuthenticatedConfiguracoesEtiquetasRouteImport } from './routes/_authenticated/configuracoes.etiquetas'
+import { Route as AuthenticatedConfiguracoesFunisRouteImport } from './routes/_authenticated/configuracoes.funis'
+import { Route as AuthenticatedConfiguracoesMarcaRouteImport } from './routes/_authenticated/configuracoes.marca'
+import { Route as AuthenticatedConfiguracoesModelosRouteImport } from './routes/_authenticated/configuracoes.modelos'
+import { Route as AuthenticatedConfiguracoesNotificacoesRouteImport } from './routes/_authenticated/configuracoes.notificacoes'
+import { Route as AuthenticatedConfiguracoesPerfilRouteImport } from './routes/_authenticated/configuracoes.perfil'
+import { Route as AuthenticatedConfiguracoesSegurancaRouteImport } from './routes/_authenticated/configuracoes.seguranca'
 import { Route as AuthenticatedContatosIdRouteImport } from './routes/_authenticated/contatos.$id'
 import { Route as AuthenticatedIaIndexRouteImport } from './routes/_authenticated/ia.index'
 import { Route as AuthenticatedIaAgentesRouteImport } from './routes/_authenticated/ia.agentes'
 import { Route as AuthenticatedIaCasosRouteImport } from './routes/_authenticated/ia.casos'
 import { Route as AuthenticatedIaConhecimentoRouteImport } from './routes/_authenticated/ia.conhecimento'
+import { Route as AuthenticatedIaConsumoRouteImport } from './routes/_authenticated/ia.consumo'
 import { Route as AuthenticatedIaConversasRouteImport } from './routes/_authenticated/ia.conversas'
 import { Route as AuthenticatedIaExecucoesRouteImport } from './routes/_authenticated/ia.execucoes'
 import { Route as AuthenticatedIaFollowupsRouteImport } from './routes/_authenticated/ia.followups'
@@ -233,6 +243,60 @@ const AuthenticatedConfiguracoesIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedConfiguracoesRoute,
   } as any)
+const AuthenticatedConfiguracoesAgendaRoute =
+  AuthenticatedConfiguracoesAgendaRouteImport.update({
+    id: '/agenda',
+    path: '/agenda',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesAtendimentoRoute =
+  AuthenticatedConfiguracoesAtendimentoRouteImport.update({
+    id: '/atendimento',
+    path: '/atendimento',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesEtiquetasRoute =
+  AuthenticatedConfiguracoesEtiquetasRouteImport.update({
+    id: '/etiquetas',
+    path: '/etiquetas',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesFunisRoute =
+  AuthenticatedConfiguracoesFunisRouteImport.update({
+    id: '/funis',
+    path: '/funis',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesMarcaRoute =
+  AuthenticatedConfiguracoesMarcaRouteImport.update({
+    id: '/marca',
+    path: '/marca',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesModelosRoute =
+  AuthenticatedConfiguracoesModelosRouteImport.update({
+    id: '/modelos',
+    path: '/modelos',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesNotificacoesRoute =
+  AuthenticatedConfiguracoesNotificacoesRouteImport.update({
+    id: '/notificacoes',
+    path: '/notificacoes',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesPerfilRoute =
+  AuthenticatedConfiguracoesPerfilRouteImport.update({
+    id: '/perfil',
+    path: '/perfil',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesSegurancaRoute =
+  AuthenticatedConfiguracoesSegurancaRouteImport.update({
+    id: '/seguranca',
+    path: '/seguranca',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
 const AuthenticatedContatosIdRoute = AuthenticatedContatosIdRouteImport.update({
   id: '/$id',
   path: '/$id',
@@ -259,6 +323,11 @@ const AuthenticatedIaConhecimentoRoute =
     path: '/ia/conhecimento',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedIaConsumoRoute = AuthenticatedIaConsumoRouteImport.update({
+  id: '/ia/consumo',
+  path: '/ia/consumo',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedIaConversasRoute =
   AuthenticatedIaConversasRouteImport.update({
     id: '/ia/conversas',
@@ -345,10 +414,20 @@ export interface FileRoutesByFullPath {
   '/legal/termos': typeof LegalTermosRoute
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
+  '/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
+  '/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
+  '/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
+  '/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
+  '/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
+  '/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/ia/casos': typeof AuthenticatedIaCasosRoute
   '/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
+  '/ia/consumo': typeof AuthenticatedIaConsumoRoute
   '/ia/conversas': typeof AuthenticatedIaConversasRoute
   '/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
   '/ia/followups': typeof AuthenticatedIaFollowupsRoute
@@ -393,10 +472,20 @@ export interface FileRoutesByTo {
   '/legal/termos': typeof LegalTermosRoute
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
+  '/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
+  '/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
+  '/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
+  '/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
+  '/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
+  '/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/ia/casos': typeof AuthenticatedIaCasosRoute
   '/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
+  '/ia/consumo': typeof AuthenticatedIaConsumoRoute
   '/ia/conversas': typeof AuthenticatedIaConversasRoute
   '/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
   '/ia/followups': typeof AuthenticatedIaFollowupsRoute
@@ -444,10 +533,20 @@ export interface FileRoutesById {
   '/legal/termos': typeof LegalTermosRoute
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
+  '/_authenticated/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/_authenticated/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/_authenticated/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
+  '/_authenticated/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
+  '/_authenticated/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/_authenticated/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
+  '/_authenticated/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
+  '/_authenticated/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
+  '/_authenticated/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
   '/_authenticated/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/_authenticated/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/_authenticated/ia/casos': typeof AuthenticatedIaCasosRoute
   '/_authenticated/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
+  '/_authenticated/ia/consumo': typeof AuthenticatedIaConsumoRoute
   '/_authenticated/ia/conversas': typeof AuthenticatedIaConversasRoute
   '/_authenticated/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
   '/_authenticated/ia/followups': typeof AuthenticatedIaFollowupsRoute
@@ -495,10 +594,20 @@ export interface FileRouteTypes {
     | '/legal/termos'
     | '/senha/esqueci'
     | '/senha/redefinir'
+    | '/configuracoes/agenda'
+    | '/configuracoes/atendimento'
+    | '/configuracoes/etiquetas'
+    | '/configuracoes/funis'
+    | '/configuracoes/marca'
+    | '/configuracoes/modelos'
+    | '/configuracoes/notificacoes'
+    | '/configuracoes/perfil'
+    | '/configuracoes/seguranca'
     | '/contatos/$id'
     | '/ia/agentes'
     | '/ia/casos'
     | '/ia/conhecimento'
+    | '/ia/consumo'
     | '/ia/conversas'
     | '/ia/execucoes'
     | '/ia/followups'
@@ -543,10 +652,20 @@ export interface FileRouteTypes {
     | '/legal/termos'
     | '/senha/esqueci'
     | '/senha/redefinir'
+    | '/configuracoes/agenda'
+    | '/configuracoes/atendimento'
+    | '/configuracoes/etiquetas'
+    | '/configuracoes/funis'
+    | '/configuracoes/marca'
+    | '/configuracoes/modelos'
+    | '/configuracoes/notificacoes'
+    | '/configuracoes/perfil'
+    | '/configuracoes/seguranca'
     | '/contatos/$id'
     | '/ia/agentes'
     | '/ia/casos'
     | '/ia/conhecimento'
+    | '/ia/consumo'
     | '/ia/conversas'
     | '/ia/execucoes'
     | '/ia/followups'
@@ -593,10 +712,20 @@ export interface FileRouteTypes {
     | '/legal/termos'
     | '/senha/esqueci'
     | '/senha/redefinir'
+    | '/_authenticated/configuracoes/agenda'
+    | '/_authenticated/configuracoes/atendimento'
+    | '/_authenticated/configuracoes/etiquetas'
+    | '/_authenticated/configuracoes/funis'
+    | '/_authenticated/configuracoes/marca'
+    | '/_authenticated/configuracoes/modelos'
+    | '/_authenticated/configuracoes/notificacoes'
+    | '/_authenticated/configuracoes/perfil'
+    | '/_authenticated/configuracoes/seguranca'
     | '/_authenticated/contatos/$id'
     | '/_authenticated/ia/agentes'
     | '/_authenticated/ia/casos'
     | '/_authenticated/ia/conhecimento'
+    | '/_authenticated/ia/consumo'
     | '/_authenticated/ia/conversas'
     | '/_authenticated/ia/execucoes'
     | '/_authenticated/ia/followups'
@@ -865,6 +994,69 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConfiguracoesIndexRouteImport
       parentRoute: typeof AuthenticatedConfiguracoesRoute
     }
+    '/_authenticated/configuracoes/agenda': {
+      id: '/_authenticated/configuracoes/agenda'
+      path: '/agenda'
+      fullPath: '/configuracoes/agenda'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesAgendaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/atendimento': {
+      id: '/_authenticated/configuracoes/atendimento'
+      path: '/atendimento'
+      fullPath: '/configuracoes/atendimento'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesAtendimentoRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/etiquetas': {
+      id: '/_authenticated/configuracoes/etiquetas'
+      path: '/etiquetas'
+      fullPath: '/configuracoes/etiquetas'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesEtiquetasRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/funis': {
+      id: '/_authenticated/configuracoes/funis'
+      path: '/funis'
+      fullPath: '/configuracoes/funis'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesFunisRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/marca': {
+      id: '/_authenticated/configuracoes/marca'
+      path: '/marca'
+      fullPath: '/configuracoes/marca'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesMarcaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/modelos': {
+      id: '/_authenticated/configuracoes/modelos'
+      path: '/modelos'
+      fullPath: '/configuracoes/modelos'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesModelosRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/notificacoes': {
+      id: '/_authenticated/configuracoes/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/configuracoes/notificacoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesNotificacoesRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/perfil': {
+      id: '/_authenticated/configuracoes/perfil'
+      path: '/perfil'
+      fullPath: '/configuracoes/perfil'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesPerfilRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/seguranca': {
+      id: '/_authenticated/configuracoes/seguranca'
+      path: '/seguranca'
+      fullPath: '/configuracoes/seguranca'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesSegurancaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
     '/_authenticated/contatos/$id': {
       id: '/_authenticated/contatos/$id'
       path: '/$id'
@@ -898,6 +1090,13 @@ declare module '@tanstack/react-router' {
       path: '/ia/conhecimento'
       fullPath: '/ia/conhecimento'
       preLoaderRoute: typeof AuthenticatedIaConhecimentoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/consumo': {
+      id: '/_authenticated/ia/consumo'
+      path: '/ia/consumo'
+      fullPath: '/ia/consumo'
+      preLoaderRoute: typeof AuthenticatedIaConsumoRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/ia/conversas': {
@@ -967,11 +1166,36 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedConfiguracoesRouteChildren {
+  AuthenticatedConfiguracoesAgendaRoute: typeof AuthenticatedConfiguracoesAgendaRoute
+  AuthenticatedConfiguracoesAtendimentoRoute: typeof AuthenticatedConfiguracoesAtendimentoRoute
+  AuthenticatedConfiguracoesEtiquetasRoute: typeof AuthenticatedConfiguracoesEtiquetasRoute
+  AuthenticatedConfiguracoesFunisRoute: typeof AuthenticatedConfiguracoesFunisRoute
+  AuthenticatedConfiguracoesMarcaRoute: typeof AuthenticatedConfiguracoesMarcaRoute
+  AuthenticatedConfiguracoesModelosRoute: typeof AuthenticatedConfiguracoesModelosRoute
+  AuthenticatedConfiguracoesNotificacoesRoute: typeof AuthenticatedConfiguracoesNotificacoesRoute
+  AuthenticatedConfiguracoesPerfilRoute: typeof AuthenticatedConfiguracoesPerfilRoute
+  AuthenticatedConfiguracoesSegurancaRoute: typeof AuthenticatedConfiguracoesSegurancaRoute
   AuthenticatedConfiguracoesIndexRoute: typeof AuthenticatedConfiguracoesIndexRoute
 }
 
 const AuthenticatedConfiguracoesRouteChildren: AuthenticatedConfiguracoesRouteChildren =
   {
+    AuthenticatedConfiguracoesAgendaRoute:
+      AuthenticatedConfiguracoesAgendaRoute,
+    AuthenticatedConfiguracoesAtendimentoRoute:
+      AuthenticatedConfiguracoesAtendimentoRoute,
+    AuthenticatedConfiguracoesEtiquetasRoute:
+      AuthenticatedConfiguracoesEtiquetasRoute,
+    AuthenticatedConfiguracoesFunisRoute: AuthenticatedConfiguracoesFunisRoute,
+    AuthenticatedConfiguracoesMarcaRoute: AuthenticatedConfiguracoesMarcaRoute,
+    AuthenticatedConfiguracoesModelosRoute:
+      AuthenticatedConfiguracoesModelosRoute,
+    AuthenticatedConfiguracoesNotificacoesRoute:
+      AuthenticatedConfiguracoesNotificacoesRoute,
+    AuthenticatedConfiguracoesPerfilRoute:
+      AuthenticatedConfiguracoesPerfilRoute,
+    AuthenticatedConfiguracoesSegurancaRoute:
+      AuthenticatedConfiguracoesSegurancaRoute,
     AuthenticatedConfiguracoesIndexRoute: AuthenticatedConfiguracoesIndexRoute,
   }
 
@@ -1018,6 +1242,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIaAgentesRoute: typeof AuthenticatedIaAgentesRoute
   AuthenticatedIaCasosRoute: typeof AuthenticatedIaCasosRoute
   AuthenticatedIaConhecimentoRoute: typeof AuthenticatedIaConhecimentoRoute
+  AuthenticatedIaConsumoRoute: typeof AuthenticatedIaConsumoRoute
   AuthenticatedIaConversasRoute: typeof AuthenticatedIaConversasRoute
   AuthenticatedIaExecucoesRoute: typeof AuthenticatedIaExecucoesRoute
   AuthenticatedIaFollowupsRoute: typeof AuthenticatedIaFollowupsRoute
@@ -1055,6 +1280,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIaAgentesRoute: AuthenticatedIaAgentesRoute,
   AuthenticatedIaCasosRoute: AuthenticatedIaCasosRoute,
   AuthenticatedIaConhecimentoRoute: AuthenticatedIaConhecimentoRoute,
+  AuthenticatedIaConsumoRoute: AuthenticatedIaConsumoRoute,
   AuthenticatedIaConversasRoute: AuthenticatedIaConversasRoute,
   AuthenticatedIaExecucoesRoute: AuthenticatedIaExecucoesRoute,
   AuthenticatedIaFollowupsRoute: AuthenticatedIaFollowupsRoute,
