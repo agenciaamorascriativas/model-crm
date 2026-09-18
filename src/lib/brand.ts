@@ -68,28 +68,36 @@ export function brandScale(hex: string) {
 export function applyBrandColor(color: string) {
   const root = document.documentElement;
   const onPrimary = isDarkColor(color) ? "#ffffff" : shade(color, -0.75);
+  const foreground = shade(color, -0.78);
 
   const tokens: Record<string, string> = {
+    "--background": shade(color, 0.94),
+    "--foreground": foreground,
+    "--card": shade(color, 0.985),
+    "--card-foreground": foreground,
+    "--popover": shade(color, 0.985),
+    "--popover-foreground": foreground,
+
     "--primary": color,
     "--primary-foreground": onPrimary,
     "--ring": color,
 
-    "--secondary": shade(color, 0.9),
-    "--secondary-foreground": shade(color, -0.45),
-    "--accent": shade(color, 0.86),
-    "--accent-foreground": shade(color, -0.5),
-    "--muted": shade(color, 0.95),
-    "--muted-foreground": shade(color, -0.3),
-    "--border": shade(color, 0.82),
-    "--input": shade(color, 0.82),
+    "--secondary": shade(color, 0.86),
+    "--secondary-foreground": shade(color, -0.56),
+    "--accent": shade(color, 0.78),
+    "--accent-foreground": shade(color, -0.62),
+    "--muted": shade(color, 0.9),
+    "--muted-foreground": shade(color, -0.42),
+    "--border": shade(color, 0.73),
+    "--input": shade(color, 0.73),
 
-    "--sidebar": shade(color, -0.58),
+    "--sidebar": shade(color, -0.56),
     "--sidebar-foreground": "#ffffff",
     "--sidebar-primary": color,
     "--sidebar-primary-foreground": onPrimary,
-    "--sidebar-accent": shade(color, -0.42),
+    "--sidebar-accent": shade(color, -0.3),
     "--sidebar-accent-foreground": "#ffffff",
-    "--sidebar-border": shade(color, -0.46),
+    "--sidebar-border": shade(color, -0.38),
     "--sidebar-ring": color,
 
     "--chart-1": color,
@@ -102,4 +110,6 @@ export function applyBrandColor(color: string) {
   for (const [name, value] of Object.entries(tokens)) {
     root.style.setProperty(name, value);
   }
+
+  root.dataset["brandColor"] = color.toUpperCase();
 }

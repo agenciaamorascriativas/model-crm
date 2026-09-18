@@ -29,7 +29,7 @@ Fora de escopo permanente: menções a Deskcomm, ao autor (Rafael), configuraç�
 - [ ] Chaves das integrações externas (WhatsApp, Meta Ads, Google, e-mail)
 
 ## Rodada tela por tela (marca, perfil, contatos, funis, agenda)
-- [x] Marca aplicada em todo o sistema (menu, botões, gráficos, contraste automático)
+- [x] Marca aplicada em todo o sistema (fundo, cartões, menu, botões, campos, gráficos e contraste automático)
 - [x] Meu perfil real: foto, cargo, telefone, idioma, fuso, assinatura
 - [x] Contatos com cargo, categoria, origem, CPF, cidade, estado, endereço, LinkedIn, Instagram
 - [x] Funis em cartões (padrão, apelido, abertos, atrasados, valor) + etapas com fechamento/perda e chave do assistente
