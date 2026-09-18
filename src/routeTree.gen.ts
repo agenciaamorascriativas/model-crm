@@ -11,9 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AcessoRevogadoRouteImport } from './routes/acesso-revogado'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as VerificacaoRouteImport } from './routes/verificacao'
 import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
+import { Route as AuthenticatedAnaliseRouteImport } from './routes/_authenticated/analise'
 import { Route as AuthenticatedCanalOficialRouteImport } from './routes/_authenticated/canal-oficial'
 import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
 import { Route as AuthenticatedContatosRouteImport } from './routes/_authenticated/contatos'
@@ -26,6 +28,9 @@ import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedRespostasRapidasRouteImport } from './routes/_authenticated/respostas-rapidas'
 import { Route as AuthenticatedTarefasRouteImport } from './routes/_authenticated/tarefas'
 import { Route as AuthenticatedWhatsappRouteImport } from './routes/_authenticated/whatsapp'
+import { Route as Erro403RouteImport } from './routes/erro.403'
+import { Route as Erro500RouteImport } from './routes/erro.500'
+import { Route as Erro503RouteImport } from './routes/erro.503'
 import { Route as SenhaEsqueciRouteImport } from './routes/senha.esqueci'
 import { Route as SenhaRedefinirRouteImport } from './routes/senha.redefinir'
 import { Route as AuthenticatedConfiguracoesIndexRouteImport } from './routes/_authenticated/configuracoes.index'
@@ -47,6 +52,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcessoRevogadoRoute = AcessoRevogadoRouteImport.update({
+  id: '/acesso-revogado',
+  path: '/acesso-revogado',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
@@ -60,6 +70,11 @@ const VerificacaoRoute = VerificacaoRouteImport.update({
 const AuthenticatedAgendaRoute = AuthenticatedAgendaRouteImport.update({
   id: '/agenda',
   path: '/agenda',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAnaliseRoute = AuthenticatedAnaliseRouteImport.update({
+  id: '/analise',
+  path: '/analise',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedCanalOficialRoute =
@@ -125,6 +140,21 @@ const AuthenticatedWhatsappRoute = AuthenticatedWhatsappRouteImport.update({
   path: '/whatsapp',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const Erro403Route = Erro403RouteImport.update({
+  id: '/erro/403',
+  path: '/erro/403',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Erro500Route = Erro500RouteImport.update({
+  id: '/erro/500',
+  path: '/erro/500',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Erro503Route = Erro503RouteImport.update({
+  id: '/erro/503',
+  path: '/erro/503',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SenhaEsqueciRoute = SenhaEsqueciRouteImport.update({
   id: '/senha/esqueci',
   path: '/senha/esqueci',
@@ -188,9 +218,11 @@ const AuthenticatedNegociosIdRoute = AuthenticatedNegociosIdRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/acesso-revogado': typeof AcessoRevogadoRoute
   '/auth': typeof AuthRoute
   '/verificacao': typeof VerificacaoRoute
   '/agenda': typeof AuthenticatedAgendaRoute
+  '/analise': typeof AuthenticatedAnaliseRoute
   '/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
   '/contatos': typeof AuthenticatedContatosRouteWithChildren
@@ -203,6 +235,9 @@ export interface FileRoutesByFullPath {
   '/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/erro/403': typeof Erro403Route
+  '/erro/500': typeof Erro500Route
+  '/erro/503': typeof Erro503Route
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
@@ -217,9 +252,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/acesso-revogado': typeof AcessoRevogadoRoute
   '/auth': typeof AuthRoute
   '/verificacao': typeof VerificacaoRoute
   '/agenda': typeof AuthenticatedAgendaRoute
+  '/analise': typeof AuthenticatedAnaliseRoute
   '/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/contatos': typeof AuthenticatedContatosRouteWithChildren
   '/equipe': typeof AuthenticatedEquipeRoute
@@ -231,6 +268,9 @@ export interface FileRoutesByTo {
   '/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/erro/403': typeof Erro403Route
+  '/erro/500': typeof Erro500Route
+  '/erro/503': typeof Erro503Route
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
@@ -247,9 +287,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/acesso-revogado': typeof AcessoRevogadoRoute
   '/auth': typeof AuthRoute
   '/verificacao': typeof VerificacaoRoute
   '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
+  '/_authenticated/analise': typeof AuthenticatedAnaliseRoute
   '/_authenticated/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
   '/_authenticated/contatos': typeof AuthenticatedContatosRouteWithChildren
@@ -262,6 +304,9 @@ export interface FileRoutesById {
   '/_authenticated/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/_authenticated/tarefas': typeof AuthenticatedTarefasRoute
   '/_authenticated/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/erro/403': typeof Erro403Route
+  '/erro/500': typeof Erro500Route
+  '/erro/503': typeof Erro503Route
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/_authenticated/contatos/$id': typeof AuthenticatedContatosIdRoute
@@ -278,9 +323,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/acesso-revogado'
     | '/auth'
     | '/verificacao'
     | '/agenda'
+    | '/analise'
     | '/canal-oficial'
     | '/configuracoes'
     | '/contatos'
@@ -293,6 +340,9 @@ export interface FileRouteTypes {
     | '/respostas-rapidas'
     | '/tarefas'
     | '/whatsapp'
+    | '/erro/403'
+    | '/erro/500'
+    | '/erro/503'
     | '/senha/esqueci'
     | '/senha/redefinir'
     | '/contatos/$id'
@@ -307,9 +357,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/acesso-revogado'
     | '/auth'
     | '/verificacao'
     | '/agenda'
+    | '/analise'
     | '/canal-oficial'
     | '/contatos'
     | '/equipe'
@@ -321,6 +373,9 @@ export interface FileRouteTypes {
     | '/respostas-rapidas'
     | '/tarefas'
     | '/whatsapp'
+    | '/erro/403'
+    | '/erro/500'
+    | '/erro/503'
     | '/senha/esqueci'
     | '/senha/redefinir'
     | '/contatos/$id'
@@ -336,9 +391,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/acesso-revogado'
     | '/auth'
     | '/verificacao'
     | '/_authenticated/agenda'
+    | '/_authenticated/analise'
     | '/_authenticated/canal-oficial'
     | '/_authenticated/configuracoes'
     | '/_authenticated/contatos'
@@ -351,6 +408,9 @@ export interface FileRouteTypes {
     | '/_authenticated/respostas-rapidas'
     | '/_authenticated/tarefas'
     | '/_authenticated/whatsapp'
+    | '/erro/403'
+    | '/erro/500'
+    | '/erro/503'
     | '/senha/esqueci'
     | '/senha/redefinir'
     | '/_authenticated/contatos/$id'
@@ -367,8 +427,12 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AcessoRevogadoRoute: typeof AcessoRevogadoRoute
   AuthRoute: typeof AuthRoute
   VerificacaoRoute: typeof VerificacaoRoute
+  Erro403Route: typeof Erro403Route
+  Erro500Route: typeof Erro500Route
+  Erro503Route: typeof Erro503Route
   SenhaEsqueciRoute: typeof SenhaEsqueciRoute
   SenhaRedefinirRoute: typeof SenhaRedefinirRoute
 }
@@ -387,6 +451,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/acesso-revogado': {
+      id: '/acesso-revogado'
+      path: '/acesso-revogado'
+      fullPath: '/acesso-revogado'
+      preLoaderRoute: typeof AcessoRevogadoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -408,6 +479,13 @@ declare module '@tanstack/react-router' {
       path: '/agenda'
       fullPath: '/agenda'
       preLoaderRoute: typeof AuthenticatedAgendaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/analise': {
+      id: '/_authenticated/analise'
+      path: '/analise'
+      fullPath: '/analise'
+      preLoaderRoute: typeof AuthenticatedAnaliseRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/canal-oficial': {
@@ -493,6 +571,27 @@ declare module '@tanstack/react-router' {
       fullPath: '/whatsapp'
       preLoaderRoute: typeof AuthenticatedWhatsappRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/erro/403': {
+      id: '/erro/403'
+      path: '/erro/403'
+      fullPath: '/erro/403'
+      preLoaderRoute: typeof Erro403RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/erro/500': {
+      id: '/erro/500'
+      path: '/erro/500'
+      fullPath: '/erro/500'
+      preLoaderRoute: typeof Erro500RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/erro/503': {
+      id: '/erro/503'
+      path: '/erro/503'
+      fullPath: '/erro/503'
+      preLoaderRoute: typeof Erro503RouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/senha/esqueci': {
       id: '/senha/esqueci'
@@ -603,6 +702,7 @@ const AuthenticatedContatosRouteWithChildren =
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
+  AuthenticatedAnaliseRoute: typeof AuthenticatedAnaliseRoute
   AuthenticatedCanalOficialRoute: typeof AuthenticatedCanalOficialRoute
   AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRouteWithChildren
   AuthenticatedContatosRoute: typeof AuthenticatedContatosRouteWithChildren
@@ -626,6 +726,7 @@ interface AuthenticatedRouteRouteChildren {
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgendaRoute: AuthenticatedAgendaRoute,
+  AuthenticatedAnaliseRoute: AuthenticatedAnaliseRoute,
   AuthenticatedCanalOficialRoute: AuthenticatedCanalOficialRoute,
   AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRouteWithChildren,
   AuthenticatedContatosRoute: AuthenticatedContatosRouteWithChildren,
@@ -653,8 +754,12 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AcessoRevogadoRoute: AcessoRevogadoRoute,
   AuthRoute: AuthRoute,
   VerificacaoRoute: VerificacaoRoute,
+  Erro403Route: Erro403Route,
+  Erro500Route: Erro500Route,
+  Erro503Route: Erro503Route,
   SenhaEsqueciRoute: SenhaEsqueciRoute,
   SenhaRedefinirRoute: SenhaRedefinirRoute,
 }
