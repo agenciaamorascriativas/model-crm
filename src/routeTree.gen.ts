@@ -20,6 +20,7 @@ import { Route as AuthenticatedAnaliseRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedAtividadesRouteImport } from './routes/_authenticated/atividades'
 import { Route as AuthenticatedAuditoriaRouteImport } from './routes/_authenticated/auditoria'
 import { Route as AuthenticatedCanalOficialRouteImport } from './routes/_authenticated/canal-oficial'
+import { Route as AuthenticatedChatbotRouteImport } from './routes/_authenticated/chatbot'
 import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
 import { Route as AuthenticatedContatosRouteImport } from './routes/_authenticated/contatos'
 import { Route as AuthenticatedEquipeRouteImport } from './routes/_authenticated/equipe'
@@ -137,6 +138,11 @@ const AuthenticatedCanalOficialRoute =
     path: '/canal-oficial',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedChatbotRoute = AuthenticatedChatbotRouteImport.update({
+  id: '/chatbot',
+  path: '/chatbot',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedConfiguracoesRoute =
   AuthenticatedConfiguracoesRouteImport.update({
     id: '/configuracoes',
@@ -487,6 +493,7 @@ export interface FileRoutesByFullPath {
   '/atividades': typeof AuthenticatedAtividadesRoute
   '/auditoria': typeof AuthenticatedAuditoriaRoute
   '/canal-oficial': typeof AuthenticatedCanalOficialRoute
+  '/chatbot': typeof AuthenticatedChatbotRoute
   '/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
   '/contatos': typeof AuthenticatedContatosRouteWithChildren
   '/equipe': typeof AuthenticatedEquipeRouteWithChildren
@@ -560,6 +567,7 @@ export interface FileRoutesByTo {
   '/atividades': typeof AuthenticatedAtividadesRoute
   '/auditoria': typeof AuthenticatedAuditoriaRoute
   '/canal-oficial': typeof AuthenticatedCanalOficialRoute
+  '/chatbot': typeof AuthenticatedChatbotRoute
   '/contatos': typeof AuthenticatedContatosRouteWithChildren
   '/equipe': typeof AuthenticatedEquipeRouteWithChildren
   '/fila': typeof AuthenticatedFilaRoute
@@ -633,6 +641,7 @@ export interface FileRoutesById {
   '/_authenticated/atividades': typeof AuthenticatedAtividadesRoute
   '/_authenticated/auditoria': typeof AuthenticatedAuditoriaRoute
   '/_authenticated/canal-oficial': typeof AuthenticatedCanalOficialRoute
+  '/_authenticated/chatbot': typeof AuthenticatedChatbotRoute
   '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
   '/_authenticated/contatos': typeof AuthenticatedContatosRouteWithChildren
   '/_authenticated/equipe': typeof AuthenticatedEquipeRouteWithChildren
@@ -708,6 +717,7 @@ export interface FileRouteTypes {
     | '/atividades'
     | '/auditoria'
     | '/canal-oficial'
+    | '/chatbot'
     | '/configuracoes'
     | '/contatos'
     | '/equipe'
@@ -781,6 +791,7 @@ export interface FileRouteTypes {
     | '/atividades'
     | '/auditoria'
     | '/canal-oficial'
+    | '/chatbot'
     | '/contatos'
     | '/equipe'
     | '/fila'
@@ -853,6 +864,7 @@ export interface FileRouteTypes {
     | '/_authenticated/atividades'
     | '/_authenticated/auditoria'
     | '/_authenticated/canal-oficial'
+    | '/_authenticated/chatbot'
     | '/_authenticated/configuracoes'
     | '/_authenticated/contatos'
     | '/_authenticated/equipe'
@@ -1009,6 +1021,13 @@ declare module '@tanstack/react-router' {
       path: '/canal-oficial'
       fullPath: '/canal-oficial'
       preLoaderRoute: typeof AuthenticatedCanalOficialRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/chatbot': {
+      id: '/_authenticated/chatbot'
+      path: '/chatbot'
+      fullPath: '/chatbot'
+      preLoaderRoute: typeof AuthenticatedChatbotRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/configuracoes': {
@@ -1558,6 +1577,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedAtividadesRoute: typeof AuthenticatedAtividadesRoute
   AuthenticatedAuditoriaRoute: typeof AuthenticatedAuditoriaRoute
   AuthenticatedCanalOficialRoute: typeof AuthenticatedCanalOficialRoute
+  AuthenticatedChatbotRoute: typeof AuthenticatedChatbotRoute
   AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRouteWithChildren
   AuthenticatedContatosRoute: typeof AuthenticatedContatosRouteWithChildren
   AuthenticatedEquipeRoute: typeof AuthenticatedEquipeRouteWithChildren
@@ -1599,6 +1619,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAtividadesRoute: AuthenticatedAtividadesRoute,
   AuthenticatedAuditoriaRoute: AuthenticatedAuditoriaRoute,
   AuthenticatedCanalOficialRoute: AuthenticatedCanalOficialRoute,
+  AuthenticatedChatbotRoute: AuthenticatedChatbotRoute,
   AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRouteWithChildren,
   AuthenticatedContatosRoute: AuthenticatedContatosRouteWithChildren,
   AuthenticatedEquipeRoute: AuthenticatedEquipeRouteWithChildren,
