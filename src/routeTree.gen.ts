@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as VerificacaoRouteImport } from './routes/verificacao'
 import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
 import { Route as AuthenticatedCanalOficialRouteImport } from './routes/_authenticated/canal-oficial'
 import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
@@ -31,6 +32,7 @@ import { Route as AuthenticatedConfiguracoesIndexRouteImport } from './routes/_a
 import { Route as AuthenticatedContatosIdRouteImport } from './routes/_authenticated/contatos.$id'
 import { Route as AuthenticatedIaIndexRouteImport } from './routes/_authenticated/ia.index'
 import { Route as AuthenticatedIaAgentesRouteImport } from './routes/_authenticated/ia.agentes'
+import { Route as AuthenticatedIaFollowupsRouteImport } from './routes/_authenticated/ia.followups'
 import { Route as AuthenticatedIaHabilidadesRouteImport } from './routes/_authenticated/ia.habilidades'
 import { Route as AuthenticatedIaPropostasRouteImport } from './routes/_authenticated/ia.propostas'
 import { Route as AuthenticatedNegociosIdRouteImport } from './routes/_authenticated/negocios.$id'
@@ -47,6 +49,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerificacaoRoute = VerificacaoRouteImport.update({
+  id: '/verificacao',
+  path: '/verificacao',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAgendaRoute = AuthenticatedAgendaRouteImport.update({
@@ -148,6 +155,12 @@ const AuthenticatedIaAgentesRoute = AuthenticatedIaAgentesRouteImport.update({
   path: '/ia/agentes',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedIaFollowupsRoute =
+  AuthenticatedIaFollowupsRouteImport.update({
+    id: '/ia/followups',
+    path: '/ia/followups',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedIaHabilidadesRoute =
   AuthenticatedIaHabilidadesRouteImport.update({
     id: '/ia/habilidades',
@@ -169,6 +182,7 @@ const AuthenticatedNegociosIdRoute = AuthenticatedNegociosIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/verificacao': typeof VerificacaoRoute
   '/agenda': typeof AuthenticatedAgendaRoute
   '/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
@@ -186,6 +200,7 @@ export interface FileRoutesByFullPath {
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
   '/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/negocios/$id': typeof AuthenticatedNegociosIdRoute
@@ -195,6 +210,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/verificacao': typeof VerificacaoRoute
   '/agenda': typeof AuthenticatedAgendaRoute
   '/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/contatos': typeof AuthenticatedContatosRouteWithChildren
@@ -211,6 +227,7 @@ export interface FileRoutesByTo {
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
   '/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/negocios/$id': typeof AuthenticatedNegociosIdRoute
@@ -222,6 +239,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
+  '/verificacao': typeof VerificacaoRoute
   '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
   '/_authenticated/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
@@ -239,6 +257,7 @@ export interface FileRoutesById {
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/_authenticated/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/_authenticated/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/_authenticated/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/_authenticated/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
   '/_authenticated/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/_authenticated/negocios/$id': typeof AuthenticatedNegociosIdRoute
@@ -250,6 +269,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/verificacao'
     | '/agenda'
     | '/canal-oficial'
     | '/configuracoes'
@@ -267,6 +287,7 @@ export interface FileRouteTypes {
     | '/senha/redefinir'
     | '/contatos/$id'
     | '/ia/agentes'
+    | '/ia/followups'
     | '/ia/habilidades'
     | '/ia/propostas'
     | '/negocios/$id'
@@ -276,6 +297,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/verificacao'
     | '/agenda'
     | '/canal-oficial'
     | '/contatos'
@@ -292,6 +314,7 @@ export interface FileRouteTypes {
     | '/senha/redefinir'
     | '/contatos/$id'
     | '/ia/agentes'
+    | '/ia/followups'
     | '/ia/habilidades'
     | '/ia/propostas'
     | '/negocios/$id'
@@ -302,6 +325,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/auth'
+    | '/verificacao'
     | '/_authenticated/agenda'
     | '/_authenticated/canal-oficial'
     | '/_authenticated/configuracoes'
@@ -319,6 +343,7 @@ export interface FileRouteTypes {
     | '/senha/redefinir'
     | '/_authenticated/contatos/$id'
     | '/_authenticated/ia/agentes'
+    | '/_authenticated/ia/followups'
     | '/_authenticated/ia/habilidades'
     | '/_authenticated/ia/propostas'
     | '/_authenticated/negocios/$id'
@@ -330,6 +355,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  VerificacaoRoute: typeof VerificacaoRoute
   SenhaEsqueciRoute: typeof SenhaEsqueciRoute
   SenhaRedefinirRoute: typeof SenhaRedefinirRoute
 }
@@ -355,6 +381,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verificacao': {
+      id: '/verificacao'
+      path: '/verificacao'
+      fullPath: '/verificacao'
+      preLoaderRoute: typeof VerificacaoRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/agenda': {
@@ -490,6 +523,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIaAgentesRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ia/followups': {
+      id: '/_authenticated/ia/followups'
+      path: '/ia/followups'
+      fullPath: '/ia/followups'
+      preLoaderRoute: typeof AuthenticatedIaFollowupsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/ia/habilidades': {
       id: '/_authenticated/ia/habilidades'
       path: '/ia/habilidades'
@@ -556,6 +596,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedTarefasRoute: typeof AuthenticatedTarefasRoute
   AuthenticatedWhatsappRoute: typeof AuthenticatedWhatsappRoute
   AuthenticatedIaAgentesRoute: typeof AuthenticatedIaAgentesRoute
+  AuthenticatedIaFollowupsRoute: typeof AuthenticatedIaFollowupsRoute
   AuthenticatedIaHabilidadesRoute: typeof AuthenticatedIaHabilidadesRoute
   AuthenticatedIaPropostasRoute: typeof AuthenticatedIaPropostasRoute
   AuthenticatedNegociosIdRoute: typeof AuthenticatedNegociosIdRoute
@@ -577,6 +618,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedTarefasRoute: AuthenticatedTarefasRoute,
   AuthenticatedWhatsappRoute: AuthenticatedWhatsappRoute,
   AuthenticatedIaAgentesRoute: AuthenticatedIaAgentesRoute,
+  AuthenticatedIaFollowupsRoute: AuthenticatedIaFollowupsRoute,
   AuthenticatedIaHabilidadesRoute: AuthenticatedIaHabilidadesRoute,
   AuthenticatedIaPropostasRoute: AuthenticatedIaPropostasRoute,
   AuthenticatedNegociosIdRoute: AuthenticatedNegociosIdRoute,
@@ -590,6 +632,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  VerificacaoRoute: VerificacaoRoute,
   SenhaEsqueciRoute: SenhaEsqueciRoute,
   SenhaRedefinirRoute: SenhaRedefinirRoute,
 }
