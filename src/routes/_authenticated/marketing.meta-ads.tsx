@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { toast } from "sonner";
 import { campanhasMetaAdsDemo } from "@/lib/demo/configuracoes";
 
-export const Route = createFileRoute("/_authenticated/configuracoes/meta-ads")({
+export const Route = createFileRoute("/_authenticated/marketing/meta-ads")({
   ssr: false,
   head: () => ({
     meta: [

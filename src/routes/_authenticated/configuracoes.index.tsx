@@ -1,185 +1,56 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Panel } from "@/components/page-shell";
-import { toast } from "sonner";
-import { Loader2 } from "lucide-react";
-import type { AppSettings, Profile } from "@/lib/types";
+import { createFileRoute, Link, type LinkProps } from "@tanstack/react-router";
+import { PageHeader } from "@/components/page-shell";
+import {
+  Building2, CalendarDays, KeyRound, Palette, Bell, ShieldCheck,
+  UserRound, Users, UserRoundCog, type LucideIcon,
+} from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/configuracoes/")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Geral — Amoras CRM" },
-      { name: "description", content: "Identidade visual do sistema e seu perfil." },
-      { property: "og:title", content: "Geral — Amoras CRM" },
-      { property: "og:description", content: "Identidade visual do sistema e seu perfil." },
+      { title: "Configurações — Amoras CRM" },
+      { name: "description", content: "Sua conta, os dados da empresa e quem tem acesso ao quê." },
+      { property: "og:title", content: "Configurações — Amoras CRM" },
+      { property: "og:description", content: "Sua conta, os dados da empresa e quem tem acesso ao quê." },
     ],
   }),
-  component: ConfiguracoesGeralPage,
+  component: ConfiguracoesOverview,
 });
 
-function ConfiguracoesGeralPage() {
-  const user = Route.useRouteContext().user;
+type Item = { title: string; description: string; to: NonNullable<LinkProps["to"]>; icon: LucideIcon };
 
-  const { data: settings } = useQuery({
-    queryKey: ["app_settings"],
-    queryFn: async () => {
-      const { data, error } = await supabase.from("app_settings").select("*").eq("id", 1).maybeSingle();
-      if (error) throw error;
-      return data as AppSettings | null;
-    },
-  });
+const groups: { label: string; items: Item[] }[] = [
+  { label: "Sua empresa", items: [
+    { title: "Tipos de agendamento", description: "O que se pode marcar, duração, local e responsável.", to: "/configuracoes/agenda", icon: CalendarDays },
+    { title: "Equipe", description: "Quem trabalha aqui, papéis e acesso de cada pessoa.", to: "/equipe", icon: Users },
+    { title: "Distribuição de atendimento", description: "Quem recebe cada cliente novo e o que cada atendente enxerga.", to: "/configuracoes/distribuicao", icon: UserRoundCog },
+    { title: "Organização", description: "Dados gerais da empresa e do atendimento.", to: "/configuracoes/organizacao", icon: Building2 },
+    { title: "Atendimento", description: "Horários, mensagens automáticas e regras de espera.", to: "/configuracoes/atendimento", icon: UserRound },
+    { title: "Marca", description: "Nome, logo, ícone e cores exibidos no sistema.", to: "/configuracoes/marca", icon: Palette },
+  ]},
+  { label: "Sua conta", items: [
+    { title: "Perfil", description: "Seu nome, idioma, fuso horário e avatar.", to: "/configuracoes/perfil", icon: UserRound },
+    { title: "Segurança", description: "Senha, verificação em duas etapas e sessões.", to: "/configuracoes/seguranca", icon: ShieldCheck },
+    { title: "Notificações", description: "Por onde e sobre o que você quer ser avisado.", to: "/configuracoes/notificacoes", icon: Bell },
+  ]},
+  { label: "Dados e acesso", items: [
+    { title: "LGPD", description: "Pedidos de exportação e exclusão de dados de clientes.", to: "/privacidade", icon: ShieldCheck },
+    { title: "Chaves de API", description: "Chaves para outros sistemas acessarem o CRM.", to: "/configuracoes/api", icon: KeyRound },
+  ]},
+];
 
-  const { data: myRole } = useQuery({
-    queryKey: ["my-role", user.id],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", user.id);
-      if (error) throw error;
-      return data.some((r) => r.role === "admin") ? "admin" : "member";
-    },
-  });
-
-  return (
-    <div className="space-y-6">
-      <SettingsCard isAdmin={myRole === "admin"} settings={settings} />
-      <ProfileCard />
-    </div>
-  );
-}
-
-function SettingsCard({
-  isAdmin,
-  settings,
-}: {
-  isAdmin: boolean;
-  settings: AppSettings | null | undefined;
-}) {
-  const queryClient = useQueryClient();
-  const [brandName, setBrandName] = useState<string | null>(null);
-  const [whatsapp, setWhatsapp] = useState<string | null>(null);
-  const [saving, setSaving] = useState(false);
-
-  const currentBrand = brandName ?? settings?.brand_name ?? "";
-  const currentWhats = whatsapp ?? settings?.whatsapp_number ?? "";
-
-  const save = useMutation({
-    mutationFn: async () => {
-      const { error } = await supabase
-        .from("app_settings")
-        .update({ brand_name: currentBrand, whatsapp_number: currentWhats || null })
-        .eq("id", 1);
-      if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["app_settings"] });
-      toast.success("Configurações salvas.");
-    },
-    onError: () => {
-      toast.error("Não foi possível salvar. Verifique se você é administrador.");
-    },
-  });
-
-  return (
-    <Panel
-      title="Sistema"
-      description={
-        isAdmin
-          ? "Estes dados aparecem para toda a equipe."
-          : "Somente administradores podem alterar."
-      }
-    >
-      <div className="space-y-4">
-        <div className="space-y-1.5">
-          <Label>Nome do sistema</Label>
-          <Input
-            value={currentBrand}
-            onChange={(e) => setBrandName(e.target.value)}
-            disabled={!isAdmin}
-          />
-        </div>
-        <div className="space-y-1.5">
-          <Label>Número do WhatsApp do atendimento</Label>
-          <Input
-            value={currentWhats}
-            onChange={(e) => setWhatsapp(e.target.value)}
-            placeholder="(11) 99999-9999"
-            disabled={!isAdmin}
-          />
-        </div>
-        {isAdmin && (
-          <Button
-            onClick={() => {
-              setSaving(true);
-              save.mutate(undefined, { onSettled: () => setSaving(false) });
-            }}
-            disabled={saving || !settings}
-          >
-            {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Salvar
-          </Button>
-        )}
+function ConfiguracoesOverview() {
+  return <div className="space-y-8">
+    <PageHeader title="Configurações" description="Sua conta, os dados da empresa e quem tem acesso ao quê." />
+    {groups.map((group) => <section key={group.label} className="space-y-3">
+      <h2 className="text-xs font-semibold uppercase text-muted-foreground">{group.label}</h2>
+      <div className="grid gap-3 md:grid-cols-2 xl:grid-cols-3">
+        {group.items.map((item) => <Link key={item.title} to={item.to} className="group grid min-h-24 grid-cols-[auto_minmax(0,1fr)] gap-3 rounded-lg border bg-card p-4 shadow-sm transition-colors hover:border-primary/40 hover:bg-accent/40">
+          <item.icon className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground transition-colors group-hover:text-primary" />
+          <div className="min-w-0"><h3 className="text-sm font-semibold">{item.title}</h3><p className="mt-1 text-sm leading-relaxed text-muted-foreground">{item.description}</p></div>
+        </Link>)}
       </div>
-    </Panel>
-  );
-}
-
-function ProfileCard() {
-  const queryClient = useQueryClient();
-  const user = Route.useRouteContext().user;
-
-  const { data: profile } = useQuery({
-    queryKey: ["profile", user.id],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", user.id)
-        .maybeSingle();
-      if (error) throw error;
-      return data as Profile | null;
-    },
-  });
-
-  const [fullName, setFullName] = useState<string | null>(null);
-  const [saving, setSaving] = useState(false);
-  const currentName = fullName ?? profile?.full_name ?? "";
-
-  return (
-    <Panel title="Seu perfil" description={user.email}>
-      <div className="space-y-4">
-        <div className="space-y-1.5">
-          <Label>Nome</Label>
-          <Input value={currentName} onChange={(e) => setFullName(e.target.value)} />
-        </div>
-        <Button
-          onClick={async () => {
-            setSaving(true);
-            const { error } = await supabase
-              .from("profiles")
-              .update({ full_name: currentName })
-              .eq("user_id", user.id);
-            setSaving(false);
-            if (error) {
-              toast.error("Não foi possível salvar seu perfil.");
-            } else {
-              toast.success("Perfil atualizado.");
-              queryClient.invalidateQueries({ queryKey: ["profile", user.id] });
-            }
-          }}
-          disabled={saving || !profile}
-        >
-          {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Salvar
-        </Button>
-      </div>
-    </Panel>
-  );
+    </section>)}
+  </div>;
 }

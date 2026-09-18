@@ -30,6 +30,8 @@ import {
   UserCog,
   Settings,
   ShieldCheck,
+  Megaphone,
+  Plug,
   type LucideIcon,
 } from "lucide-react";
 
@@ -96,6 +98,21 @@ export const NAV_GROUPS: NavGroup[] = [
       { to: "/analise", label: "Análise", icon: LineChart },
       { to: "/radar", label: "Radar", icon: Radar },
       { to: "/auditoria", label: "Auditoria", icon: ScrollText },
+    ],
+  },
+  {
+    label: "Marketing",
+    items: [
+      { to: "/marketing/conversoes", label: "Conversões", icon: LineChart },
+      { to: "/marketing/meta-ads", label: "Meta Ads", icon: Megaphone },
+    ],
+  },
+  {
+    label: "Integrações",
+    items: [
+      { to: "/integracoes", label: "Conexões", icon: Plug },
+      { to: "/integracoes/whatsapp", label: "WhatsApp", icon: MessageCircle },
+      { to: "/integracoes/webhooks", label: "Webhooks", icon: RouteIcon },
     ],
   },
   {

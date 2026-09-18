@@ -17,7 +17,7 @@ import { toast } from "sonner";
 import { Plus, RotateCw } from "lucide-react";
 import { webhooksDemo, historicoEntregasWebhookDemo, eventosNotificacaoDemo } from "@/lib/demo/configuracoes";
 
-export const Route = createFileRoute("/_authenticated/configuracoes/webhooks")({
+export const Route = createFileRoute("/_authenticated/integracoes/webhooks")({
   ssr: false,
   head: () => ({
     meta: [
