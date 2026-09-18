@@ -54,7 +54,7 @@ export const Route = createFileRoute("/_authenticated/respostas-rapidas")({
 const RESPOSTA_VAZIA = {
   nome: "",
   atalho: "",
-  categoria: CATEGORIAS_RESPOSTAS[0],
+  categoria: CATEGORIAS_RESPOSTAS[0] ?? "Geral",
   mensagem: "",
 };
 

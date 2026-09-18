@@ -19,12 +19,14 @@ import { Route as AuthenticatedContatosRouteImport } from './routes/_authenticat
 import { Route as AuthenticatedEquipeRouteImport } from './routes/_authenticated/equipe'
 import { Route as AuthenticatedFilaRouteImport } from './routes/_authenticated/fila'
 import { Route as AuthenticatedFunilRouteImport } from './routes/_authenticated/funil'
+import { Route as AuthenticatedMetricasRouteImport } from './routes/_authenticated/metricas'
 import { Route as AuthenticatedModelosRouteImport } from './routes/_authenticated/modelos'
 import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
 import { Route as AuthenticatedRespostasRapidasRouteImport } from './routes/_authenticated/respostas-rapidas'
 import { Route as AuthenticatedTarefasRouteImport } from './routes/_authenticated/tarefas'
 import { Route as AuthenticatedWhatsappRouteImport } from './routes/_authenticated/whatsapp'
 import { Route as SenhaEsqueciRouteImport } from './routes/senha.esqueci'
+import { Route as SenhaRedefinirRouteImport } from './routes/senha.redefinir'
 import { Route as AuthenticatedConfiguracoesIndexRouteImport } from './routes/_authenticated/configuracoes.index'
 import { Route as AuthenticatedContatosIdRouteImport } from './routes/_authenticated/contatos.$id'
 import { Route as AuthenticatedIaIndexRouteImport } from './routes/_authenticated/ia.index'
@@ -84,6 +86,11 @@ const AuthenticatedFunilRoute = AuthenticatedFunilRouteImport.update({
   path: '/funil',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedMetricasRoute = AuthenticatedMetricasRouteImport.update({
+  id: '/metricas',
+  path: '/metricas',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedModelosRoute = AuthenticatedModelosRouteImport.update({
   id: '/modelos',
   path: '/modelos',
@@ -113,6 +120,11 @@ const AuthenticatedWhatsappRoute = AuthenticatedWhatsappRouteImport.update({
 const SenhaEsqueciRoute = SenhaEsqueciRouteImport.update({
   id: '/senha/esqueci',
   path: '/senha/esqueci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SenhaRedefinirRoute = SenhaRedefinirRouteImport.update({
+  id: '/senha/redefinir',
+  path: '/senha/redefinir',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedConfiguracoesIndexRoute =
@@ -164,12 +176,14 @@ export interface FileRoutesByFullPath {
   '/equipe': typeof AuthenticatedEquipeRoute
   '/fila': typeof AuthenticatedFilaRoute
   '/funil': typeof AuthenticatedFunilRoute
+  '/metricas': typeof AuthenticatedMetricasRoute
   '/modelos': typeof AuthenticatedModelosRoute
   '/painel': typeof AuthenticatedPainelRoute
   '/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
   '/senha/esqueci': typeof SenhaEsqueciRoute
+  '/senha/redefinir': typeof SenhaRedefinirRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
@@ -187,12 +201,14 @@ export interface FileRoutesByTo {
   '/equipe': typeof AuthenticatedEquipeRoute
   '/fila': typeof AuthenticatedFilaRoute
   '/funil': typeof AuthenticatedFunilRoute
+  '/metricas': typeof AuthenticatedMetricasRoute
   '/modelos': typeof AuthenticatedModelosRoute
   '/painel': typeof AuthenticatedPainelRoute
   '/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
   '/senha/esqueci': typeof SenhaEsqueciRoute
+  '/senha/redefinir': typeof SenhaRedefinirRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
@@ -213,12 +229,14 @@ export interface FileRoutesById {
   '/_authenticated/equipe': typeof AuthenticatedEquipeRoute
   '/_authenticated/fila': typeof AuthenticatedFilaRoute
   '/_authenticated/funil': typeof AuthenticatedFunilRoute
+  '/_authenticated/metricas': typeof AuthenticatedMetricasRoute
   '/_authenticated/modelos': typeof AuthenticatedModelosRoute
   '/_authenticated/painel': typeof AuthenticatedPainelRoute
   '/_authenticated/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/_authenticated/tarefas': typeof AuthenticatedTarefasRoute
   '/_authenticated/whatsapp': typeof AuthenticatedWhatsappRoute
   '/senha/esqueci': typeof SenhaEsqueciRoute
+  '/senha/redefinir': typeof SenhaRedefinirRoute
   '/_authenticated/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/_authenticated/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/_authenticated/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
@@ -239,12 +257,14 @@ export interface FileRouteTypes {
     | '/equipe'
     | '/fila'
     | '/funil'
+    | '/metricas'
     | '/modelos'
     | '/painel'
     | '/respostas-rapidas'
     | '/tarefas'
     | '/whatsapp'
     | '/senha/esqueci'
+    | '/senha/redefinir'
     | '/contatos/$id'
     | '/ia/agentes'
     | '/ia/habilidades'
@@ -262,12 +282,14 @@ export interface FileRouteTypes {
     | '/equipe'
     | '/fila'
     | '/funil'
+    | '/metricas'
     | '/modelos'
     | '/painel'
     | '/respostas-rapidas'
     | '/tarefas'
     | '/whatsapp'
     | '/senha/esqueci'
+    | '/senha/redefinir'
     | '/contatos/$id'
     | '/ia/agentes'
     | '/ia/habilidades'
@@ -287,12 +309,14 @@ export interface FileRouteTypes {
     | '/_authenticated/equipe'
     | '/_authenticated/fila'
     | '/_authenticated/funil'
+    | '/_authenticated/metricas'
     | '/_authenticated/modelos'
     | '/_authenticated/painel'
     | '/_authenticated/respostas-rapidas'
     | '/_authenticated/tarefas'
     | '/_authenticated/whatsapp'
     | '/senha/esqueci'
+    | '/senha/redefinir'
     | '/_authenticated/contatos/$id'
     | '/_authenticated/ia/agentes'
     | '/_authenticated/ia/habilidades'
@@ -307,6 +331,7 @@ export interface RootRouteChildren {
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
   SenhaEsqueciRoute: typeof SenhaEsqueciRoute
+  SenhaRedefinirRoute: typeof SenhaRedefinirRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -381,6 +406,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedFunilRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/metricas': {
+      id: '/_authenticated/metricas'
+      path: '/metricas'
+      fullPath: '/metricas'
+      preLoaderRoute: typeof AuthenticatedMetricasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/modelos': {
       id: '/_authenticated/modelos'
       path: '/modelos'
@@ -421,6 +453,13 @@ declare module '@tanstack/react-router' {
       path: '/senha/esqueci'
       fullPath: '/senha/esqueci'
       preLoaderRoute: typeof SenhaEsqueciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/senha/redefinir': {
+      id: '/senha/redefinir'
+      path: '/senha/redefinir'
+      fullPath: '/senha/redefinir'
+      preLoaderRoute: typeof SenhaRedefinirRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/configuracoes/': {
@@ -510,6 +549,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedEquipeRoute: typeof AuthenticatedEquipeRoute
   AuthenticatedFilaRoute: typeof AuthenticatedFilaRoute
   AuthenticatedFunilRoute: typeof AuthenticatedFunilRoute
+  AuthenticatedMetricasRoute: typeof AuthenticatedMetricasRoute
   AuthenticatedModelosRoute: typeof AuthenticatedModelosRoute
   AuthenticatedPainelRoute: typeof AuthenticatedPainelRoute
   AuthenticatedRespostasRapidasRoute: typeof AuthenticatedRespostasRapidasRoute
@@ -530,6 +570,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedEquipeRoute: AuthenticatedEquipeRoute,
   AuthenticatedFilaRoute: AuthenticatedFilaRoute,
   AuthenticatedFunilRoute: AuthenticatedFunilRoute,
+  AuthenticatedMetricasRoute: AuthenticatedMetricasRoute,
   AuthenticatedModelosRoute: AuthenticatedModelosRoute,
   AuthenticatedPainelRoute: AuthenticatedPainelRoute,
   AuthenticatedRespostasRapidasRoute: AuthenticatedRespostasRapidasRoute,
@@ -550,6 +591,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
   SenhaEsqueciRoute: SenhaEsqueciRoute,
+  SenhaRedefinirRoute: SenhaRedefinirRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
