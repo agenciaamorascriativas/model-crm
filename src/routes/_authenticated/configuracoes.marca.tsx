@@ -71,8 +71,8 @@ function MarcaPage() {
 
   function chooseFile(file: File | undefined, kind: "logo" | "icon") {
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) return toast.error("Escolha uma imagem de até 2 MB.");
-    if (!file.type.startsWith("image/")) return toast.error("Escolha um arquivo de imagem.");
+    if (file.size > 2 * 1024 * 1024) { toast.error("Escolha uma imagem de até 2 MB."); return; }
+    if (!file.type.startsWith("image/")) { toast.error("Escolha um arquivo de imagem."); return; }
     if (kind === "logo") { setLogoFile(file); setLogoRemoved(false); }
     else { setIconFile(file); setIconRemoved(false); }
   }
@@ -87,8 +87,8 @@ function MarcaPage() {
 
   async function save() {
     const validColor = normalizeHex(corTexto);
-    if (!nome.trim()) return toast.error("Digite o nome da empresa.");
-    if (!validColor) return toast.error("Digite uma cor hexadecimal válida.");
+    if (!nome.trim()) { toast.error("Digite o nome da empresa."); return; }
+    if (!validColor) { toast.error("Digite uma cor hexadecimal válida."); return; }
     setSaving(true);
     try {
       let logoPath = settings?.logo_url ?? null;
