@@ -18,6 +18,7 @@ import { Badge } from "@/components/ui/badge";
 import { Plus, Loader2, Trash2, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { AgendaIntegracoes } from "@/components/agenda-integracoes";
 import type { Appointment, Contact } from "@/lib/types";
 
 export const Route = createFileRoute("/_authenticated/agenda")({
@@ -68,6 +69,10 @@ function AgendaPage() {
         <Button onClick={() => setCreating(true)}>
           <Plus className="mr-2 h-4 w-4" /> Novo compromisso
         </Button>
+      </div>
+
+      <div className="mb-6">
+        <AgendaIntegracoes />
       </div>
 
       <div className="grid gap-6 lg:grid-cols-[380px_1fr]">

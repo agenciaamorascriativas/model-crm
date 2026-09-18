@@ -4,6 +4,15 @@ export interface Contact {
   phone: string | null;
   email: string | null;
   company: string | null;
+  job_title: string | null;
+  category: string | null;
+  source: string | null;
+  cpf: string | null;
+  city: string | null;
+  state: string | null;
+  address: string | null;
+  linkedin: string | null;
+  instagram: string | null;
   notes: string | null;
   tags: string[];
   owner_id: string | null;
@@ -38,6 +47,11 @@ export interface Profile {
   full_name: string | null;
   email: string | null;
   avatar_url: string | null;
+  job_title: string | null;
+  phone: string | null;
+  language: string | null;
+  timezone: string | null;
+  signature: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -45,9 +59,15 @@ export interface Profile {
 export interface Pipeline {
   id: string;
   name: string;
+  description: string | null;
+  slug: string | null;
+  is_default: boolean;
+  archived: boolean;
   position: number;
   created_at: string;
 }
+
+export type StageRole = "nenhum" | "fechamento" | "perda";
 
 export interface PipelineStage {
   id: string;
@@ -55,6 +75,9 @@ export interface PipelineStage {
   name: string;
   position: number;
   color: string | null;
+  stage_role: StageRole;
+  assistant_key: string | null;
+  archived: boolean;
   created_at: string;
 }
 
@@ -109,6 +132,25 @@ export interface Task {
   updated_at: string;
 }
 
+export interface CalendarSyncState {
+  status: "nao_configurado" | "conectado";
+  email?: string | null;
+  connected_at?: string | null;
+}
+
+export interface CalendarSync {
+  google: CalendarSyncState;
+  outlook: CalendarSyncState;
+}
+
+export interface ReminderSettings {
+  enabled: boolean;
+  offsets: string[];
+  channels: string[];
+  recipients: string[];
+  template: string;
+}
+
 export interface AppSettings {
   id: number;
   brand_name: string;
@@ -116,5 +158,7 @@ export interface AppSettings {
   primary_color: string;
   favicon_url: string | null;
   whatsapp_number: string | null;
+  calendar_sync: CalendarSync;
+  reminder_settings: ReminderSettings;
   updated_at: string;
 }
