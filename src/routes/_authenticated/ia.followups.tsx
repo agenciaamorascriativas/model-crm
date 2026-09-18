@@ -308,7 +308,11 @@ function FollowupsPage() {
                     setEditando({
                       ...editando,
                       passos: [
-                        { ...editando.passos[0], mensagem: e.target.value },
+                        {
+                          esperaDias: editando.passos[0]?.esperaDias ?? 0,
+                          saiSeResponder: editando.passos[0]?.saiSeResponder ?? true,
+                          mensagem: e.target.value,
+                        },
                         ...editando.passos.slice(1),
                       ],
                     })

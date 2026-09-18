@@ -64,7 +64,10 @@ function RoteamentoPage() {
       const idx = lista.findIndex((r) => r.id === id);
       const novoIdx = idx + direcao;
       if (novoIdx < 0 || novoIdx >= lista.length) return prev;
-      [lista[idx], lista[novoIdx]] = [lista[novoIdx], lista[idx]];
+      const a = lista[idx]!;
+      const b = lista[novoIdx]!;
+      lista[idx] = b;
+      lista[novoIdx] = a;
       return lista.map((r, i) => ({ ...r, ordem: i + 1 }));
     });
   }

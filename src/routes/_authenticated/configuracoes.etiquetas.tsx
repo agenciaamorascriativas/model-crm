@@ -36,7 +36,7 @@ function EtiquetasPage() {
   const [aberto, setAberto] = useState(false);
 
   function novaEtiqueta() {
-    setEditando({ id: crypto.randomUUID(), nome: "", cor: coresMarcaDemo[0], uso: 0 });
+    setEditando({ id: crypto.randomUUID(), nome: "", cor: coresMarcaDemo[0] ?? "#94a3b8", uso: 0 });
     setAberto(true);
   }
 

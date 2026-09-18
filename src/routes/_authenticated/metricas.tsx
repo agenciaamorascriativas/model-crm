@@ -94,7 +94,7 @@ function MetricasPage() {
         />
         <StatCard
           label="Canal com mais volume"
-          value={indicadoresAtendimento.volumePorCanal[0].canal}
+          value={indicadoresAtendimento.volumePorCanal[0]?.canal ?? "—"}
           icon={Percent}
         />
       </div>

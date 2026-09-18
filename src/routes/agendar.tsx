@@ -42,7 +42,7 @@ export const Route = createFileRoute("/agendar")({
 });
 
 function formatarDataLabel(iso: string) {
-  const [y, m, d] = iso.split("-").map(Number);
+  const [y = 2024, m = 1, d = 1] = iso.split("-").map(Number);
   const date = new Date(y, m - 1, d);
   return date.toLocaleDateString("pt-BR", { weekday: "short", day: "2-digit", month: "short" });
 }

@@ -60,7 +60,7 @@ function AtividadesPage() {
   const [periodo, setPeriodo] = useState("todos");
 
   const dataMaisRecente = useMemo(
-    () => ATIVIDADES.reduce((max, a) => (new Date(a.data) > max ? new Date(a.data) : max), new Date(ATIVIDADES[0].data)),
+    () => ATIVIDADES.reduce((max, a) => (new Date(a.data) > max ? new Date(a.data) : max), new Date(ATIVIDADES[0]?.data ?? Date.now())),
     [],
   );
 

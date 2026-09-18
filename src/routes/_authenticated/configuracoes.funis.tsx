@@ -24,7 +24,7 @@ export const Route = createFileRoute("/_authenticated/configuracoes/funis")({
 });
 
 function FunisConfigPage() {
-  const [funilPadrao, setFunilPadrao] = useState(funisDemo[0]);
+  const [funilPadrao, setFunilPadrao] = useState(funisDemo[0] ?? "");
   const [diasParado, setDiasParado] = useState("7");
   const [previsaoAuto, setPrevisaoAuto] = useState(true);
 

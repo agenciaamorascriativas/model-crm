@@ -30,8 +30,8 @@ function ConvitePage() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [cargo, setCargo] = useState("Atendente");
-  const [funisSel, setFunisSel] = useState<string[]>([funisDemo[0]]);
-  const [canaisSel, setCanaisSel] = useState<string[]>([canaisDemo[0]]);
+  const [funisSel, setFunisSel] = useState<string[]>(funisDemo.slice(0, 1));
+  const [canaisSel, setCanaisSel] = useState<string[]>(canaisDemo.slice(0, 1));
   const [convites, setConvites] = useState(convitesPendentesDemo);
 
   function enviarConvite(e: React.FormEvent) {

@@ -38,7 +38,12 @@ function NotificacoesPage() {
   function toggle(eventoId: string, canal: Canal) {
     setMatriz((prev) => ({
       ...prev,
-      [eventoId]: { ...prev[eventoId], [canal]: !prev[eventoId][canal] },
+      [eventoId]: {
+        sistema: prev[eventoId]?.sistema ?? false,
+        email: prev[eventoId]?.email ?? false,
+        push: prev[eventoId]?.push ?? false,
+        [canal]: !prev[eventoId]?.[canal],
+      },
     }));
   }
 
@@ -65,7 +70,7 @@ function NotificacoesPage() {
                   <td className="py-3 pr-4">{e.label}</td>
                   {canais.map((c) => (
                     <td key={c} className="px-4 py-3 text-center">
-                      <Switch checked={matriz[e.id][c]} onCheckedChange={() => toggle(e.id, c)} />
+                      <Switch checked={matriz[e.id]?.[c] ?? false} onCheckedChange={() => toggle(e.id, c)} />
                     </td>
                   ))}
                 </tr>

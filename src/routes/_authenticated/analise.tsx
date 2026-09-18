@@ -178,7 +178,7 @@ function AnalisePage() {
               {mapaHorarios.dias.map((dia, di) => (
                 <tr key={dia}>
                   <td className="pr-2 text-right font-medium text-muted-foreground">{dia}</td>
-                  {mapaHorarios.intensidade[di].map((valor, hi) => (
+                  {(mapaHorarios.intensidade[di] ?? []).map((valor, hi) => (
                     <td key={hi}>
                       <div
                         className="mx-auto h-8 w-full min-w-8 rounded-md bg-primary"
