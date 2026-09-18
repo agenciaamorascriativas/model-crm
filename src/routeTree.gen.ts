@@ -20,9 +20,11 @@ import { Route as AuthenticatedEquipeRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedFilaRouteImport } from './routes/_authenticated/fila'
 import { Route as AuthenticatedFunilRouteImport } from './routes/_authenticated/funil'
 import { Route as AuthenticatedModelosRouteImport } from './routes/_authenticated/modelos'
+import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
 import { Route as AuthenticatedRespostasRapidasRouteImport } from './routes/_authenticated/respostas-rapidas'
 import { Route as AuthenticatedTarefasRouteImport } from './routes/_authenticated/tarefas'
 import { Route as AuthenticatedWhatsappRouteImport } from './routes/_authenticated/whatsapp'
+import { Route as SenhaEsqueciRouteImport } from './routes/senha.esqueci'
 import { Route as AuthenticatedContatosIdRouteImport } from './routes/_authenticated/contatos.$id'
 import { Route as AuthenticatedIaIndexRouteImport } from './routes/_authenticated/ia.index'
 import { Route as AuthenticatedIaAgentesRouteImport } from './routes/_authenticated/ia.agentes'
@@ -84,6 +86,11 @@ const AuthenticatedModelosRoute = AuthenticatedModelosRouteImport.update({
   path: '/modelos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedPainelRoute = AuthenticatedPainelRouteImport.update({
+  id: '/painel',
+  path: '/painel',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedRespostasRapidasRoute =
   AuthenticatedRespostasRapidasRouteImport.update({
     id: '/respostas-rapidas',
@@ -99,6 +106,11 @@ const AuthenticatedWhatsappRoute = AuthenticatedWhatsappRouteImport.update({
   id: '/whatsapp',
   path: '/whatsapp',
   getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const SenhaEsqueciRoute = SenhaEsqueciRouteImport.update({
+  id: '/senha/esqueci',
+  path: '/senha/esqueci',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedContatosIdRoute = AuthenticatedContatosIdRouteImport.update({
   id: '/$id',
@@ -133,9 +145,11 @@ export interface FileRoutesByFullPath {
   '/fila': typeof AuthenticatedFilaRoute
   '/funil': typeof AuthenticatedFunilRoute
   '/modelos': typeof AuthenticatedModelosRoute
+  '/painel': typeof AuthenticatedPainelRoute
   '/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/senha/esqueci': typeof SenhaEsqueciRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/ia/propostas': typeof AuthenticatedIaPropostasRoute
@@ -152,9 +166,11 @@ export interface FileRoutesByTo {
   '/fila': typeof AuthenticatedFilaRoute
   '/funil': typeof AuthenticatedFunilRoute
   '/modelos': typeof AuthenticatedModelosRoute
+  '/painel': typeof AuthenticatedPainelRoute
   '/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/senha/esqueci': typeof SenhaEsqueciRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/ia/propostas': typeof AuthenticatedIaPropostasRoute
@@ -173,9 +189,11 @@ export interface FileRoutesById {
   '/_authenticated/fila': typeof AuthenticatedFilaRoute
   '/_authenticated/funil': typeof AuthenticatedFunilRoute
   '/_authenticated/modelos': typeof AuthenticatedModelosRoute
+  '/_authenticated/painel': typeof AuthenticatedPainelRoute
   '/_authenticated/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/_authenticated/tarefas': typeof AuthenticatedTarefasRoute
   '/_authenticated/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/senha/esqueci': typeof SenhaEsqueciRoute
   '/_authenticated/contatos/$id': typeof AuthenticatedContatosIdRoute
   '/_authenticated/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/_authenticated/ia/propostas': typeof AuthenticatedIaPropostasRoute
@@ -194,9 +212,11 @@ export interface FileRouteTypes {
     | '/fila'
     | '/funil'
     | '/modelos'
+    | '/painel'
     | '/respostas-rapidas'
     | '/tarefas'
     | '/whatsapp'
+    | '/senha/esqueci'
     | '/contatos/$id'
     | '/ia/agentes'
     | '/ia/propostas'
@@ -213,9 +233,11 @@ export interface FileRouteTypes {
     | '/fila'
     | '/funil'
     | '/modelos'
+    | '/painel'
     | '/respostas-rapidas'
     | '/tarefas'
     | '/whatsapp'
+    | '/senha/esqueci'
     | '/contatos/$id'
     | '/ia/agentes'
     | '/ia/propostas'
@@ -233,9 +255,11 @@ export interface FileRouteTypes {
     | '/_authenticated/fila'
     | '/_authenticated/funil'
     | '/_authenticated/modelos'
+    | '/_authenticated/painel'
     | '/_authenticated/respostas-rapidas'
     | '/_authenticated/tarefas'
     | '/_authenticated/whatsapp'
+    | '/senha/esqueci'
     | '/_authenticated/contatos/$id'
     | '/_authenticated/ia/agentes'
     | '/_authenticated/ia/propostas'
@@ -246,6 +270,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
+  SenhaEsqueciRoute: typeof SenhaEsqueciRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -327,6 +352,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedModelosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/painel': {
+      id: '/_authenticated/painel'
+      path: '/painel'
+      fullPath: '/painel'
+      preLoaderRoute: typeof AuthenticatedPainelRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/respostas-rapidas': {
       id: '/_authenticated/respostas-rapidas'
       path: '/respostas-rapidas'
@@ -347,6 +379,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/whatsapp'
       preLoaderRoute: typeof AuthenticatedWhatsappRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/senha/esqueci': {
+      id: '/senha/esqueci'
+      path: '/senha/esqueci'
+      fullPath: '/senha/esqueci'
+      preLoaderRoute: typeof SenhaEsqueciRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_authenticated/contatos/$id': {
       id: '/_authenticated/contatos/$id'
@@ -401,6 +440,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedFilaRoute: typeof AuthenticatedFilaRoute
   AuthenticatedFunilRoute: typeof AuthenticatedFunilRoute
   AuthenticatedModelosRoute: typeof AuthenticatedModelosRoute
+  AuthenticatedPainelRoute: typeof AuthenticatedPainelRoute
   AuthenticatedRespostasRapidasRoute: typeof AuthenticatedRespostasRapidasRoute
   AuthenticatedTarefasRoute: typeof AuthenticatedTarefasRoute
   AuthenticatedWhatsappRoute: typeof AuthenticatedWhatsappRoute
@@ -418,6 +458,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedFilaRoute: AuthenticatedFilaRoute,
   AuthenticatedFunilRoute: AuthenticatedFunilRoute,
   AuthenticatedModelosRoute: AuthenticatedModelosRoute,
+  AuthenticatedPainelRoute: AuthenticatedPainelRoute,
   AuthenticatedRespostasRapidasRoute: AuthenticatedRespostasRapidasRoute,
   AuthenticatedTarefasRoute: AuthenticatedTarefasRoute,
   AuthenticatedWhatsappRoute: AuthenticatedWhatsappRoute,
@@ -433,6 +474,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
+  SenhaEsqueciRoute: SenhaEsqueciRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
