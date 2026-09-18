@@ -68,6 +68,7 @@ import { Route as AuthenticatedIaCasosRouteImport } from './routes/_authenticate
 import { Route as AuthenticatedIaConhecimentoRouteImport } from './routes/_authenticated/ia.conhecimento'
 import { Route as AuthenticatedIaConsumoRouteImport } from './routes/_authenticated/ia.consumo'
 import { Route as AuthenticatedIaConversasRouteImport } from './routes/_authenticated/ia.conversas'
+import { Route as AuthenticatedIaEvolucaoRouteImport } from './routes/_authenticated/ia.evolucao'
 import { Route as AuthenticatedIaExecucoesRouteImport } from './routes/_authenticated/ia.execucoes'
 import { Route as AuthenticatedIaFollowupsRouteImport } from './routes/_authenticated/ia.followups'
 import { Route as AuthenticatedIaHabilidadesRouteImport } from './routes/_authenticated/ia.habilidades'
@@ -396,6 +397,11 @@ const AuthenticatedIaConversasRoute =
     path: '/ia/conversas',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedIaEvolucaoRoute = AuthenticatedIaEvolucaoRouteImport.update({
+  id: '/ia/evolucao',
+  path: '/ia/evolucao',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedIaExecucoesRoute =
   AuthenticatedIaExecucoesRouteImport.update({
     id: '/ia/execucoes',
@@ -500,6 +506,7 @@ export interface FileRoutesByFullPath {
   '/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
   '/ia/consumo': typeof AuthenticatedIaConsumoRoute
   '/ia/conversas': typeof AuthenticatedIaConversasRoute
+  '/ia/evolucao': typeof AuthenticatedIaEvolucaoRoute
   '/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
   '/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
@@ -567,6 +574,7 @@ export interface FileRoutesByTo {
   '/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
   '/ia/consumo': typeof AuthenticatedIaConsumoRoute
   '/ia/conversas': typeof AuthenticatedIaConversasRoute
+  '/ia/evolucao': typeof AuthenticatedIaEvolucaoRoute
   '/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
   '/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
@@ -637,6 +645,7 @@ export interface FileRoutesById {
   '/_authenticated/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
   '/_authenticated/ia/consumo': typeof AuthenticatedIaConsumoRoute
   '/_authenticated/ia/conversas': typeof AuthenticatedIaConversasRoute
+  '/_authenticated/ia/evolucao': typeof AuthenticatedIaEvolucaoRoute
   '/_authenticated/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
   '/_authenticated/ia/followups': typeof AuthenticatedIaFollowupsRoute
   '/_authenticated/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
@@ -707,6 +716,7 @@ export interface FileRouteTypes {
     | '/ia/conhecimento'
     | '/ia/consumo'
     | '/ia/conversas'
+    | '/ia/evolucao'
     | '/ia/execucoes'
     | '/ia/followups'
     | '/ia/habilidades'
@@ -774,6 +784,7 @@ export interface FileRouteTypes {
     | '/ia/conhecimento'
     | '/ia/consumo'
     | '/ia/conversas'
+    | '/ia/evolucao'
     | '/ia/execucoes'
     | '/ia/followups'
     | '/ia/habilidades'
@@ -843,6 +854,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ia/conhecimento'
     | '/_authenticated/ia/consumo'
     | '/_authenticated/ia/conversas'
+    | '/_authenticated/ia/evolucao'
     | '/_authenticated/ia/execucoes'
     | '/_authenticated/ia/followups'
     | '/_authenticated/ia/habilidades'
@@ -1286,6 +1298,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIaConversasRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ia/evolucao': {
+      id: '/_authenticated/ia/evolucao'
+      path: '/ia/evolucao'
+      fullPath: '/ia/evolucao'
+      preLoaderRoute: typeof AuthenticatedIaEvolucaoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/ia/execucoes': {
       id: '/_authenticated/ia/execucoes'
       path: '/ia/execucoes'
@@ -1455,6 +1474,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedIaConhecimentoRoute: typeof AuthenticatedIaConhecimentoRoute
   AuthenticatedIaConsumoRoute: typeof AuthenticatedIaConsumoRoute
   AuthenticatedIaConversasRoute: typeof AuthenticatedIaConversasRoute
+  AuthenticatedIaEvolucaoRoute: typeof AuthenticatedIaEvolucaoRoute
   AuthenticatedIaExecucoesRoute: typeof AuthenticatedIaExecucoesRoute
   AuthenticatedIaFollowupsRoute: typeof AuthenticatedIaFollowupsRoute
   AuthenticatedIaHabilidadesRoute: typeof AuthenticatedIaHabilidadesRoute
@@ -1493,6 +1513,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedIaConhecimentoRoute: AuthenticatedIaConhecimentoRoute,
   AuthenticatedIaConsumoRoute: AuthenticatedIaConsumoRoute,
   AuthenticatedIaConversasRoute: AuthenticatedIaConversasRoute,
+  AuthenticatedIaEvolucaoRoute: AuthenticatedIaEvolucaoRoute,
   AuthenticatedIaExecucoesRoute: AuthenticatedIaExecucoesRoute,
   AuthenticatedIaFollowupsRoute: AuthenticatedIaFollowupsRoute,
   AuthenticatedIaHabilidadesRoute: AuthenticatedIaHabilidadesRoute,
