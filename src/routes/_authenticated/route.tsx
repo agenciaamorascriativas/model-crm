@@ -50,14 +50,6 @@ function AppLayout({ children }: { children: React.ReactNode }) {
     },
   });
 
-  const { data: settings } = useQuery({
-    queryKey: ["app_settings"],
-    queryFn: async () => {
-      const { data } = await supabase.from("app_settings").select("*").eq("id", 1).maybeSingle();
-      return data;
-    },
-  });
-
   const signOut = useMutation({
     mutationFn: async () => {
       await supabase.auth.signOut();
