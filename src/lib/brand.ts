@@ -111,5 +111,5 @@ export function applyBrandColor(color: string) {
     root.style.setProperty(name, value);
   }
 
-  root.dataset.brandColor = color.toUpperCase();
+  root.dataset["brandColor"] = color.toUpperCase();
 }
