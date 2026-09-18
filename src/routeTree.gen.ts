@@ -11,14 +11,62 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AcessoRevogadoRouteImport } from './routes/acesso-revogado'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as VerificacaoRouteImport } from './routes/verificacao'
 import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
+import { Route as AuthenticatedAnaliseRouteImport } from './routes/_authenticated/analise'
+import { Route as AuthenticatedAtividadesRouteImport } from './routes/_authenticated/atividades'
+import { Route as AuthenticatedAuditoriaRouteImport } from './routes/_authenticated/auditoria'
+import { Route as AuthenticatedCanalOficialRouteImport } from './routes/_authenticated/canal-oficial'
 import { Route as AuthenticatedConfiguracoesRouteImport } from './routes/_authenticated/configuracoes'
 import { Route as AuthenticatedContatosRouteImport } from './routes/_authenticated/contatos'
 import { Route as AuthenticatedEquipeRouteImport } from './routes/_authenticated/equipe'
+import { Route as AuthenticatedFilaRouteImport } from './routes/_authenticated/fila'
 import { Route as AuthenticatedFunilRouteImport } from './routes/_authenticated/funil'
+import { Route as AuthenticatedFunisRouteImport } from './routes/_authenticated/funis'
+import { Route as AuthenticatedMetricasRouteImport } from './routes/_authenticated/metricas'
+import { Route as AuthenticatedModelosRouteImport } from './routes/_authenticated/modelos'
+import { Route as AuthenticatedPainelRouteImport } from './routes/_authenticated/painel'
+import { Route as AuthenticatedPrimeirosPassosRouteImport } from './routes/_authenticated/primeiros-passos'
+import { Route as AuthenticatedPrivacidadeRouteImport } from './routes/_authenticated/privacidade'
+import { Route as AuthenticatedProdutosRouteImport } from './routes/_authenticated/produtos'
+import { Route as AuthenticatedRadarRouteImport } from './routes/_authenticated/radar'
+import { Route as AuthenticatedRespostasRapidasRouteImport } from './routes/_authenticated/respostas-rapidas'
 import { Route as AuthenticatedTarefasRouteImport } from './routes/_authenticated/tarefas'
 import { Route as AuthenticatedWhatsappRouteImport } from './routes/_authenticated/whatsapp'
+import { Route as Erro403RouteImport } from './routes/erro.403'
+import { Route as Erro500RouteImport } from './routes/erro.500'
+import { Route as Erro503RouteImport } from './routes/erro.503'
+import { Route as LegalPrivacidadeRouteImport } from './routes/legal.privacidade'
+import { Route as LegalTermosRouteImport } from './routes/legal.termos'
+import { Route as SenhaEsqueciRouteImport } from './routes/senha.esqueci'
+import { Route as SenhaRedefinirRouteImport } from './routes/senha.redefinir'
+import { Route as AuthenticatedConfiguracoesIndexRouteImport } from './routes/_authenticated/configuracoes.index'
+import { Route as AuthenticatedConfiguracoesAgendaRouteImport } from './routes/_authenticated/configuracoes.agenda'
+import { Route as AuthenticatedConfiguracoesAtendimentoRouteImport } from './routes/_authenticated/configuracoes.atendimento'
+import { Route as AuthenticatedConfiguracoesEtiquetasRouteImport } from './routes/_authenticated/configuracoes.etiquetas'
+import { Route as AuthenticatedConfiguracoesFunisRouteImport } from './routes/_authenticated/configuracoes.funis'
+import { Route as AuthenticatedConfiguracoesMarcaRouteImport } from './routes/_authenticated/configuracoes.marca'
+import { Route as AuthenticatedConfiguracoesModelosRouteImport } from './routes/_authenticated/configuracoes.modelos'
+import { Route as AuthenticatedConfiguracoesNotificacoesRouteImport } from './routes/_authenticated/configuracoes.notificacoes'
+import { Route as AuthenticatedConfiguracoesPerfilRouteImport } from './routes/_authenticated/configuracoes.perfil'
+import { Route as AuthenticatedConfiguracoesSegurancaRouteImport } from './routes/_authenticated/configuracoes.seguranca'
+import { Route as AuthenticatedContatosIdRouteImport } from './routes/_authenticated/contatos.$id'
+import { Route as AuthenticatedIaIndexRouteImport } from './routes/_authenticated/ia.index'
+import { Route as AuthenticatedIaAgentesRouteImport } from './routes/_authenticated/ia.agentes'
+import { Route as AuthenticatedIaCasosRouteImport } from './routes/_authenticated/ia.casos'
+import { Route as AuthenticatedIaConhecimentoRouteImport } from './routes/_authenticated/ia.conhecimento'
+import { Route as AuthenticatedIaConsumoRouteImport } from './routes/_authenticated/ia.consumo'
+import { Route as AuthenticatedIaConversasRouteImport } from './routes/_authenticated/ia.conversas'
+import { Route as AuthenticatedIaExecucoesRouteImport } from './routes/_authenticated/ia.execucoes'
+import { Route as AuthenticatedIaFollowupsRouteImport } from './routes/_authenticated/ia.followups'
+import { Route as AuthenticatedIaHabilidadesRouteImport } from './routes/_authenticated/ia.habilidades'
+import { Route as AuthenticatedIaMemoriaRouteImport } from './routes/_authenticated/ia.memoria'
+import { Route as AuthenticatedIaPropostasRouteImport } from './routes/_authenticated/ia.propostas'
+import { Route as AuthenticatedIaProvedoresRouteImport } from './routes/_authenticated/ia.provedores'
+import { Route as AuthenticatedIaRoteamentoRouteImport } from './routes/_authenticated/ia.roteamento'
+import { Route as AuthenticatedNegociosIdRouteImport } from './routes/_authenticated/negocios.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -29,9 +77,19 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcessoRevogadoRoute = AcessoRevogadoRouteImport.update({
+  id: '/acesso-revogado',
+  path: '/acesso-revogado',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerificacaoRoute = VerificacaoRouteImport.update({
+  id: '/verificacao',
+  path: '/verificacao',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedAgendaRoute = AuthenticatedAgendaRouteImport.update({
@@ -39,6 +97,27 @@ const AuthenticatedAgendaRoute = AuthenticatedAgendaRouteImport.update({
   path: '/agenda',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedAnaliseRoute = AuthenticatedAnaliseRouteImport.update({
+  id: '/analise',
+  path: '/analise',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAtividadesRoute = AuthenticatedAtividadesRouteImport.update({
+  id: '/atividades',
+  path: '/atividades',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAuditoriaRoute = AuthenticatedAuditoriaRouteImport.update({
+  id: '/auditoria',
+  path: '/auditoria',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedCanalOficialRoute =
+  AuthenticatedCanalOficialRouteImport.update({
+    id: '/canal-oficial',
+    path: '/canal-oficial',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedConfiguracoesRoute =
   AuthenticatedConfiguracoesRouteImport.update({
     id: '/configuracoes',
@@ -55,11 +134,64 @@ const AuthenticatedEquipeRoute = AuthenticatedEquipeRouteImport.update({
   path: '/equipe',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFilaRoute = AuthenticatedFilaRouteImport.update({
+  id: '/fila',
+  path: '/fila',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const AuthenticatedFunilRoute = AuthenticatedFunilRouteImport.update({
   id: '/funil',
   path: '/funil',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedFunisRoute = AuthenticatedFunisRouteImport.update({
+  id: '/funis',
+  path: '/funis',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedMetricasRoute = AuthenticatedMetricasRouteImport.update({
+  id: '/metricas',
+  path: '/metricas',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedModelosRoute = AuthenticatedModelosRouteImport.update({
+  id: '/modelos',
+  path: '/modelos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPainelRoute = AuthenticatedPainelRouteImport.update({
+  id: '/painel',
+  path: '/painel',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedPrimeirosPassosRoute =
+  AuthenticatedPrimeirosPassosRouteImport.update({
+    id: '/primeiros-passos',
+    path: '/primeiros-passos',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPrivacidadeRoute =
+  AuthenticatedPrivacidadeRouteImport.update({
+    id: '/privacidade',
+    path: '/privacidade',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedProdutosRoute = AuthenticatedProdutosRouteImport.update({
+  id: '/produtos',
+  path: '/produtos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRadarRoute = AuthenticatedRadarRouteImport.update({
+  id: '/radar',
+  path: '/radar',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedRespostasRapidasRoute =
+  AuthenticatedRespostasRapidasRouteImport.update({
+    id: '/respostas-rapidas',
+    path: '/respostas-rapidas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 const AuthenticatedTarefasRoute = AuthenticatedTarefasRouteImport.update({
   id: '/tarefas',
   path: '/tarefas',
@@ -70,83 +202,556 @@ const AuthenticatedWhatsappRoute = AuthenticatedWhatsappRouteImport.update({
   path: '/whatsapp',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const Erro403Route = Erro403RouteImport.update({
+  id: '/erro/403',
+  path: '/erro/403',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Erro500Route = Erro500RouteImport.update({
+  id: '/erro/500',
+  path: '/erro/500',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Erro503Route = Erro503RouteImport.update({
+  id: '/erro/503',
+  path: '/erro/503',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalPrivacidadeRoute = LegalPrivacidadeRouteImport.update({
+  id: '/legal/privacidade',
+  path: '/legal/privacidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LegalTermosRoute = LegalTermosRouteImport.update({
+  id: '/legal/termos',
+  path: '/legal/termos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SenhaEsqueciRoute = SenhaEsqueciRouteImport.update({
+  id: '/senha/esqueci',
+  path: '/senha/esqueci',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SenhaRedefinirRoute = SenhaRedefinirRouteImport.update({
+  id: '/senha/redefinir',
+  path: '/senha/redefinir',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedConfiguracoesIndexRoute =
+  AuthenticatedConfiguracoesIndexRouteImport.update({
+    id: '/',
+    path: '/',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesAgendaRoute =
+  AuthenticatedConfiguracoesAgendaRouteImport.update({
+    id: '/agenda',
+    path: '/agenda',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesAtendimentoRoute =
+  AuthenticatedConfiguracoesAtendimentoRouteImport.update({
+    id: '/atendimento',
+    path: '/atendimento',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesEtiquetasRoute =
+  AuthenticatedConfiguracoesEtiquetasRouteImport.update({
+    id: '/etiquetas',
+    path: '/etiquetas',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesFunisRoute =
+  AuthenticatedConfiguracoesFunisRouteImport.update({
+    id: '/funis',
+    path: '/funis',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesMarcaRoute =
+  AuthenticatedConfiguracoesMarcaRouteImport.update({
+    id: '/marca',
+    path: '/marca',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesModelosRoute =
+  AuthenticatedConfiguracoesModelosRouteImport.update({
+    id: '/modelos',
+    path: '/modelos',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesNotificacoesRoute =
+  AuthenticatedConfiguracoesNotificacoesRouteImport.update({
+    id: '/notificacoes',
+    path: '/notificacoes',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesPerfilRoute =
+  AuthenticatedConfiguracoesPerfilRouteImport.update({
+    id: '/perfil',
+    path: '/perfil',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesSegurancaRoute =
+  AuthenticatedConfiguracoesSegurancaRouteImport.update({
+    id: '/seguranca',
+    path: '/seguranca',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedContatosIdRoute = AuthenticatedContatosIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => AuthenticatedContatosRoute,
+} as any)
+const AuthenticatedIaIndexRoute = AuthenticatedIaIndexRouteImport.update({
+  id: '/ia/',
+  path: '/ia/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIaAgentesRoute = AuthenticatedIaAgentesRouteImport.update({
+  id: '/ia/agentes',
+  path: '/ia/agentes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIaCasosRoute = AuthenticatedIaCasosRouteImport.update({
+  id: '/ia/casos',
+  path: '/ia/casos',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIaConhecimentoRoute =
+  AuthenticatedIaConhecimentoRouteImport.update({
+    id: '/ia/conhecimento',
+    path: '/ia/conhecimento',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIaConsumoRoute = AuthenticatedIaConsumoRouteImport.update({
+  id: '/ia/consumo',
+  path: '/ia/consumo',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIaConversasRoute =
+  AuthenticatedIaConversasRouteImport.update({
+    id: '/ia/conversas',
+    path: '/ia/conversas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIaExecucoesRoute =
+  AuthenticatedIaExecucoesRouteImport.update({
+    id: '/ia/execucoes',
+    path: '/ia/execucoes',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIaFollowupsRoute =
+  AuthenticatedIaFollowupsRouteImport.update({
+    id: '/ia/followups',
+    path: '/ia/followups',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIaHabilidadesRoute =
+  AuthenticatedIaHabilidadesRouteImport.update({
+    id: '/ia/habilidades',
+    path: '/ia/habilidades',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIaMemoriaRoute = AuthenticatedIaMemoriaRouteImport.update({
+  id: '/ia/memoria',
+  path: '/ia/memoria',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedIaPropostasRoute =
+  AuthenticatedIaPropostasRouteImport.update({
+    id: '/ia/propostas',
+    path: '/ia/propostas',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIaProvedoresRoute =
+  AuthenticatedIaProvedoresRouteImport.update({
+    id: '/ia/provedores',
+    path: '/ia/provedores',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedIaRoteamentoRoute =
+  AuthenticatedIaRoteamentoRouteImport.update({
+    id: '/ia/roteamento',
+    path: '/ia/roteamento',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedNegociosIdRoute = AuthenticatedNegociosIdRouteImport.update({
+  id: '/negocios/$id',
+  path: '/negocios/$id',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/acesso-revogado': typeof AcessoRevogadoRoute
   '/auth': typeof AuthRoute
+  '/verificacao': typeof VerificacaoRoute
   '/agenda': typeof AuthenticatedAgendaRoute
-  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
-  '/contatos': typeof AuthenticatedContatosRoute
+  '/analise': typeof AuthenticatedAnaliseRoute
+  '/atividades': typeof AuthenticatedAtividadesRoute
+  '/auditoria': typeof AuthenticatedAuditoriaRoute
+  '/canal-oficial': typeof AuthenticatedCanalOficialRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
+  '/contatos': typeof AuthenticatedContatosRouteWithChildren
   '/equipe': typeof AuthenticatedEquipeRoute
+  '/fila': typeof AuthenticatedFilaRoute
   '/funil': typeof AuthenticatedFunilRoute
+  '/funis': typeof AuthenticatedFunisRoute
+  '/metricas': typeof AuthenticatedMetricasRoute
+  '/modelos': typeof AuthenticatedModelosRoute
+  '/painel': typeof AuthenticatedPainelRoute
+  '/primeiros-passos': typeof AuthenticatedPrimeirosPassosRoute
+  '/privacidade': typeof AuthenticatedPrivacidadeRoute
+  '/produtos': typeof AuthenticatedProdutosRoute
+  '/radar': typeof AuthenticatedRadarRoute
+  '/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/erro/403': typeof Erro403Route
+  '/erro/500': typeof Erro500Route
+  '/erro/503': typeof Erro503Route
+  '/legal/privacidade': typeof LegalPrivacidadeRoute
+  '/legal/termos': typeof LegalTermosRoute
+  '/senha/esqueci': typeof SenhaEsqueciRoute
+  '/senha/redefinir': typeof SenhaRedefinirRoute
+  '/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
+  '/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
+  '/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
+  '/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
+  '/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
+  '/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
+  '/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/ia/casos': typeof AuthenticatedIaCasosRoute
+  '/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
+  '/ia/consumo': typeof AuthenticatedIaConsumoRoute
+  '/ia/conversas': typeof AuthenticatedIaConversasRoute
+  '/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
+  '/ia/followups': typeof AuthenticatedIaFollowupsRoute
+  '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
+  '/ia/memoria': typeof AuthenticatedIaMemoriaRoute
+  '/ia/propostas': typeof AuthenticatedIaPropostasRoute
+  '/ia/provedores': typeof AuthenticatedIaProvedoresRoute
+  '/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
+  '/negocios/$id': typeof AuthenticatedNegociosIdRoute
+  '/configuracoes/': typeof AuthenticatedConfiguracoesIndexRoute
+  '/ia/': typeof AuthenticatedIaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/acesso-revogado': typeof AcessoRevogadoRoute
   '/auth': typeof AuthRoute
+  '/verificacao': typeof VerificacaoRoute
   '/agenda': typeof AuthenticatedAgendaRoute
-  '/configuracoes': typeof AuthenticatedConfiguracoesRoute
-  '/contatos': typeof AuthenticatedContatosRoute
+  '/analise': typeof AuthenticatedAnaliseRoute
+  '/atividades': typeof AuthenticatedAtividadesRoute
+  '/auditoria': typeof AuthenticatedAuditoriaRoute
+  '/canal-oficial': typeof AuthenticatedCanalOficialRoute
+  '/contatos': typeof AuthenticatedContatosRouteWithChildren
   '/equipe': typeof AuthenticatedEquipeRoute
+  '/fila': typeof AuthenticatedFilaRoute
   '/funil': typeof AuthenticatedFunilRoute
+  '/funis': typeof AuthenticatedFunisRoute
+  '/metricas': typeof AuthenticatedMetricasRoute
+  '/modelos': typeof AuthenticatedModelosRoute
+  '/painel': typeof AuthenticatedPainelRoute
+  '/primeiros-passos': typeof AuthenticatedPrimeirosPassosRoute
+  '/privacidade': typeof AuthenticatedPrivacidadeRoute
+  '/produtos': typeof AuthenticatedProdutosRoute
+  '/radar': typeof AuthenticatedRadarRoute
+  '/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/tarefas': typeof AuthenticatedTarefasRoute
   '/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/erro/403': typeof Erro403Route
+  '/erro/500': typeof Erro500Route
+  '/erro/503': typeof Erro503Route
+  '/legal/privacidade': typeof LegalPrivacidadeRoute
+  '/legal/termos': typeof LegalTermosRoute
+  '/senha/esqueci': typeof SenhaEsqueciRoute
+  '/senha/redefinir': typeof SenhaRedefinirRoute
+  '/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
+  '/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
+  '/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
+  '/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
+  '/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
+  '/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
+  '/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/ia/casos': typeof AuthenticatedIaCasosRoute
+  '/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
+  '/ia/consumo': typeof AuthenticatedIaConsumoRoute
+  '/ia/conversas': typeof AuthenticatedIaConversasRoute
+  '/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
+  '/ia/followups': typeof AuthenticatedIaFollowupsRoute
+  '/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
+  '/ia/memoria': typeof AuthenticatedIaMemoriaRoute
+  '/ia/propostas': typeof AuthenticatedIaPropostasRoute
+  '/ia/provedores': typeof AuthenticatedIaProvedoresRoute
+  '/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
+  '/negocios/$id': typeof AuthenticatedNegociosIdRoute
+  '/configuracoes': typeof AuthenticatedConfiguracoesIndexRoute
+  '/ia': typeof AuthenticatedIaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/acesso-revogado': typeof AcessoRevogadoRoute
   '/auth': typeof AuthRoute
+  '/verificacao': typeof VerificacaoRoute
   '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
-  '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRoute
-  '/_authenticated/contatos': typeof AuthenticatedContatosRoute
+  '/_authenticated/analise': typeof AuthenticatedAnaliseRoute
+  '/_authenticated/atividades': typeof AuthenticatedAtividadesRoute
+  '/_authenticated/auditoria': typeof AuthenticatedAuditoriaRoute
+  '/_authenticated/canal-oficial': typeof AuthenticatedCanalOficialRoute
+  '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
+  '/_authenticated/contatos': typeof AuthenticatedContatosRouteWithChildren
   '/_authenticated/equipe': typeof AuthenticatedEquipeRoute
+  '/_authenticated/fila': typeof AuthenticatedFilaRoute
   '/_authenticated/funil': typeof AuthenticatedFunilRoute
+  '/_authenticated/funis': typeof AuthenticatedFunisRoute
+  '/_authenticated/metricas': typeof AuthenticatedMetricasRoute
+  '/_authenticated/modelos': typeof AuthenticatedModelosRoute
+  '/_authenticated/painel': typeof AuthenticatedPainelRoute
+  '/_authenticated/primeiros-passos': typeof AuthenticatedPrimeirosPassosRoute
+  '/_authenticated/privacidade': typeof AuthenticatedPrivacidadeRoute
+  '/_authenticated/produtos': typeof AuthenticatedProdutosRoute
+  '/_authenticated/radar': typeof AuthenticatedRadarRoute
+  '/_authenticated/respostas-rapidas': typeof AuthenticatedRespostasRapidasRoute
   '/_authenticated/tarefas': typeof AuthenticatedTarefasRoute
   '/_authenticated/whatsapp': typeof AuthenticatedWhatsappRoute
+  '/erro/403': typeof Erro403Route
+  '/erro/500': typeof Erro500Route
+  '/erro/503': typeof Erro503Route
+  '/legal/privacidade': typeof LegalPrivacidadeRoute
+  '/legal/termos': typeof LegalTermosRoute
+  '/senha/esqueci': typeof SenhaEsqueciRoute
+  '/senha/redefinir': typeof SenhaRedefinirRoute
+  '/_authenticated/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/_authenticated/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/_authenticated/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
+  '/_authenticated/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
+  '/_authenticated/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/_authenticated/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
+  '/_authenticated/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
+  '/_authenticated/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
+  '/_authenticated/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
+  '/_authenticated/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/_authenticated/ia/agentes': typeof AuthenticatedIaAgentesRoute
+  '/_authenticated/ia/casos': typeof AuthenticatedIaCasosRoute
+  '/_authenticated/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
+  '/_authenticated/ia/consumo': typeof AuthenticatedIaConsumoRoute
+  '/_authenticated/ia/conversas': typeof AuthenticatedIaConversasRoute
+  '/_authenticated/ia/execucoes': typeof AuthenticatedIaExecucoesRoute
+  '/_authenticated/ia/followups': typeof AuthenticatedIaFollowupsRoute
+  '/_authenticated/ia/habilidades': typeof AuthenticatedIaHabilidadesRoute
+  '/_authenticated/ia/memoria': typeof AuthenticatedIaMemoriaRoute
+  '/_authenticated/ia/propostas': typeof AuthenticatedIaPropostasRoute
+  '/_authenticated/ia/provedores': typeof AuthenticatedIaProvedoresRoute
+  '/_authenticated/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
+  '/_authenticated/negocios/$id': typeof AuthenticatedNegociosIdRoute
+  '/_authenticated/configuracoes/': typeof AuthenticatedConfiguracoesIndexRoute
+  '/_authenticated/ia/': typeof AuthenticatedIaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/acesso-revogado'
     | '/auth'
+    | '/verificacao'
     | '/agenda'
+    | '/analise'
+    | '/atividades'
+    | '/auditoria'
+    | '/canal-oficial'
     | '/configuracoes'
     | '/contatos'
     | '/equipe'
+    | '/fila'
     | '/funil'
+    | '/funis'
+    | '/metricas'
+    | '/modelos'
+    | '/painel'
+    | '/primeiros-passos'
+    | '/privacidade'
+    | '/produtos'
+    | '/radar'
+    | '/respostas-rapidas'
     | '/tarefas'
     | '/whatsapp'
+    | '/erro/403'
+    | '/erro/500'
+    | '/erro/503'
+    | '/legal/privacidade'
+    | '/legal/termos'
+    | '/senha/esqueci'
+    | '/senha/redefinir'
+    | '/configuracoes/agenda'
+    | '/configuracoes/atendimento'
+    | '/configuracoes/etiquetas'
+    | '/configuracoes/funis'
+    | '/configuracoes/marca'
+    | '/configuracoes/modelos'
+    | '/configuracoes/notificacoes'
+    | '/configuracoes/perfil'
+    | '/configuracoes/seguranca'
+    | '/contatos/$id'
+    | '/ia/agentes'
+    | '/ia/casos'
+    | '/ia/conhecimento'
+    | '/ia/consumo'
+    | '/ia/conversas'
+    | '/ia/execucoes'
+    | '/ia/followups'
+    | '/ia/habilidades'
+    | '/ia/memoria'
+    | '/ia/propostas'
+    | '/ia/provedores'
+    | '/ia/roteamento'
+    | '/negocios/$id'
+    | '/configuracoes/'
+    | '/ia/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/acesso-revogado'
     | '/auth'
+    | '/verificacao'
     | '/agenda'
-    | '/configuracoes'
+    | '/analise'
+    | '/atividades'
+    | '/auditoria'
+    | '/canal-oficial'
     | '/contatos'
     | '/equipe'
+    | '/fila'
     | '/funil'
+    | '/funis'
+    | '/metricas'
+    | '/modelos'
+    | '/painel'
+    | '/primeiros-passos'
+    | '/privacidade'
+    | '/produtos'
+    | '/radar'
+    | '/respostas-rapidas'
     | '/tarefas'
     | '/whatsapp'
+    | '/erro/403'
+    | '/erro/500'
+    | '/erro/503'
+    | '/legal/privacidade'
+    | '/legal/termos'
+    | '/senha/esqueci'
+    | '/senha/redefinir'
+    | '/configuracoes/agenda'
+    | '/configuracoes/atendimento'
+    | '/configuracoes/etiquetas'
+    | '/configuracoes/funis'
+    | '/configuracoes/marca'
+    | '/configuracoes/modelos'
+    | '/configuracoes/notificacoes'
+    | '/configuracoes/perfil'
+    | '/configuracoes/seguranca'
+    | '/contatos/$id'
+    | '/ia/agentes'
+    | '/ia/casos'
+    | '/ia/conhecimento'
+    | '/ia/consumo'
+    | '/ia/conversas'
+    | '/ia/execucoes'
+    | '/ia/followups'
+    | '/ia/habilidades'
+    | '/ia/memoria'
+    | '/ia/propostas'
+    | '/ia/provedores'
+    | '/ia/roteamento'
+    | '/negocios/$id'
+    | '/configuracoes'
+    | '/ia'
   id:
     | '__root__'
     | '/'
     | '/_authenticated'
+    | '/acesso-revogado'
     | '/auth'
+    | '/verificacao'
     | '/_authenticated/agenda'
+    | '/_authenticated/analise'
+    | '/_authenticated/atividades'
+    | '/_authenticated/auditoria'
+    | '/_authenticated/canal-oficial'
     | '/_authenticated/configuracoes'
     | '/_authenticated/contatos'
     | '/_authenticated/equipe'
+    | '/_authenticated/fila'
     | '/_authenticated/funil'
+    | '/_authenticated/funis'
+    | '/_authenticated/metricas'
+    | '/_authenticated/modelos'
+    | '/_authenticated/painel'
+    | '/_authenticated/primeiros-passos'
+    | '/_authenticated/privacidade'
+    | '/_authenticated/produtos'
+    | '/_authenticated/radar'
+    | '/_authenticated/respostas-rapidas'
     | '/_authenticated/tarefas'
     | '/_authenticated/whatsapp'
+    | '/erro/403'
+    | '/erro/500'
+    | '/erro/503'
+    | '/legal/privacidade'
+    | '/legal/termos'
+    | '/senha/esqueci'
+    | '/senha/redefinir'
+    | '/_authenticated/configuracoes/agenda'
+    | '/_authenticated/configuracoes/atendimento'
+    | '/_authenticated/configuracoes/etiquetas'
+    | '/_authenticated/configuracoes/funis'
+    | '/_authenticated/configuracoes/marca'
+    | '/_authenticated/configuracoes/modelos'
+    | '/_authenticated/configuracoes/notificacoes'
+    | '/_authenticated/configuracoes/perfil'
+    | '/_authenticated/configuracoes/seguranca'
+    | '/_authenticated/contatos/$id'
+    | '/_authenticated/ia/agentes'
+    | '/_authenticated/ia/casos'
+    | '/_authenticated/ia/conhecimento'
+    | '/_authenticated/ia/consumo'
+    | '/_authenticated/ia/conversas'
+    | '/_authenticated/ia/execucoes'
+    | '/_authenticated/ia/followups'
+    | '/_authenticated/ia/habilidades'
+    | '/_authenticated/ia/memoria'
+    | '/_authenticated/ia/propostas'
+    | '/_authenticated/ia/provedores'
+    | '/_authenticated/ia/roteamento'
+    | '/_authenticated/negocios/$id'
+    | '/_authenticated/configuracoes/'
+    | '/_authenticated/ia/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AcessoRevogadoRoute: typeof AcessoRevogadoRoute
   AuthRoute: typeof AuthRoute
+  VerificacaoRoute: typeof VerificacaoRoute
+  Erro403Route: typeof Erro403Route
+  Erro500Route: typeof Erro500Route
+  Erro503Route: typeof Erro503Route
+  LegalPrivacidadeRoute: typeof LegalPrivacidadeRoute
+  LegalTermosRoute: typeof LegalTermosRoute
+  SenhaEsqueciRoute: typeof SenhaEsqueciRoute
+  SenhaRedefinirRoute: typeof SenhaRedefinirRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -165,6 +770,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/acesso-revogado': {
+      id: '/acesso-revogado'
+      path: '/acesso-revogado'
+      fullPath: '/acesso-revogado'
+      preLoaderRoute: typeof AcessoRevogadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
@@ -172,11 +784,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/verificacao': {
+      id: '/verificacao'
+      path: '/verificacao'
+      fullPath: '/verificacao'
+      preLoaderRoute: typeof VerificacaoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_authenticated/agenda': {
       id: '/_authenticated/agenda'
       path: '/agenda'
       fullPath: '/agenda'
       preLoaderRoute: typeof AuthenticatedAgendaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/analise': {
+      id: '/_authenticated/analise'
+      path: '/analise'
+      fullPath: '/analise'
+      preLoaderRoute: typeof AuthenticatedAnaliseRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/atividades': {
+      id: '/_authenticated/atividades'
+      path: '/atividades'
+      fullPath: '/atividades'
+      preLoaderRoute: typeof AuthenticatedAtividadesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/auditoria': {
+      id: '/_authenticated/auditoria'
+      path: '/auditoria'
+      fullPath: '/auditoria'
+      preLoaderRoute: typeof AuthenticatedAuditoriaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/canal-oficial': {
+      id: '/_authenticated/canal-oficial'
+      path: '/canal-oficial'
+      fullPath: '/canal-oficial'
+      preLoaderRoute: typeof AuthenticatedCanalOficialRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/configuracoes': {
@@ -200,11 +847,81 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedEquipeRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/fila': {
+      id: '/_authenticated/fila'
+      path: '/fila'
+      fullPath: '/fila'
+      preLoaderRoute: typeof AuthenticatedFilaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/_authenticated/funil': {
       id: '/_authenticated/funil'
       path: '/funil'
       fullPath: '/funil'
       preLoaderRoute: typeof AuthenticatedFunilRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/funis': {
+      id: '/_authenticated/funis'
+      path: '/funis'
+      fullPath: '/funis'
+      preLoaderRoute: typeof AuthenticatedFunisRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/metricas': {
+      id: '/_authenticated/metricas'
+      path: '/metricas'
+      fullPath: '/metricas'
+      preLoaderRoute: typeof AuthenticatedMetricasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/modelos': {
+      id: '/_authenticated/modelos'
+      path: '/modelos'
+      fullPath: '/modelos'
+      preLoaderRoute: typeof AuthenticatedModelosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/painel': {
+      id: '/_authenticated/painel'
+      path: '/painel'
+      fullPath: '/painel'
+      preLoaderRoute: typeof AuthenticatedPainelRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/primeiros-passos': {
+      id: '/_authenticated/primeiros-passos'
+      path: '/primeiros-passos'
+      fullPath: '/primeiros-passos'
+      preLoaderRoute: typeof AuthenticatedPrimeirosPassosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/privacidade': {
+      id: '/_authenticated/privacidade'
+      path: '/privacidade'
+      fullPath: '/privacidade'
+      preLoaderRoute: typeof AuthenticatedPrivacidadeRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/produtos': {
+      id: '/_authenticated/produtos'
+      path: '/produtos'
+      fullPath: '/produtos'
+      preLoaderRoute: typeof AuthenticatedProdutosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/radar': {
+      id: '/_authenticated/radar'
+      path: '/radar'
+      fullPath: '/radar'
+      preLoaderRoute: typeof AuthenticatedRadarRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/respostas-rapidas': {
+      id: '/_authenticated/respostas-rapidas'
+      path: '/respostas-rapidas'
+      fullPath: '/respostas-rapidas'
+      preLoaderRoute: typeof AuthenticatedRespostasRapidasRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/tarefas': {
@@ -221,27 +938,359 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedWhatsappRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/erro/403': {
+      id: '/erro/403'
+      path: '/erro/403'
+      fullPath: '/erro/403'
+      preLoaderRoute: typeof Erro403RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/erro/500': {
+      id: '/erro/500'
+      path: '/erro/500'
+      fullPath: '/erro/500'
+      preLoaderRoute: typeof Erro500RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/erro/503': {
+      id: '/erro/503'
+      path: '/erro/503'
+      fullPath: '/erro/503'
+      preLoaderRoute: typeof Erro503RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/privacidade': {
+      id: '/legal/privacidade'
+      path: '/legal/privacidade'
+      fullPath: '/legal/privacidade'
+      preLoaderRoute: typeof LegalPrivacidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/legal/termos': {
+      id: '/legal/termos'
+      path: '/legal/termos'
+      fullPath: '/legal/termos'
+      preLoaderRoute: typeof LegalTermosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/senha/esqueci': {
+      id: '/senha/esqueci'
+      path: '/senha/esqueci'
+      fullPath: '/senha/esqueci'
+      preLoaderRoute: typeof SenhaEsqueciRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/senha/redefinir': {
+      id: '/senha/redefinir'
+      path: '/senha/redefinir'
+      fullPath: '/senha/redefinir'
+      preLoaderRoute: typeof SenhaRedefinirRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/configuracoes/': {
+      id: '/_authenticated/configuracoes/'
+      path: '/'
+      fullPath: '/configuracoes/'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesIndexRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/agenda': {
+      id: '/_authenticated/configuracoes/agenda'
+      path: '/agenda'
+      fullPath: '/configuracoes/agenda'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesAgendaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/atendimento': {
+      id: '/_authenticated/configuracoes/atendimento'
+      path: '/atendimento'
+      fullPath: '/configuracoes/atendimento'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesAtendimentoRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/etiquetas': {
+      id: '/_authenticated/configuracoes/etiquetas'
+      path: '/etiquetas'
+      fullPath: '/configuracoes/etiquetas'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesEtiquetasRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/funis': {
+      id: '/_authenticated/configuracoes/funis'
+      path: '/funis'
+      fullPath: '/configuracoes/funis'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesFunisRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/marca': {
+      id: '/_authenticated/configuracoes/marca'
+      path: '/marca'
+      fullPath: '/configuracoes/marca'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesMarcaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/modelos': {
+      id: '/_authenticated/configuracoes/modelos'
+      path: '/modelos'
+      fullPath: '/configuracoes/modelos'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesModelosRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/notificacoes': {
+      id: '/_authenticated/configuracoes/notificacoes'
+      path: '/notificacoes'
+      fullPath: '/configuracoes/notificacoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesNotificacoesRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/perfil': {
+      id: '/_authenticated/configuracoes/perfil'
+      path: '/perfil'
+      fullPath: '/configuracoes/perfil'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesPerfilRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/seguranca': {
+      id: '/_authenticated/configuracoes/seguranca'
+      path: '/seguranca'
+      fullPath: '/configuracoes/seguranca'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesSegurancaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/contatos/$id': {
+      id: '/_authenticated/contatos/$id'
+      path: '/$id'
+      fullPath: '/contatos/$id'
+      preLoaderRoute: typeof AuthenticatedContatosIdRouteImport
+      parentRoute: typeof AuthenticatedContatosRoute
+    }
+    '/_authenticated/ia/': {
+      id: '/_authenticated/ia/'
+      path: '/ia'
+      fullPath: '/ia/'
+      preLoaderRoute: typeof AuthenticatedIaIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/agentes': {
+      id: '/_authenticated/ia/agentes'
+      path: '/ia/agentes'
+      fullPath: '/ia/agentes'
+      preLoaderRoute: typeof AuthenticatedIaAgentesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/casos': {
+      id: '/_authenticated/ia/casos'
+      path: '/ia/casos'
+      fullPath: '/ia/casos'
+      preLoaderRoute: typeof AuthenticatedIaCasosRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/conhecimento': {
+      id: '/_authenticated/ia/conhecimento'
+      path: '/ia/conhecimento'
+      fullPath: '/ia/conhecimento'
+      preLoaderRoute: typeof AuthenticatedIaConhecimentoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/consumo': {
+      id: '/_authenticated/ia/consumo'
+      path: '/ia/consumo'
+      fullPath: '/ia/consumo'
+      preLoaderRoute: typeof AuthenticatedIaConsumoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/conversas': {
+      id: '/_authenticated/ia/conversas'
+      path: '/ia/conversas'
+      fullPath: '/ia/conversas'
+      preLoaderRoute: typeof AuthenticatedIaConversasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/execucoes': {
+      id: '/_authenticated/ia/execucoes'
+      path: '/ia/execucoes'
+      fullPath: '/ia/execucoes'
+      preLoaderRoute: typeof AuthenticatedIaExecucoesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/followups': {
+      id: '/_authenticated/ia/followups'
+      path: '/ia/followups'
+      fullPath: '/ia/followups'
+      preLoaderRoute: typeof AuthenticatedIaFollowupsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/habilidades': {
+      id: '/_authenticated/ia/habilidades'
+      path: '/ia/habilidades'
+      fullPath: '/ia/habilidades'
+      preLoaderRoute: typeof AuthenticatedIaHabilidadesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/memoria': {
+      id: '/_authenticated/ia/memoria'
+      path: '/ia/memoria'
+      fullPath: '/ia/memoria'
+      preLoaderRoute: typeof AuthenticatedIaMemoriaRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/propostas': {
+      id: '/_authenticated/ia/propostas'
+      path: '/ia/propostas'
+      fullPath: '/ia/propostas'
+      preLoaderRoute: typeof AuthenticatedIaPropostasRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/provedores': {
+      id: '/_authenticated/ia/provedores'
+      path: '/ia/provedores'
+      fullPath: '/ia/provedores'
+      preLoaderRoute: typeof AuthenticatedIaProvedoresRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ia/roteamento': {
+      id: '/_authenticated/ia/roteamento'
+      path: '/ia/roteamento'
+      fullPath: '/ia/roteamento'
+      preLoaderRoute: typeof AuthenticatedIaRoteamentoRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/negocios/$id': {
+      id: '/_authenticated/negocios/$id'
+      path: '/negocios/$id'
+      fullPath: '/negocios/$id'
+      preLoaderRoute: typeof AuthenticatedNegociosIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedConfiguracoesRouteChildren {
+  AuthenticatedConfiguracoesAgendaRoute: typeof AuthenticatedConfiguracoesAgendaRoute
+  AuthenticatedConfiguracoesAtendimentoRoute: typeof AuthenticatedConfiguracoesAtendimentoRoute
+  AuthenticatedConfiguracoesEtiquetasRoute: typeof AuthenticatedConfiguracoesEtiquetasRoute
+  AuthenticatedConfiguracoesFunisRoute: typeof AuthenticatedConfiguracoesFunisRoute
+  AuthenticatedConfiguracoesMarcaRoute: typeof AuthenticatedConfiguracoesMarcaRoute
+  AuthenticatedConfiguracoesModelosRoute: typeof AuthenticatedConfiguracoesModelosRoute
+  AuthenticatedConfiguracoesNotificacoesRoute: typeof AuthenticatedConfiguracoesNotificacoesRoute
+  AuthenticatedConfiguracoesPerfilRoute: typeof AuthenticatedConfiguracoesPerfilRoute
+  AuthenticatedConfiguracoesSegurancaRoute: typeof AuthenticatedConfiguracoesSegurancaRoute
+  AuthenticatedConfiguracoesIndexRoute: typeof AuthenticatedConfiguracoesIndexRoute
+}
+
+const AuthenticatedConfiguracoesRouteChildren: AuthenticatedConfiguracoesRouteChildren =
+  {
+    AuthenticatedConfiguracoesAgendaRoute:
+      AuthenticatedConfiguracoesAgendaRoute,
+    AuthenticatedConfiguracoesAtendimentoRoute:
+      AuthenticatedConfiguracoesAtendimentoRoute,
+    AuthenticatedConfiguracoesEtiquetasRoute:
+      AuthenticatedConfiguracoesEtiquetasRoute,
+    AuthenticatedConfiguracoesFunisRoute: AuthenticatedConfiguracoesFunisRoute,
+    AuthenticatedConfiguracoesMarcaRoute: AuthenticatedConfiguracoesMarcaRoute,
+    AuthenticatedConfiguracoesModelosRoute:
+      AuthenticatedConfiguracoesModelosRoute,
+    AuthenticatedConfiguracoesNotificacoesRoute:
+      AuthenticatedConfiguracoesNotificacoesRoute,
+    AuthenticatedConfiguracoesPerfilRoute:
+      AuthenticatedConfiguracoesPerfilRoute,
+    AuthenticatedConfiguracoesSegurancaRoute:
+      AuthenticatedConfiguracoesSegurancaRoute,
+    AuthenticatedConfiguracoesIndexRoute: AuthenticatedConfiguracoesIndexRoute,
+  }
+
+const AuthenticatedConfiguracoesRouteWithChildren =
+  AuthenticatedConfiguracoesRoute._addFileChildren(
+    AuthenticatedConfiguracoesRouteChildren,
+  )
+
+interface AuthenticatedContatosRouteChildren {
+  AuthenticatedContatosIdRoute: typeof AuthenticatedContatosIdRoute
+}
+
+const AuthenticatedContatosRouteChildren: AuthenticatedContatosRouteChildren = {
+  AuthenticatedContatosIdRoute: AuthenticatedContatosIdRoute,
+}
+
+const AuthenticatedContatosRouteWithChildren =
+  AuthenticatedContatosRoute._addFileChildren(
+    AuthenticatedContatosRouteChildren,
+  )
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
-  AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRoute
-  AuthenticatedContatosRoute: typeof AuthenticatedContatosRoute
+  AuthenticatedAnaliseRoute: typeof AuthenticatedAnaliseRoute
+  AuthenticatedAtividadesRoute: typeof AuthenticatedAtividadesRoute
+  AuthenticatedAuditoriaRoute: typeof AuthenticatedAuditoriaRoute
+  AuthenticatedCanalOficialRoute: typeof AuthenticatedCanalOficialRoute
+  AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRouteWithChildren
+  AuthenticatedContatosRoute: typeof AuthenticatedContatosRouteWithChildren
   AuthenticatedEquipeRoute: typeof AuthenticatedEquipeRoute
+  AuthenticatedFilaRoute: typeof AuthenticatedFilaRoute
   AuthenticatedFunilRoute: typeof AuthenticatedFunilRoute
+  AuthenticatedFunisRoute: typeof AuthenticatedFunisRoute
+  AuthenticatedMetricasRoute: typeof AuthenticatedMetricasRoute
+  AuthenticatedModelosRoute: typeof AuthenticatedModelosRoute
+  AuthenticatedPainelRoute: typeof AuthenticatedPainelRoute
+  AuthenticatedPrimeirosPassosRoute: typeof AuthenticatedPrimeirosPassosRoute
+  AuthenticatedPrivacidadeRoute: typeof AuthenticatedPrivacidadeRoute
+  AuthenticatedProdutosRoute: typeof AuthenticatedProdutosRoute
+  AuthenticatedRadarRoute: typeof AuthenticatedRadarRoute
+  AuthenticatedRespostasRapidasRoute: typeof AuthenticatedRespostasRapidasRoute
   AuthenticatedTarefasRoute: typeof AuthenticatedTarefasRoute
   AuthenticatedWhatsappRoute: typeof AuthenticatedWhatsappRoute
+  AuthenticatedIaAgentesRoute: typeof AuthenticatedIaAgentesRoute
+  AuthenticatedIaCasosRoute: typeof AuthenticatedIaCasosRoute
+  AuthenticatedIaConhecimentoRoute: typeof AuthenticatedIaConhecimentoRoute
+  AuthenticatedIaConsumoRoute: typeof AuthenticatedIaConsumoRoute
+  AuthenticatedIaConversasRoute: typeof AuthenticatedIaConversasRoute
+  AuthenticatedIaExecucoesRoute: typeof AuthenticatedIaExecucoesRoute
+  AuthenticatedIaFollowupsRoute: typeof AuthenticatedIaFollowupsRoute
+  AuthenticatedIaHabilidadesRoute: typeof AuthenticatedIaHabilidadesRoute
+  AuthenticatedIaMemoriaRoute: typeof AuthenticatedIaMemoriaRoute
+  AuthenticatedIaPropostasRoute: typeof AuthenticatedIaPropostasRoute
+  AuthenticatedIaProvedoresRoute: typeof AuthenticatedIaProvedoresRoute
+  AuthenticatedIaRoteamentoRoute: typeof AuthenticatedIaRoteamentoRoute
+  AuthenticatedNegociosIdRoute: typeof AuthenticatedNegociosIdRoute
+  AuthenticatedIaIndexRoute: typeof AuthenticatedIaIndexRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedAgendaRoute: AuthenticatedAgendaRoute,
-  AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRoute,
-  AuthenticatedContatosRoute: AuthenticatedContatosRoute,
+  AuthenticatedAnaliseRoute: AuthenticatedAnaliseRoute,
+  AuthenticatedAtividadesRoute: AuthenticatedAtividadesRoute,
+  AuthenticatedAuditoriaRoute: AuthenticatedAuditoriaRoute,
+  AuthenticatedCanalOficialRoute: AuthenticatedCanalOficialRoute,
+  AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRouteWithChildren,
+  AuthenticatedContatosRoute: AuthenticatedContatosRouteWithChildren,
   AuthenticatedEquipeRoute: AuthenticatedEquipeRoute,
+  AuthenticatedFilaRoute: AuthenticatedFilaRoute,
   AuthenticatedFunilRoute: AuthenticatedFunilRoute,
+  AuthenticatedFunisRoute: AuthenticatedFunisRoute,
+  AuthenticatedMetricasRoute: AuthenticatedMetricasRoute,
+  AuthenticatedModelosRoute: AuthenticatedModelosRoute,
+  AuthenticatedPainelRoute: AuthenticatedPainelRoute,
+  AuthenticatedPrimeirosPassosRoute: AuthenticatedPrimeirosPassosRoute,
+  AuthenticatedPrivacidadeRoute: AuthenticatedPrivacidadeRoute,
+  AuthenticatedProdutosRoute: AuthenticatedProdutosRoute,
+  AuthenticatedRadarRoute: AuthenticatedRadarRoute,
+  AuthenticatedRespostasRapidasRoute: AuthenticatedRespostasRapidasRoute,
   AuthenticatedTarefasRoute: AuthenticatedTarefasRoute,
   AuthenticatedWhatsappRoute: AuthenticatedWhatsappRoute,
+  AuthenticatedIaAgentesRoute: AuthenticatedIaAgentesRoute,
+  AuthenticatedIaCasosRoute: AuthenticatedIaCasosRoute,
+  AuthenticatedIaConhecimentoRoute: AuthenticatedIaConhecimentoRoute,
+  AuthenticatedIaConsumoRoute: AuthenticatedIaConsumoRoute,
+  AuthenticatedIaConversasRoute: AuthenticatedIaConversasRoute,
+  AuthenticatedIaExecucoesRoute: AuthenticatedIaExecucoesRoute,
+  AuthenticatedIaFollowupsRoute: AuthenticatedIaFollowupsRoute,
+  AuthenticatedIaHabilidadesRoute: AuthenticatedIaHabilidadesRoute,
+  AuthenticatedIaMemoriaRoute: AuthenticatedIaMemoriaRoute,
+  AuthenticatedIaPropostasRoute: AuthenticatedIaPropostasRoute,
+  AuthenticatedIaProvedoresRoute: AuthenticatedIaProvedoresRoute,
+  AuthenticatedIaRoteamentoRoute: AuthenticatedIaRoteamentoRoute,
+  AuthenticatedNegociosIdRoute: AuthenticatedNegociosIdRoute,
+  AuthenticatedIaIndexRoute: AuthenticatedIaIndexRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =
@@ -250,7 +1299,16 @@ const AuthenticatedRouteRouteWithChildren =
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AcessoRevogadoRoute: AcessoRevogadoRoute,
   AuthRoute: AuthRoute,
+  VerificacaoRoute: VerificacaoRoute,
+  Erro403Route: Erro403Route,
+  Erro500Route: Erro500Route,
+  Erro503Route: Erro503Route,
+  LegalPrivacidadeRoute: LegalPrivacidadeRoute,
+  LegalTermosRoute: LegalTermosRoute,
+  SenhaEsqueciRoute: SenhaEsqueciRoute,
+  SenhaRedefinirRoute: SenhaRedefinirRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

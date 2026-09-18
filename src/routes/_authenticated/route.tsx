@@ -4,16 +4,8 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ensureProfile } from "@/lib/crm.functions";
 import { Brand } from "@/routes/auth";
-import {
-  MessageCircle,
-  Users,
-  KanbanSquare,
-  CalendarDays,
-  CheckSquare,
-  UserCog,
-  Settings,
-  LogOut,
-} from "lucide-react";
+import { LogOut } from "lucide-react";
+import { NAV_GROUPS } from "@/lib/nav";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -33,15 +25,6 @@ export const Route = createFileRoute("/_authenticated")({
   ),
 });
 
-const NAV = [
-  { to: "/whatsapp", label: "WhatsApp", icon: MessageCircle },
-  { to: "/contatos", label: "Contatos", icon: Users },
-  { to: "/funil", label: "Funil de Vendas", icon: KanbanSquare },
-  { to: "/agenda", label: "Agenda", icon: CalendarDays },
-  { to: "/tarefas", label: "Tarefas", icon: CheckSquare },
-  { to: "/equipe", label: "Equipe", icon: UserCog },
-  { to: "/configuracoes", label: "Configurações", icon: Settings },
-] as const;
 
 function AppLayout({ children }: { children: React.ReactNode }) {
   const queryClient = useQueryClient();
@@ -99,25 +82,32 @@ function AppLayout({ children }: { children: React.ReactNode }) {
         <div className="flex h-16 items-center border-b border-sidebar-border px-5">
           <Brand dark />
         </div>
-        <nav className="flex-1 space-y-1 overflow-y-auto px-3 py-4">
-          {NAV.map(({ to, label, icon: Icon }) => {
-            const active = pathname === to || pathname.startsWith(to + "/");
-            return (
-              <Link
-                key={to}
-                to={to}
-                className={cn(
-                  "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
-                  active
-                    ? "bg-sidebar-accent text-sidebar-accent-foreground"
-                    : "text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground",
-                )}
-              >
-                <Icon className="h-4 w-4" />
-                {label}
-              </Link>
-            );
-          })}
+        <nav className="flex-1 space-y-5 overflow-y-auto px-3 py-4">
+          {NAV_GROUPS.map((group) => (
+            <div key={group.label} className="space-y-1">
+              <p className="px-3 pb-1 text-[11px] font-semibold uppercase tracking-wider text-sidebar-foreground/40">
+                {group.label}
+              </p>
+              {group.items.map(({ to, label, icon: Icon }) => {
+                const active = pathname === to || pathname.startsWith(to + "/");
+                return (
+                  <Link
+                    key={to}
+                    to={to}
+                    className={cn(
+                      "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                      active
+                        ? "bg-sidebar-accent text-sidebar-accent-foreground"
+                        : "text-sidebar-foreground/70 hover:bg-sidebar-accent/60 hover:text-sidebar-foreground",
+                    )}
+                  >
+                    <Icon className="h-4 w-4 shrink-0" />
+                    <span className="truncate">{label}</span>
+                  </Link>
+                );
+              })}
+            </div>
+          ))}
         </nav>
         <div className="border-t border-sidebar-border p-3">
           <div className="flex items-center gap-3 rounded-lg px-2 py-2">

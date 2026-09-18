@@ -1,19 +1,27 @@
-# Roadmap — Reconstrução do CRM (v1)
+# Roadmap — CRM modelo (todas as telas e recursos)
 
-## Concluído
-- [x] Banco de dados: perfis, cargos (admin/membro), contatos, conversas/mensagens (realtime), funil/estágios/negócios/histórico, agenda, tarefas, configurações — com RLS e GRANTs
-- [x] Login por e-mail/senha + cadastro (primeiro usuário vira administrador)
-- [x] Casca: menu lateral (WhatsApp, Contatos, Funil, Agenda, Tarefas, Equipe, Configurações), identidade visual "Amoras CRM"
-- [x] Contatos: lista, busca, criar/editar/excluir, tags
-- [x] WhatsApp: lista de conversas, chat com mensagens em tempo real, envio interno registrado
-- [x] Funil: kanban com arrastar-e-soltar, valores, marcar ganho/perdido, funil padrão criado
-- [x] Agenda: calendário + compromissos por dia
-- [x] Tarefas: lista com prazo, responsável, concluir
-- [x] Equipe: membros, cargos (admin), adicionar acesso com senha provisória
-- [x] Configurações: nome do sistema, número do WhatsApp (admin), perfil próprio
+Fora de escopo permanente: menções a Deskcomm, ao autor (Rafael), configuração da Hostgator, conexão Nuvemshop, painel de administração da plataforma (multi-empresa/cobrança).
 
-## Pendente
-- [ ] Varredura final de referências ao autor (regra permanente; fazer antes de publicar)
-- [ ] WhatsApp real (envio/recebimento) via gateway/webhook do servidor Portainer atual — aguarda o usuário conectar o gateway
-- [ ] Docker/Portainer: Dockerfile + compose no final
-- [ ] Decisão do usuário: manter ou desativar confirmação de e-mail no cadastro
+## Fase 1 — Visual de todas as telas (dados de exemplo)
+- [x] Menu lateral completo por grupos (Início, Atendimento, Vendas, Agenda, IA, Relatórios, Administração)
+- [ ] Atendimento: fila, respostas rápidas, modelos de mensagem, canal oficial
+- [ ] Vendas: ficha do contato, ficha do negócio, funis e estágios, produtos, atividades
+- [ ] IA: visão geral, agentes, habilidades, roteamento, conhecimento, memória, casos, propostas, follow-up, execuções, conversas, provedores, consumo, evolução
+- [ ] Relatórios: painel, métricas, análise, radar, auditoria, privacidade (LGPD)
+- [ ] Configurações (área com subpáginas) + equipe/convite
+- [ ] Entrada e apoio: esqueci/redefinir senha, verificação em duas etapas, primeiros passos, páginas de erro, termos e privacidade, agendamento público
+
+## Fase 2 — Ligar ao banco
+- [ ] Migrações por bloco (etiquetas, modelos, produtos, atividades, IA, follow-up, auditoria, notificações, chaves de API, webhooks, LGPD) com RLS + GRANT
+- [ ] Substituir dados de exemplo por dados reais, com permissões por cargo
+
+## Fase 3 — WhatsApp real e IA ligada
+- [ ] Gateway do WhatsApp (servidor do cliente, mesmo número) via webhook
+- [ ] Agentes de IA respondendo de verdade
+
+## Fase 4 — Modelo instalável na VPS
+- [ ] Dockerfile + compose + instruções, banco e login próprios do cliente
+
+## Pendências com o usuário
+- [ ] Confirmação de e-mail no cadastro: manter ou desligar
+- [ ] Chaves das integrações externas (WhatsApp, Meta Ads, Google, e-mail)
