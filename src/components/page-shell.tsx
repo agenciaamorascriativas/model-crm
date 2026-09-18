@@ -10,9 +10,9 @@ export function PageHeader({
   demo = false,
 }: {
   title: string;
-  description?: string;
-  actions?: React.ReactNode;
-  demo?: boolean;
+  description?: string | undefined;
+  actions?: React.ReactNode | undefined;
+  demo?: boolean | undefined;
 }) {
   return (
     <div className="mb-6 flex flex-wrap items-start justify-between gap-4">
@@ -39,8 +39,8 @@ export function PageContainer({
   wide = false,
 }: {
   children: React.ReactNode;
-  className?: string;
-  wide?: boolean;
+  className?: string | undefined;
+  wide?: boolean | undefined;
 }) {
   return (
     <div className={cn("mx-auto p-8", wide ? "max-w-7xl" : "max-w-6xl", className)}>{children}</div>
@@ -56,8 +56,8 @@ export function StatCard({
 }: {
   label: string;
   value: string | number;
-  hint?: string;
-  icon?: LucideIcon;
+  hint?: string | undefined;
+  icon?: LucideIcon | undefined;
 }) {
   return (
     <div className="rounded-2xl border bg-card p-5 shadow-sm">
@@ -79,9 +79,9 @@ export function EmptyState({
   action,
 }: {
   title: string;
-  description?: string;
-  icon?: LucideIcon;
-  action?: React.ReactNode;
+  description?: string | undefined;
+  icon?: LucideIcon | undefined;
+  action?: React.ReactNode | undefined;
 }) {
   return (
     <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed bg-card/50 px-6 py-14 text-center">
@@ -102,10 +102,10 @@ export function Panel({
   className,
 }: {
   title?: string;
-  description?: string;
-  actions?: React.ReactNode;
+  description?: string | undefined;
+  actions?: React.ReactNode | undefined;
   children: React.ReactNode;
-  className?: string;
+  className?: string | undefined;
 }) {
   return (
     <section className={cn("rounded-2xl border bg-card shadow-sm", className)}>
