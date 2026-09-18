@@ -16,7 +16,7 @@ export const Route = createFileRoute("/_authenticated/configuracoes")({
   component: ConfiguracoesLayout,
 });
 
-type SubNavItem = { to: LinkProps["to"]; label: string };
+type SubNavItem = { to: NonNullable<LinkProps["to"]>; label: string };
 type SubNavGroup = { label: string; items: SubNavItem[] };
 
 const SUBNAV: SubNavGroup[] = [

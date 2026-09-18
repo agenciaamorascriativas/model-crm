@@ -27,8 +27,8 @@ function PerfilPage() {
   const [nome, setNome] = useState(meuPerfilDemo.nome);
   const [cargo, setCargo] = useState(meuPerfilDemo.cargo);
   const [telefone, setTelefone] = useState(meuPerfilDemo.telefone);
-  const [idioma, setIdioma] = useState(meuPerfilDemo.idioma);
-  const [fuso, setFuso] = useState(meuPerfilDemo.fuso);
+  const [idioma, setIdioma] = useState(meuPerfilDemo.idioma ?? "");
+  const [fuso, setFuso] = useState(meuPerfilDemo.fuso ?? "");
   const [assinatura, setAssinatura] = useState(meuPerfilDemo.assinatura);
 
   const iniciais = nome.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();

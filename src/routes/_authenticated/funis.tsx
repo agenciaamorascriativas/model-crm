@@ -149,7 +149,10 @@ function FunisPage() {
         const index = ordenadas.findIndex((e) => e.id === etapaId);
         const alvo = index + direcao;
         if (alvo < 0 || alvo >= ordenadas.length) return f;
-        [ordenadas[index], ordenadas[alvo]] = [ordenadas[alvo], ordenadas[index]];
+        const a = ordenadas[index]!;
+        const b = ordenadas[alvo]!;
+        ordenadas[index] = b;
+        ordenadas[alvo] = a;
         return { ...f, etapas: ordenadas.map((e, i) => ({ ...e, ordem: i + 1 })) };
       }),
     );
