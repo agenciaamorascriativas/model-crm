@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AcessoRevogadoRouteImport } from './routes/acesso-revogado'
+import { Route as AgendarRouteImport } from './routes/agendar'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as VerificacaoRouteImport } from './routes/verificacao'
 import { Route as AuthenticatedAgendaRouteImport } from './routes/_authenticated/agenda'
@@ -44,15 +45,23 @@ import { Route as SenhaEsqueciRouteImport } from './routes/senha.esqueci'
 import { Route as SenhaRedefinirRouteImport } from './routes/senha.redefinir'
 import { Route as AuthenticatedConfiguracoesIndexRouteImport } from './routes/_authenticated/configuracoes.index'
 import { Route as AuthenticatedConfiguracoesAgendaRouteImport } from './routes/_authenticated/configuracoes.agenda'
+import { Route as AuthenticatedConfiguracoesApiRouteImport } from './routes/_authenticated/configuracoes.api'
 import { Route as AuthenticatedConfiguracoesAtendimentoRouteImport } from './routes/_authenticated/configuracoes.atendimento'
+import { Route as AuthenticatedConfiguracoesAtualizacaoRouteImport } from './routes/_authenticated/configuracoes.atualizacao'
+import { Route as AuthenticatedConfiguracoesConexoesRouteImport } from './routes/_authenticated/configuracoes.conexoes'
+import { Route as AuthenticatedConfiguracoesConversoesRouteImport } from './routes/_authenticated/configuracoes.conversoes'
 import { Route as AuthenticatedConfiguracoesEtiquetasRouteImport } from './routes/_authenticated/configuracoes.etiquetas'
 import { Route as AuthenticatedConfiguracoesFunisRouteImport } from './routes/_authenticated/configuracoes.funis'
 import { Route as AuthenticatedConfiguracoesMarcaRouteImport } from './routes/_authenticated/configuracoes.marca'
+import { Route as AuthenticatedConfiguracoesMetaAdsRouteImport } from './routes/_authenticated/configuracoes.meta-ads'
 import { Route as AuthenticatedConfiguracoesModelosRouteImport } from './routes/_authenticated/configuracoes.modelos'
 import { Route as AuthenticatedConfiguracoesNotificacoesRouteImport } from './routes/_authenticated/configuracoes.notificacoes'
 import { Route as AuthenticatedConfiguracoesPerfilRouteImport } from './routes/_authenticated/configuracoes.perfil'
 import { Route as AuthenticatedConfiguracoesSegurancaRouteImport } from './routes/_authenticated/configuracoes.seguranca'
+import { Route as AuthenticatedConfiguracoesWebhooksRouteImport } from './routes/_authenticated/configuracoes.webhooks'
+import { Route as AuthenticatedConfiguracoesWhatsappRouteImport } from './routes/_authenticated/configuracoes.whatsapp'
 import { Route as AuthenticatedContatosIdRouteImport } from './routes/_authenticated/contatos.$id'
+import { Route as AuthenticatedEquipeConviteRouteImport } from './routes/_authenticated/equipe.convite'
 import { Route as AuthenticatedIaIndexRouteImport } from './routes/_authenticated/ia.index'
 import { Route as AuthenticatedIaAgentesRouteImport } from './routes/_authenticated/ia.agentes'
 import { Route as AuthenticatedIaCasosRouteImport } from './routes/_authenticated/ia.casos'
@@ -80,6 +89,11 @@ const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
 const AcessoRevogadoRoute = AcessoRevogadoRouteImport.update({
   id: '/acesso-revogado',
   path: '/acesso-revogado',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgendarRoute = AgendarRouteImport.update({
+  id: '/agendar',
+  path: '/agendar',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -249,10 +263,34 @@ const AuthenticatedConfiguracoesAgendaRoute =
     path: '/agenda',
     getParentRoute: () => AuthenticatedConfiguracoesRoute,
   } as any)
+const AuthenticatedConfiguracoesApiRoute =
+  AuthenticatedConfiguracoesApiRouteImport.update({
+    id: '/api',
+    path: '/api',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
 const AuthenticatedConfiguracoesAtendimentoRoute =
   AuthenticatedConfiguracoesAtendimentoRouteImport.update({
     id: '/atendimento',
     path: '/atendimento',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesAtualizacaoRoute =
+  AuthenticatedConfiguracoesAtualizacaoRouteImport.update({
+    id: '/atualizacao',
+    path: '/atualizacao',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesConexoesRoute =
+  AuthenticatedConfiguracoesConexoesRouteImport.update({
+    id: '/conexoes',
+    path: '/conexoes',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesConversoesRoute =
+  AuthenticatedConfiguracoesConversoesRouteImport.update({
+    id: '/conversoes',
+    path: '/conversoes',
     getParentRoute: () => AuthenticatedConfiguracoesRoute,
   } as any)
 const AuthenticatedConfiguracoesEtiquetasRoute =
@@ -271,6 +309,12 @@ const AuthenticatedConfiguracoesMarcaRoute =
   AuthenticatedConfiguracoesMarcaRouteImport.update({
     id: '/marca',
     path: '/marca',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesMetaAdsRoute =
+  AuthenticatedConfiguracoesMetaAdsRouteImport.update({
+    id: '/meta-ads',
+    path: '/meta-ads',
     getParentRoute: () => AuthenticatedConfiguracoesRoute,
   } as any)
 const AuthenticatedConfiguracoesModelosRoute =
@@ -297,11 +341,29 @@ const AuthenticatedConfiguracoesSegurancaRoute =
     path: '/seguranca',
     getParentRoute: () => AuthenticatedConfiguracoesRoute,
   } as any)
+const AuthenticatedConfiguracoesWebhooksRoute =
+  AuthenticatedConfiguracoesWebhooksRouteImport.update({
+    id: '/webhooks',
+    path: '/webhooks',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
+const AuthenticatedConfiguracoesWhatsappRoute =
+  AuthenticatedConfiguracoesWhatsappRouteImport.update({
+    id: '/whatsapp',
+    path: '/whatsapp',
+    getParentRoute: () => AuthenticatedConfiguracoesRoute,
+  } as any)
 const AuthenticatedContatosIdRoute = AuthenticatedContatosIdRouteImport.update({
   id: '/$id',
   path: '/$id',
   getParentRoute: () => AuthenticatedContatosRoute,
 } as any)
+const AuthenticatedEquipeConviteRoute =
+  AuthenticatedEquipeConviteRouteImport.update({
+    id: '/convite',
+    path: '/convite',
+    getParentRoute: () => AuthenticatedEquipeRoute,
+  } as any)
 const AuthenticatedIaIndexRoute = AuthenticatedIaIndexRouteImport.update({
   id: '/ia/',
   path: '/ia/',
@@ -384,6 +446,7 @@ const AuthenticatedNegociosIdRoute = AuthenticatedNegociosIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/acesso-revogado': typeof AcessoRevogadoRoute
+  '/agendar': typeof AgendarRoute
   '/auth': typeof AuthRoute
   '/verificacao': typeof VerificacaoRoute
   '/agenda': typeof AuthenticatedAgendaRoute
@@ -393,7 +456,7 @@ export interface FileRoutesByFullPath {
   '/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
   '/contatos': typeof AuthenticatedContatosRouteWithChildren
-  '/equipe': typeof AuthenticatedEquipeRoute
+  '/equipe': typeof AuthenticatedEquipeRouteWithChildren
   '/fila': typeof AuthenticatedFilaRoute
   '/funil': typeof AuthenticatedFunilRoute
   '/funis': typeof AuthenticatedFunisRoute
@@ -415,15 +478,23 @@ export interface FileRoutesByFullPath {
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/configuracoes/api': typeof AuthenticatedConfiguracoesApiRoute
   '/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/configuracoes/atualizacao': typeof AuthenticatedConfiguracoesAtualizacaoRoute
+  '/configuracoes/conexoes': typeof AuthenticatedConfiguracoesConexoesRoute
+  '/configuracoes/conversoes': typeof AuthenticatedConfiguracoesConversoesRoute
   '/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
   '/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
   '/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/configuracoes/meta-ads': typeof AuthenticatedConfiguracoesMetaAdsRoute
   '/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
   '/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
   '/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
   '/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
+  '/configuracoes/webhooks': typeof AuthenticatedConfiguracoesWebhooksRoute
+  '/configuracoes/whatsapp': typeof AuthenticatedConfiguracoesWhatsappRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/equipe/convite': typeof AuthenticatedEquipeConviteRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/ia/casos': typeof AuthenticatedIaCasosRoute
   '/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
@@ -443,6 +514,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/acesso-revogado': typeof AcessoRevogadoRoute
+  '/agendar': typeof AgendarRoute
   '/auth': typeof AuthRoute
   '/verificacao': typeof VerificacaoRoute
   '/agenda': typeof AuthenticatedAgendaRoute
@@ -451,7 +523,7 @@ export interface FileRoutesByTo {
   '/auditoria': typeof AuthenticatedAuditoriaRoute
   '/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/contatos': typeof AuthenticatedContatosRouteWithChildren
-  '/equipe': typeof AuthenticatedEquipeRoute
+  '/equipe': typeof AuthenticatedEquipeRouteWithChildren
   '/fila': typeof AuthenticatedFilaRoute
   '/funil': typeof AuthenticatedFunilRoute
   '/funis': typeof AuthenticatedFunisRoute
@@ -473,15 +545,23 @@ export interface FileRoutesByTo {
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/configuracoes/api': typeof AuthenticatedConfiguracoesApiRoute
   '/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/configuracoes/atualizacao': typeof AuthenticatedConfiguracoesAtualizacaoRoute
+  '/configuracoes/conexoes': typeof AuthenticatedConfiguracoesConexoesRoute
+  '/configuracoes/conversoes': typeof AuthenticatedConfiguracoesConversoesRoute
   '/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
   '/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
   '/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/configuracoes/meta-ads': typeof AuthenticatedConfiguracoesMetaAdsRoute
   '/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
   '/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
   '/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
   '/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
+  '/configuracoes/webhooks': typeof AuthenticatedConfiguracoesWebhooksRoute
+  '/configuracoes/whatsapp': typeof AuthenticatedConfiguracoesWhatsappRoute
   '/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/equipe/convite': typeof AuthenticatedEquipeConviteRoute
   '/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/ia/casos': typeof AuthenticatedIaCasosRoute
   '/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
@@ -503,6 +583,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/acesso-revogado': typeof AcessoRevogadoRoute
+  '/agendar': typeof AgendarRoute
   '/auth': typeof AuthRoute
   '/verificacao': typeof VerificacaoRoute
   '/_authenticated/agenda': typeof AuthenticatedAgendaRoute
@@ -512,7 +593,7 @@ export interface FileRoutesById {
   '/_authenticated/canal-oficial': typeof AuthenticatedCanalOficialRoute
   '/_authenticated/configuracoes': typeof AuthenticatedConfiguracoesRouteWithChildren
   '/_authenticated/contatos': typeof AuthenticatedContatosRouteWithChildren
-  '/_authenticated/equipe': typeof AuthenticatedEquipeRoute
+  '/_authenticated/equipe': typeof AuthenticatedEquipeRouteWithChildren
   '/_authenticated/fila': typeof AuthenticatedFilaRoute
   '/_authenticated/funil': typeof AuthenticatedFunilRoute
   '/_authenticated/funis': typeof AuthenticatedFunisRoute
@@ -534,15 +615,23 @@ export interface FileRoutesById {
   '/senha/esqueci': typeof SenhaEsqueciRoute
   '/senha/redefinir': typeof SenhaRedefinirRoute
   '/_authenticated/configuracoes/agenda': typeof AuthenticatedConfiguracoesAgendaRoute
+  '/_authenticated/configuracoes/api': typeof AuthenticatedConfiguracoesApiRoute
   '/_authenticated/configuracoes/atendimento': typeof AuthenticatedConfiguracoesAtendimentoRoute
+  '/_authenticated/configuracoes/atualizacao': typeof AuthenticatedConfiguracoesAtualizacaoRoute
+  '/_authenticated/configuracoes/conexoes': typeof AuthenticatedConfiguracoesConexoesRoute
+  '/_authenticated/configuracoes/conversoes': typeof AuthenticatedConfiguracoesConversoesRoute
   '/_authenticated/configuracoes/etiquetas': typeof AuthenticatedConfiguracoesEtiquetasRoute
   '/_authenticated/configuracoes/funis': typeof AuthenticatedConfiguracoesFunisRoute
   '/_authenticated/configuracoes/marca': typeof AuthenticatedConfiguracoesMarcaRoute
+  '/_authenticated/configuracoes/meta-ads': typeof AuthenticatedConfiguracoesMetaAdsRoute
   '/_authenticated/configuracoes/modelos': typeof AuthenticatedConfiguracoesModelosRoute
   '/_authenticated/configuracoes/notificacoes': typeof AuthenticatedConfiguracoesNotificacoesRoute
   '/_authenticated/configuracoes/perfil': typeof AuthenticatedConfiguracoesPerfilRoute
   '/_authenticated/configuracoes/seguranca': typeof AuthenticatedConfiguracoesSegurancaRoute
+  '/_authenticated/configuracoes/webhooks': typeof AuthenticatedConfiguracoesWebhooksRoute
+  '/_authenticated/configuracoes/whatsapp': typeof AuthenticatedConfiguracoesWhatsappRoute
   '/_authenticated/contatos/$id': typeof AuthenticatedContatosIdRoute
+  '/_authenticated/equipe/convite': typeof AuthenticatedEquipeConviteRoute
   '/_authenticated/ia/agentes': typeof AuthenticatedIaAgentesRoute
   '/_authenticated/ia/casos': typeof AuthenticatedIaCasosRoute
   '/_authenticated/ia/conhecimento': typeof AuthenticatedIaConhecimentoRoute
@@ -564,6 +653,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/acesso-revogado'
+    | '/agendar'
     | '/auth'
     | '/verificacao'
     | '/agenda'
@@ -595,15 +685,23 @@ export interface FileRouteTypes {
     | '/senha/esqueci'
     | '/senha/redefinir'
     | '/configuracoes/agenda'
+    | '/configuracoes/api'
     | '/configuracoes/atendimento'
+    | '/configuracoes/atualizacao'
+    | '/configuracoes/conexoes'
+    | '/configuracoes/conversoes'
     | '/configuracoes/etiquetas'
     | '/configuracoes/funis'
     | '/configuracoes/marca'
+    | '/configuracoes/meta-ads'
     | '/configuracoes/modelos'
     | '/configuracoes/notificacoes'
     | '/configuracoes/perfil'
     | '/configuracoes/seguranca'
+    | '/configuracoes/webhooks'
+    | '/configuracoes/whatsapp'
     | '/contatos/$id'
+    | '/equipe/convite'
     | '/ia/agentes'
     | '/ia/casos'
     | '/ia/conhecimento'
@@ -623,6 +721,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/acesso-revogado'
+    | '/agendar'
     | '/auth'
     | '/verificacao'
     | '/agenda'
@@ -653,15 +752,23 @@ export interface FileRouteTypes {
     | '/senha/esqueci'
     | '/senha/redefinir'
     | '/configuracoes/agenda'
+    | '/configuracoes/api'
     | '/configuracoes/atendimento'
+    | '/configuracoes/atualizacao'
+    | '/configuracoes/conexoes'
+    | '/configuracoes/conversoes'
     | '/configuracoes/etiquetas'
     | '/configuracoes/funis'
     | '/configuracoes/marca'
+    | '/configuracoes/meta-ads'
     | '/configuracoes/modelos'
     | '/configuracoes/notificacoes'
     | '/configuracoes/perfil'
     | '/configuracoes/seguranca'
+    | '/configuracoes/webhooks'
+    | '/configuracoes/whatsapp'
     | '/contatos/$id'
+    | '/equipe/convite'
     | '/ia/agentes'
     | '/ia/casos'
     | '/ia/conhecimento'
@@ -682,6 +789,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/acesso-revogado'
+    | '/agendar'
     | '/auth'
     | '/verificacao'
     | '/_authenticated/agenda'
@@ -713,15 +821,23 @@ export interface FileRouteTypes {
     | '/senha/esqueci'
     | '/senha/redefinir'
     | '/_authenticated/configuracoes/agenda'
+    | '/_authenticated/configuracoes/api'
     | '/_authenticated/configuracoes/atendimento'
+    | '/_authenticated/configuracoes/atualizacao'
+    | '/_authenticated/configuracoes/conexoes'
+    | '/_authenticated/configuracoes/conversoes'
     | '/_authenticated/configuracoes/etiquetas'
     | '/_authenticated/configuracoes/funis'
     | '/_authenticated/configuracoes/marca'
+    | '/_authenticated/configuracoes/meta-ads'
     | '/_authenticated/configuracoes/modelos'
     | '/_authenticated/configuracoes/notificacoes'
     | '/_authenticated/configuracoes/perfil'
     | '/_authenticated/configuracoes/seguranca'
+    | '/_authenticated/configuracoes/webhooks'
+    | '/_authenticated/configuracoes/whatsapp'
     | '/_authenticated/contatos/$id'
+    | '/_authenticated/equipe/convite'
     | '/_authenticated/ia/agentes'
     | '/_authenticated/ia/casos'
     | '/_authenticated/ia/conhecimento'
@@ -743,6 +859,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AcessoRevogadoRoute: typeof AcessoRevogadoRoute
+  AgendarRoute: typeof AgendarRoute
   AuthRoute: typeof AuthRoute
   VerificacaoRoute: typeof VerificacaoRoute
   Erro403Route: typeof Erro403Route
@@ -775,6 +892,13 @@ declare module '@tanstack/react-router' {
       path: '/acesso-revogado'
       fullPath: '/acesso-revogado'
       preLoaderRoute: typeof AcessoRevogadoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agendar': {
+      id: '/agendar'
+      path: '/agendar'
+      fullPath: '/agendar'
+      preLoaderRoute: typeof AgendarRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -1001,11 +1125,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConfiguracoesAgendaRouteImport
       parentRoute: typeof AuthenticatedConfiguracoesRoute
     }
+    '/_authenticated/configuracoes/api': {
+      id: '/_authenticated/configuracoes/api'
+      path: '/api'
+      fullPath: '/configuracoes/api'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesApiRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
     '/_authenticated/configuracoes/atendimento': {
       id: '/_authenticated/configuracoes/atendimento'
       path: '/atendimento'
       fullPath: '/configuracoes/atendimento'
       preLoaderRoute: typeof AuthenticatedConfiguracoesAtendimentoRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/atualizacao': {
+      id: '/_authenticated/configuracoes/atualizacao'
+      path: '/atualizacao'
+      fullPath: '/configuracoes/atualizacao'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesAtualizacaoRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/conexoes': {
+      id: '/_authenticated/configuracoes/conexoes'
+      path: '/conexoes'
+      fullPath: '/configuracoes/conexoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesConexoesRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/conversoes': {
+      id: '/_authenticated/configuracoes/conversoes'
+      path: '/conversoes'
+      fullPath: '/configuracoes/conversoes'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesConversoesRouteImport
       parentRoute: typeof AuthenticatedConfiguracoesRoute
     }
     '/_authenticated/configuracoes/etiquetas': {
@@ -1027,6 +1179,13 @@ declare module '@tanstack/react-router' {
       path: '/marca'
       fullPath: '/configuracoes/marca'
       preLoaderRoute: typeof AuthenticatedConfiguracoesMarcaRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/meta-ads': {
+      id: '/_authenticated/configuracoes/meta-ads'
+      path: '/meta-ads'
+      fullPath: '/configuracoes/meta-ads'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesMetaAdsRouteImport
       parentRoute: typeof AuthenticatedConfiguracoesRoute
     }
     '/_authenticated/configuracoes/modelos': {
@@ -1057,12 +1216,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedConfiguracoesSegurancaRouteImport
       parentRoute: typeof AuthenticatedConfiguracoesRoute
     }
+    '/_authenticated/configuracoes/webhooks': {
+      id: '/_authenticated/configuracoes/webhooks'
+      path: '/webhooks'
+      fullPath: '/configuracoes/webhooks'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesWebhooksRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
+    '/_authenticated/configuracoes/whatsapp': {
+      id: '/_authenticated/configuracoes/whatsapp'
+      path: '/whatsapp'
+      fullPath: '/configuracoes/whatsapp'
+      preLoaderRoute: typeof AuthenticatedConfiguracoesWhatsappRouteImport
+      parentRoute: typeof AuthenticatedConfiguracoesRoute
+    }
     '/_authenticated/contatos/$id': {
       id: '/_authenticated/contatos/$id'
       path: '/$id'
       fullPath: '/contatos/$id'
       preLoaderRoute: typeof AuthenticatedContatosIdRouteImport
       parentRoute: typeof AuthenticatedContatosRoute
+    }
+    '/_authenticated/equipe/convite': {
+      id: '/_authenticated/equipe/convite'
+      path: '/convite'
+      fullPath: '/equipe/convite'
+      preLoaderRoute: typeof AuthenticatedEquipeConviteRouteImport
+      parentRoute: typeof AuthenticatedEquipeRoute
     }
     '/_authenticated/ia/': {
       id: '/_authenticated/ia/'
@@ -1167,14 +1347,21 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedConfiguracoesRouteChildren {
   AuthenticatedConfiguracoesAgendaRoute: typeof AuthenticatedConfiguracoesAgendaRoute
+  AuthenticatedConfiguracoesApiRoute: typeof AuthenticatedConfiguracoesApiRoute
   AuthenticatedConfiguracoesAtendimentoRoute: typeof AuthenticatedConfiguracoesAtendimentoRoute
+  AuthenticatedConfiguracoesAtualizacaoRoute: typeof AuthenticatedConfiguracoesAtualizacaoRoute
+  AuthenticatedConfiguracoesConexoesRoute: typeof AuthenticatedConfiguracoesConexoesRoute
+  AuthenticatedConfiguracoesConversoesRoute: typeof AuthenticatedConfiguracoesConversoesRoute
   AuthenticatedConfiguracoesEtiquetasRoute: typeof AuthenticatedConfiguracoesEtiquetasRoute
   AuthenticatedConfiguracoesFunisRoute: typeof AuthenticatedConfiguracoesFunisRoute
   AuthenticatedConfiguracoesMarcaRoute: typeof AuthenticatedConfiguracoesMarcaRoute
+  AuthenticatedConfiguracoesMetaAdsRoute: typeof AuthenticatedConfiguracoesMetaAdsRoute
   AuthenticatedConfiguracoesModelosRoute: typeof AuthenticatedConfiguracoesModelosRoute
   AuthenticatedConfiguracoesNotificacoesRoute: typeof AuthenticatedConfiguracoesNotificacoesRoute
   AuthenticatedConfiguracoesPerfilRoute: typeof AuthenticatedConfiguracoesPerfilRoute
   AuthenticatedConfiguracoesSegurancaRoute: typeof AuthenticatedConfiguracoesSegurancaRoute
+  AuthenticatedConfiguracoesWebhooksRoute: typeof AuthenticatedConfiguracoesWebhooksRoute
+  AuthenticatedConfiguracoesWhatsappRoute: typeof AuthenticatedConfiguracoesWhatsappRoute
   AuthenticatedConfiguracoesIndexRoute: typeof AuthenticatedConfiguracoesIndexRoute
 }
 
@@ -1182,12 +1369,21 @@ const AuthenticatedConfiguracoesRouteChildren: AuthenticatedConfiguracoesRouteCh
   {
     AuthenticatedConfiguracoesAgendaRoute:
       AuthenticatedConfiguracoesAgendaRoute,
+    AuthenticatedConfiguracoesApiRoute: AuthenticatedConfiguracoesApiRoute,
     AuthenticatedConfiguracoesAtendimentoRoute:
       AuthenticatedConfiguracoesAtendimentoRoute,
+    AuthenticatedConfiguracoesAtualizacaoRoute:
+      AuthenticatedConfiguracoesAtualizacaoRoute,
+    AuthenticatedConfiguracoesConexoesRoute:
+      AuthenticatedConfiguracoesConexoesRoute,
+    AuthenticatedConfiguracoesConversoesRoute:
+      AuthenticatedConfiguracoesConversoesRoute,
     AuthenticatedConfiguracoesEtiquetasRoute:
       AuthenticatedConfiguracoesEtiquetasRoute,
     AuthenticatedConfiguracoesFunisRoute: AuthenticatedConfiguracoesFunisRoute,
     AuthenticatedConfiguracoesMarcaRoute: AuthenticatedConfiguracoesMarcaRoute,
+    AuthenticatedConfiguracoesMetaAdsRoute:
+      AuthenticatedConfiguracoesMetaAdsRoute,
     AuthenticatedConfiguracoesModelosRoute:
       AuthenticatedConfiguracoesModelosRoute,
     AuthenticatedConfiguracoesNotificacoesRoute:
@@ -1196,6 +1392,10 @@ const AuthenticatedConfiguracoesRouteChildren: AuthenticatedConfiguracoesRouteCh
       AuthenticatedConfiguracoesPerfilRoute,
     AuthenticatedConfiguracoesSegurancaRoute:
       AuthenticatedConfiguracoesSegurancaRoute,
+    AuthenticatedConfiguracoesWebhooksRoute:
+      AuthenticatedConfiguracoesWebhooksRoute,
+    AuthenticatedConfiguracoesWhatsappRoute:
+      AuthenticatedConfiguracoesWhatsappRoute,
     AuthenticatedConfiguracoesIndexRoute: AuthenticatedConfiguracoesIndexRoute,
   }
 
@@ -1217,6 +1417,17 @@ const AuthenticatedContatosRouteWithChildren =
     AuthenticatedContatosRouteChildren,
   )
 
+interface AuthenticatedEquipeRouteChildren {
+  AuthenticatedEquipeConviteRoute: typeof AuthenticatedEquipeConviteRoute
+}
+
+const AuthenticatedEquipeRouteChildren: AuthenticatedEquipeRouteChildren = {
+  AuthenticatedEquipeConviteRoute: AuthenticatedEquipeConviteRoute,
+}
+
+const AuthenticatedEquipeRouteWithChildren =
+  AuthenticatedEquipeRoute._addFileChildren(AuthenticatedEquipeRouteChildren)
+
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedAgendaRoute: typeof AuthenticatedAgendaRoute
   AuthenticatedAnaliseRoute: typeof AuthenticatedAnaliseRoute
@@ -1225,7 +1436,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCanalOficialRoute: typeof AuthenticatedCanalOficialRoute
   AuthenticatedConfiguracoesRoute: typeof AuthenticatedConfiguracoesRouteWithChildren
   AuthenticatedContatosRoute: typeof AuthenticatedContatosRouteWithChildren
-  AuthenticatedEquipeRoute: typeof AuthenticatedEquipeRoute
+  AuthenticatedEquipeRoute: typeof AuthenticatedEquipeRouteWithChildren
   AuthenticatedFilaRoute: typeof AuthenticatedFilaRoute
   AuthenticatedFunilRoute: typeof AuthenticatedFunilRoute
   AuthenticatedFunisRoute: typeof AuthenticatedFunisRoute
@@ -1263,7 +1474,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCanalOficialRoute: AuthenticatedCanalOficialRoute,
   AuthenticatedConfiguracoesRoute: AuthenticatedConfiguracoesRouteWithChildren,
   AuthenticatedContatosRoute: AuthenticatedContatosRouteWithChildren,
-  AuthenticatedEquipeRoute: AuthenticatedEquipeRoute,
+  AuthenticatedEquipeRoute: AuthenticatedEquipeRouteWithChildren,
   AuthenticatedFilaRoute: AuthenticatedFilaRoute,
   AuthenticatedFunilRoute: AuthenticatedFunilRoute,
   AuthenticatedFunisRoute: AuthenticatedFunisRoute,
@@ -1300,6 +1511,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AcessoRevogadoRoute: AcessoRevogadoRoute,
+  AgendarRoute: AgendarRoute,
   AuthRoute: AuthRoute,
   VerificacaoRoute: VerificacaoRoute,
   Erro403Route: Erro403Route,
