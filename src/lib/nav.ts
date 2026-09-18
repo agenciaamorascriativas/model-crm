@@ -35,7 +35,7 @@ import {
 
 import type { LinkProps } from "@tanstack/react-router";
 
-export type NavItem = { to: LinkProps["to"]; label: string; icon: LucideIcon };
+export type NavItem = { to: NonNullable<LinkProps["to"]>; label: string; icon: LucideIcon };
 export type NavGroup = { label: string; items: NavItem[] };
 
 export const NAV_GROUPS: NavGroup[] = [
