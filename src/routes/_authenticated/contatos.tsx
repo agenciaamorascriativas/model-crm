@@ -62,7 +62,9 @@ function ContatosPage() {
     const q = search.trim().toLowerCase();
     if (!q) return contacts ?? [];
     return (contacts ?? []).filter((c) =>
-      [c.name, c.phone, c.email, c.company].some((f) => f?.toLowerCase().includes(q)),
+      [c.name, c.phone, c.email, c.company, c.job_title, c.category, c.source, c.city, c.state, c.cpf].some((f) =>
+        f?.toLowerCase().includes(q),
+      ),
     );
   }, [contacts, search]);
 
@@ -89,7 +91,7 @@ function ContatosPage() {
         <Input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Buscar por nome, telefone, e-mail..."
+          placeholder="Buscar por nome, empresa, cidade, categoria..."
           className="pl-9"
         />
       </div>
@@ -99,9 +101,10 @@ function ContatosPage() {
           <TableHeader>
             <TableRow>
               <TableHead>Nome</TableHead>
-              <TableHead>Telefone</TableHead>
-              <TableHead>E-mail</TableHead>
-              <TableHead>Empresa</TableHead>
+              <TableHead>Empresa / cargo</TableHead>
+              <TableHead>Contato</TableHead>
+              <TableHead>Cidade</TableHead>
+              <TableHead>Origem</TableHead>
               <TableHead>Tags</TableHead>
               <TableHead className="w-24 text-right">Ações</TableHead>
             </TableRow>
@@ -109,24 +112,34 @@ function ContatosPage() {
           <TableBody>
             {isLoading && (
               <TableRow>
-                <TableCell colSpan={6} className="py-10 text-center text-muted-foreground">
+                <TableCell colSpan={7} className="py-10 text-center text-muted-foreground">
                   <Loader2 className="mx-auto h-5 w-5 animate-spin" />
                 </TableCell>
               </TableRow>
             )}
             {!isLoading && filtered.length === 0 && (
               <TableRow>
-                <TableCell colSpan={6} className="py-10 text-center text-muted-foreground">
+                <TableCell colSpan={7} className="py-10 text-center text-muted-foreground">
                   Nenhum contato encontrado.
                 </TableCell>
               </TableRow>
             )}
             {filtered.map((c) => (
               <TableRow key={c.id}>
-                <TableCell className="font-medium">{c.name}</TableCell>
-                <TableCell>{c.phone || "—"}</TableCell>
-                <TableCell>{c.email || "—"}</TableCell>
-                <TableCell>{c.company || "—"}</TableCell>
+                <TableCell className="font-medium">
+                  {c.name}
+                  {c.category && <p className="text-xs font-normal text-muted-foreground">{c.category}</p>}
+                </TableCell>
+                <TableCell>
+                  {c.company || "—"}
+                  {c.job_title && <p className="text-xs text-muted-foreground">{c.job_title}</p>}
+                </TableCell>
+                <TableCell>
+                  {c.phone || "—"}
+                  {c.email && <p className="text-xs text-muted-foreground">{c.email}</p>}
+                </TableCell>
+                <TableCell>{[c.city, c.state].filter(Boolean).join(" / ") || "—"}</TableCell>
+                <TableCell>{c.source || "—"}</TableCell>
                 <TableCell>
                   <div className="flex flex-wrap gap-1">
                     {(c.tags ?? []).map((t) => (
@@ -218,6 +231,15 @@ function ContactDialog({
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
+  const [jobTitle, setJobTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [source, setSource] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [address, setAddress] = useState("");
+  const [linkedin, setLinkedin] = useState("");
+  const [instagram, setInstagram] = useState("");
   const [tags, setTags] = useState("");
   const [notes, setNotes] = useState("");
   const [saving, setSaving] = useState(false);
@@ -230,6 +252,15 @@ function ContactDialog({
     setPhone(contact?.phone ?? "");
     setEmail(contact?.email ?? "");
     setCompany(contact?.company ?? "");
+    setJobTitle(contact?.job_title ?? "");
+    setCategory(contact?.category ?? "");
+    setSource(contact?.source ?? "");
+    setCpf(contact?.cpf ?? "");
+    setCity(contact?.city ?? "");
+    setState(contact?.state ?? "");
+    setAddress(contact?.address ?? "");
+    setLinkedin(contact?.linkedin ?? "");
+    setInstagram(contact?.instagram ?? "");
     setTags((contact?.tags ?? []).join(", "));
     setNotes(contact?.notes ?? "");
   }
@@ -243,6 +274,15 @@ function ContactDialog({
       phone: phone || null,
       email: email || null,
       company: company || null,
+      job_title: jobTitle || null,
+      category: category || null,
+      source: source || null,
+      cpf: cpf || null,
+      city: city || null,
+      state: state || null,
+      address: address || null,
+      linkedin: linkedin || null,
+      instagram: instagram || null,
       notes: notes || null,
       tags: tags
         .split(",")
@@ -264,38 +304,79 @@ function ContactDialog({
 
   return (
     <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
-      <DialogContent>
+      <DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
         <DialogHeader>
           <DialogTitle>{contact ? "Editar contato" : "Novo contato"}</DialogTitle>
         </DialogHeader>
-        <form onSubmit={save} className="space-y-4">
-          <div className="space-y-1.5">
-            <Label>Nome *</Label>
-            <Input value={name} onChange={(e) => setName(e.target.value)} required />
-          </div>
-          <div className="grid grid-cols-2 gap-3">
+        <form onSubmit={save} className="space-y-5">
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="space-y-1.5 sm:col-span-2">
+              <Label>Nome *</Label>
+              <Input value={name} onChange={(e) => setName(e.target.value)} required maxLength={120} />
+            </div>
             <div className="space-y-1.5">
-              <Label>Telefone</Label>
-              <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(11) 99999-9999" />
+              <Label>Empresa</Label>
+              <Input value={company} onChange={(e) => setCompany(e.target.value)} maxLength={120} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Cargo</Label>
+              <Input value={jobTitle} onChange={(e) => setJobTitle(e.target.value)} maxLength={80} placeholder="Ex.: Diretora comercial" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Categoria</Label>
+              <Input value={category} onChange={(e) => setCategory(e.target.value)} maxLength={60} placeholder="Ex.: Cliente, Parceiro" />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Origem</Label>
+              <Input value={source} onChange={(e) => setSource(e.target.value)} maxLength={60} placeholder="Ex.: Indicação, Instagram" />
+            </div>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <Label>WhatsApp / Telefone</Label>
+              <Input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="(11) 99999-9999" maxLength={40} />
             </div>
             <div className="space-y-1.5">
               <Label>E-mail</Label>
-              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <Input type="email" value={email} onChange={(e) => setEmail(e.target.value)} maxLength={255} />
             </div>
-          </div>
-          <div className="grid grid-cols-2 gap-3">
             <div className="space-y-1.5">
-              <Label>Empresa</Label>
-              <Input value={company} onChange={(e) => setCompany(e.target.value)} />
+              <Label>CPF</Label>
+              <Input value={cpf} onChange={(e) => setCpf(e.target.value)} placeholder="000.000.000-00" maxLength={20} />
             </div>
             <div className="space-y-1.5">
               <Label>Tags (separadas por vírgula)</Label>
-              <Input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="cliente, quente" />
+              <Input value={tags} onChange={(e) => setTags(e.target.value)} placeholder="cliente, quente" maxLength={200} />
             </div>
           </div>
+
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div className="space-y-1.5">
+              <Label>Cidade</Label>
+              <Input value={city} onChange={(e) => setCity(e.target.value)} maxLength={80} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Estado</Label>
+              <Input value={state} onChange={(e) => setState(e.target.value)} maxLength={40} placeholder="Ex.: SP" />
+            </div>
+            <div className="space-y-1.5 sm:col-span-2">
+              <Label>Endereço</Label>
+              <Input value={address} onChange={(e) => setAddress(e.target.value)} maxLength={200} />
+            </div>
+            <div className="space-y-1.5">
+              <Label>LinkedIn</Label>
+              <Input value={linkedin} onChange={(e) => setLinkedin(e.target.value)} maxLength={200} placeholder="linkedin.com/in/..." />
+            </div>
+            <div className="space-y-1.5">
+              <Label>Instagram</Label>
+              <Input value={instagram} onChange={(e) => setInstagram(e.target.value)} maxLength={120} placeholder="@perfil" />
+            </div>
+          </div>
+
           <div className="space-y-1.5">
             <Label>Observações</Label>
-            <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} />
+            <Textarea value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} maxLength={2000} />
           </div>
           <DialogFooter>
             <Button type="button" variant="outline" onClick={onClose}>

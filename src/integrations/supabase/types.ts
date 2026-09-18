@@ -17,28 +17,34 @@ export type Database = {
       app_settings: {
         Row: {
           brand_name: string
+          calendar_sync: Json
           favicon_url: string | null
           id: number
           logo_url: string | null
           primary_color: string
+          reminder_settings: Json
           updated_at: string
           whatsapp_number: string | null
         }
         Insert: {
           brand_name?: string
+          calendar_sync?: Json
           favicon_url?: string | null
           id?: number
           logo_url?: string | null
           primary_color?: string
+          reminder_settings?: Json
           updated_at?: string
           whatsapp_number?: string | null
         }
         Update: {
           brand_name?: string
+          calendar_sync?: Json
           favicon_url?: string | null
           id?: number
           logo_url?: string | null
           primary_color?: string
+          reminder_settings?: Json
           updated_at?: string
           whatsapp_number?: string | null
         }
@@ -90,38 +96,65 @@ export type Database = {
       }
       contacts: {
         Row: {
+          address: string | null
+          category: string | null
+          city: string | null
           company: string | null
+          cpf: string | null
           created_at: string
           email: string | null
           id: string
+          instagram: string | null
+          job_title: string | null
+          linkedin: string | null
           name: string
           notes: string | null
           owner_id: string | null
           phone: string | null
+          source: string | null
+          state: string | null
           tags: string[]
           updated_at: string
         }
         Insert: {
+          address?: string | null
+          category?: string | null
+          city?: string | null
           company?: string | null
+          cpf?: string | null
           created_at?: string
           email?: string | null
           id?: string
+          instagram?: string | null
+          job_title?: string | null
+          linkedin?: string | null
           name: string
           notes?: string | null
           owner_id?: string | null
           phone?: string | null
+          source?: string | null
+          state?: string | null
           tags?: string[]
           updated_at?: string
         }
         Update: {
+          address?: string | null
+          category?: string | null
+          city?: string | null
           company?: string | null
+          cpf?: string | null
           created_at?: string
           email?: string | null
           id?: string
+          instagram?: string | null
+          job_title?: string | null
+          linkedin?: string | null
           name?: string
           notes?: string | null
           owner_id?: string | null
           phone?: string | null
+          source?: string | null
+          state?: string | null
           tags?: string[]
           updated_at?: string
         }
@@ -205,12 +238,14 @@ export type Database = {
           contact_id: string | null
           created_at: string
           id: string
+          last_activity_at: string
           notes: string | null
           owner_id: string | null
           pipeline_id: string | null
           position: number
           stage_id: string | null
           status: string
+          tags: string[]
           title: string
           updated_at: string
           value_cents: number
@@ -219,12 +254,14 @@ export type Database = {
           contact_id?: string | null
           created_at?: string
           id?: string
+          last_activity_at?: string
           notes?: string | null
           owner_id?: string | null
           pipeline_id?: string | null
           position?: number
           stage_id?: string | null
           status?: string
+          tags?: string[]
           title: string
           updated_at?: string
           value_cents?: number
@@ -233,12 +270,14 @@ export type Database = {
           contact_id?: string | null
           created_at?: string
           id?: string
+          last_activity_at?: string
           notes?: string | null
           owner_id?: string | null
           pipeline_id?: string | null
           position?: number
           stage_id?: string | null
           status?: string
+          tags?: string[]
           title?: string
           updated_at?: string
           value_cents?: number
@@ -307,28 +346,37 @@ export type Database = {
       }
       pipeline_stages: {
         Row: {
+          archived: boolean
+          assistant_key: string | null
           color: string | null
           created_at: string
           id: string
           name: string
           pipeline_id: string
           position: number
+          stage_role: string
         }
         Insert: {
+          archived?: boolean
+          assistant_key?: string | null
           color?: string | null
           created_at?: string
           id?: string
           name: string
           pipeline_id: string
           position?: number
+          stage_role?: string
         }
         Update: {
+          archived?: boolean
+          assistant_key?: string | null
           color?: string | null
           created_at?: string
           id?: string
           name?: string
           pipeline_id?: string
           position?: number
+          stage_role?: string
         }
         Relationships: [
           {
@@ -342,22 +390,34 @@ export type Database = {
       }
       pipelines: {
         Row: {
+          archived: boolean
           created_at: string
+          description: string | null
           id: string
+          is_default: boolean
           name: string
           position: number
+          slug: string | null
         }
         Insert: {
+          archived?: boolean
           created_at?: string
+          description?: string | null
           id?: string
+          is_default?: boolean
           name: string
           position?: number
+          slug?: string | null
         }
         Update: {
+          archived?: boolean
           created_at?: string
+          description?: string | null
           id?: string
+          is_default?: boolean
           name?: string
           position?: number
+          slug?: string | null
         }
         Relationships: []
       }
@@ -368,6 +428,11 @@ export type Database = {
           email: string | null
           full_name: string | null
           id: string
+          job_title: string | null
+          language: string | null
+          phone: string | null
+          signature: string | null
+          timezone: string | null
           updated_at: string
           user_id: string
         }
@@ -377,6 +442,11 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id?: string
+          job_title?: string | null
+          language?: string | null
+          phone?: string | null
+          signature?: string | null
+          timezone?: string | null
           updated_at?: string
           user_id: string
         }
@@ -386,6 +456,11 @@ export type Database = {
           email?: string | null
           full_name?: string | null
           id?: string
+          job_title?: string | null
+          language?: string | null
+          phone?: string | null
+          signature?: string | null
+          timezone?: string | null
           updated_at?: string
           user_id?: string
         }

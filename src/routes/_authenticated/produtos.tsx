@@ -30,15 +30,15 @@ import {
 } from "@/components/ui/dialog";
 import { Search, Plus, Pencil, Package, Tag, Wallet } from "lucide-react";
 import { toast } from "sonner";
-import { PRODUTOS as PRODUTOS_INICIAIS, type Produto } from "@/lib/demo/vendas";
+import { PRODUTOS as PRODUTOS_INICIAIS, type Produto, type TipoItem } from "@/lib/demo/vendas";
 
 export const Route = createFileRoute("/_authenticated/produtos")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Produtos — Amoras CRM" },
+      { title: "Produtos e serviços — Amoras CRM" },
       { name: "description", content: "Gerencie o catálogo de produtos e serviços." },
-      { property: "og:title", content: "Produtos — Amoras CRM" },
+      { property: "og:title", content: "Produtos e serviços — Amoras CRM" },
       { property: "og:description", content: "Gerencie o catálogo de produtos e serviços." },
     ],
   }),
@@ -57,11 +57,13 @@ function ProdutosPage() {
   const [produtos, setProdutos] = useState<Produto[]>(PRODUTOS_INICIAIS);
   const [busca, setBusca] = useState("");
   const [categoria, setCategoria] = useState("todas");
+  const [tipoFiltro, setTipoFiltro] = useState<"todos" | TipoItem>("todos");
   const [dialogAberto, setDialogAberto] = useState<{ modo: "criar" | "editar"; produto?: Produto } | null>(null);
 
   const [nome, setNome] = useState("");
   const [codigo, setCodigo] = useState("");
   const [categoriaForm, setCategoriaForm] = useState("Cosméticos");
+  const [tipoForm, setTipoForm] = useState<TipoItem>("produto");
   const [preco, setPreco] = useState("");
   const [recorrencia, setRecorrencia] = useState<Produto["recorrencia"]>("unico");
 
@@ -72,9 +74,10 @@ function ProdutosPage() {
     return produtos.filter((p) => {
       const combina = !q || [p.nome, p.codigo].some((f) => f.toLowerCase().includes(q));
       const categoriaOk = categoria === "todas" || p.categoria === categoria;
-      return combina && categoriaOk;
+      const tipoOk = tipoFiltro === "todos" || p.tipo === tipoFiltro;
+      return combina && categoriaOk && tipoOk;
     });
-  }, [produtos, busca, categoria]);
+  }, [produtos, busca, categoria, tipoFiltro]);
 
   const ticketMedio = produtos.length
     ? produtos.reduce((s, p) => s + p.precoCents, 0) / produtos.length
@@ -84,6 +87,7 @@ function ProdutosPage() {
     setNome("");
     setCodigo("");
     setCategoriaForm("Cosméticos");
+    setTipoForm("produto");
     setPreco("");
     setRecorrencia("unico");
     setDialogAberto({ modo: "criar" });
@@ -93,6 +97,7 @@ function ProdutosPage() {
     setNome(produto.nome);
     setCodigo(produto.codigo);
     setCategoriaForm(produto.categoria);
+    setTipoForm(produto.tipo);
     setPreco((produto.precoCents / 100).toString());
     setRecorrencia(produto.recorrencia);
     setDialogAberto({ modo: "editar", produto });
@@ -106,6 +111,7 @@ function ProdutosPage() {
         id: `p-${contadorId++}`,
         nome: nome.trim(),
         codigo: codigo.trim(),
+        tipo: tipoForm,
         categoria: categoriaForm.trim(),
         precoCents,
         recorrencia,
@@ -117,7 +123,7 @@ function ProdutosPage() {
       setProdutos((prev) =>
         prev.map((p) =>
           p.id === dialogAberto.produto!.id
-            ? { ...p, nome: nome.trim(), codigo: codigo.trim(), categoria: categoriaForm.trim(), precoCents, recorrencia }
+            ? { ...p, nome: nome.trim(), codigo: codigo.trim(), tipo: tipoForm, categoria: categoriaForm.trim(), precoCents, recorrencia }
             : p,
         ),
       );
@@ -138,7 +144,7 @@ function ProdutosPage() {
         demo
         actions={
           <Button onClick={abrirCriar}>
-            <Plus className="mr-2 h-4 w-4" /> Novo produto
+            <Plus className="mr-2 h-4 w-4" /> Novo item
           </Button>
         }
       />
@@ -153,6 +159,16 @@ function ProdutosPage() {
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input value={busca} onChange={(e) => setBusca(e.target.value)} placeholder="Buscar por nome ou código..." className="pl-9" />
         </div>
+        <Select value={tipoFiltro} onValueChange={(v) => setTipoFiltro(v as "todos" | TipoItem)}>
+          <SelectTrigger className="w-44">
+            <SelectValue placeholder="Tipo" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="todos">Produtos e serviços</SelectItem>
+            <SelectItem value="produto">Somente produtos</SelectItem>
+            <SelectItem value="servico">Somente serviços</SelectItem>
+          </SelectContent>
+        </Select>
         <Select value={categoria} onValueChange={setCategoria}>
           <SelectTrigger className="w-48">
             <SelectValue placeholder="Categoria" />
@@ -174,6 +190,7 @@ function ProdutosPage() {
             <TableRow>
               <TableHead>Nome</TableHead>
               <TableHead>Código</TableHead>
+              <TableHead>Tipo</TableHead>
               <TableHead>Categoria</TableHead>
               <TableHead>Preço</TableHead>
               <TableHead>Recorrência</TableHead>
@@ -184,7 +201,7 @@ function ProdutosPage() {
           <TableBody>
             {filtrados.length === 0 && (
               <TableRow>
-                <TableCell colSpan={7}>
+                <TableCell colSpan={8}>
                   <EmptyState icon={Tag} title="Nenhum produto encontrado" description="Ajuste os filtros ou cadastre um novo produto." />
                 </TableCell>
               </TableRow>
@@ -193,6 +210,11 @@ function ProdutosPage() {
               <TableRow key={produto.id}>
                 <TableCell className="font-medium">{produto.nome}</TableCell>
                 <TableCell className="text-muted-foreground">{produto.codigo}</TableCell>
+                <TableCell>
+                  <Badge variant={produto.tipo === "servico" ? "default" : "outline"}>
+                    {produto.tipo === "servico" ? "Serviço" : "Produto"}
+                  </Badge>
+                </TableCell>
                 <TableCell>
                   <Badge variant="secondary">{produto.categoria}</Badge>
                 </TableCell>
@@ -226,6 +248,18 @@ function ProdutosPage() {
               <div className="space-y-2">
                 <Label>Código</Label>
                 <Input value={codigo} onChange={(e) => setCodigo(e.target.value)} placeholder="Ex.: COS-1090" />
+              </div>
+              <div className="space-y-2">
+                <Label>Tipo</Label>
+                <Select value={tipoForm} onValueChange={(v) => setTipoForm(v as TipoItem)}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="produto">Produto</SelectItem>
+                    <SelectItem value="servico">Serviço</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
               <div className="space-y-2">
                 <Label>Categoria</Label>

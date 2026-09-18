@@ -14,10 +14,13 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Plus, Loader2, Trophy, XCircle, GripVertical, Trash2 } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Plus, Loader2, Trophy, XCircle, GripVertical, Trash2, Search, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
-import type { Contact, Lead, PipelineStage } from "@/lib/types";
+import type { Contact, Lead, Pipeline, PipelineStage } from "@/lib/types";
 
 export const Route = createFileRoute("/_authenticated/funil")({
   ssr: false,
@@ -36,11 +39,36 @@ function formatBRL(cents: number) {
   return (cents / 100).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }
 
+const DIAS_PARADO = 7;
+
+function diasParado(iso: string | null | undefined) {
+  if (!iso) return 0;
+  return Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
+}
+
 function FunilPage() {
   const queryClient = useQueryClient();
   const [dragLead, setDragLead] = useState<Lead | null>(null);
   const [creating, setCreating] = useState(false);
   const [creatingIn, setCreatingIn] = useState<string | null>(null);
+  const [busca, setBusca] = useState("");
+  const [soAtrasados, setSoAtrasados] = useState(false);
+  const [funilId, setFunilId] = useState<string>("");
+
+  const { data: pipelines } = useQuery({
+    queryKey: ["pipelines"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("pipelines")
+        .select("*")
+        .eq("archived", false)
+        .order("position");
+      if (error) throw error;
+      return data as unknown as Pipeline[];
+    },
+  });
+
+  const funilAtivo = pipelines?.find((p) => p.id === funilId) ?? pipelines?.find((p) => p.is_default) ?? pipelines?.[0] ?? null;
 
   const { data: stages, isLoading: loadingStages } = useQuery({
     queryKey: ["stages"],
@@ -87,17 +115,27 @@ function FunilPage() {
     onError: () => toast.error("Não foi possível mover o negócio."),
   });
 
-  const byStage = (stageId: string) =>
-    (leads ?? []).filter(
-      (l) => l.stage_id === stageId && l.status === "aberto",
-    );
+  const etapasVisiveis = (stages ?? []).filter(
+    (s) => !s.archived && (!funilAtivo || s.pipeline_id === funilAtivo.id),
+  );
+  const etapasIds = etapasVisiveis.map((s) => s.id);
 
-  const wonTotal = (leads ?? [])
-    .filter((l) => l.status === "ganho")
-    .reduce((sum, l) => sum + l.value_cents, 0);
-  const openTotal = (leads ?? [])
-    .filter((l) => l.status === "aberto")
-    .reduce((sum, l) => sum + l.value_cents, 0);
+  const doFunil = (leads ?? []).filter((l) => !l.stage_id || etapasIds.includes(l.stage_id));
+
+  const q = busca.trim().toLowerCase();
+  const visiveis = doFunil.filter((l) => {
+    const combina =
+      !q || [l.title, l.contacts?.name, l.contacts?.company].some((f) => f?.toLowerCase().includes(q));
+    const atrasado = diasParado(l.updated_at) >= DIAS_PARADO;
+    return combina && (!soAtrasados || atrasado);
+  });
+
+  const byStage = (stageId: string) => visiveis.filter((l) => l.stage_id === stageId && l.status === "aberto");
+
+  const abertos = doFunil.filter((l) => l.status === "aberto");
+  const atrasados = abertos.filter((l) => diasParado(l.updated_at) >= DIAS_PARADO);
+  const wonTotal = doFunil.filter((l) => l.status === "ganho").reduce((sum, l) => sum + l.value_cents, 0);
+  const openTotal = abertos.reduce((sum, l) => sum + l.value_cents, 0);
 
   if (loadingStages) {
     return (
@@ -109,22 +147,50 @@ function FunilPage() {
 
   return (
     <div className="flex h-screen flex-col">
-      <div className="flex flex-wrap items-center justify-between gap-4 p-6 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 p-6 pb-3">
         <div>
           <h1 className="font-display text-2xl font-bold">Funil de Vendas</h1>
           <p className="text-sm text-muted-foreground">
-            Em negociação: <strong>{formatBRL(openTotal)}</strong> · Ganho:{" "}
+            {abertos.length} abertos · {atrasados.length} atrasados · Em negociação:{" "}
+            <strong>{formatBRL(openTotal)}</strong> · Ganho:{" "}
             <strong className="text-primary">{formatBRL(wonTotal)}</strong>
           </p>
         </div>
-        <Button onClick={() => { setCreatingIn(stages?.[0]?.id ?? null); setCreating(true); }}>
+        <Button onClick={() => { setCreatingIn(etapasVisiveis[0]?.id ?? null); setCreating(true); }}>
           <Plus className="mr-2 h-4 w-4" /> Novo negócio
         </Button>
       </div>
 
+      <div className="flex flex-wrap items-center gap-3 px-6 pb-4">
+        <div className="relative max-w-sm flex-1">
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={busca}
+            onChange={(e) => setBusca(e.target.value)}
+            placeholder="Buscar negócio, contato ou empresa..."
+            className="pl-9"
+          />
+        </div>
+        {(pipelines?.length ?? 0) > 1 && (
+          <Select value={funilAtivo?.id ?? ""} onValueChange={setFunilId}>
+            <SelectTrigger className="w-56"><SelectValue placeholder="Funil" /></SelectTrigger>
+            <SelectContent>
+              {(pipelines ?? []).map((p) => (
+                <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+        <label className="flex items-center gap-2 text-sm text-muted-foreground">
+          <Switch checked={soAtrasados} onCheckedChange={setSoAtrasados} />
+          Somente atrasados
+        </label>
+      </div>
+
+
       <ScrollArea className="flex-1 px-6 pb-6">
         <div className="flex gap-4" style={{ minWidth: "max-content" }}>
-          {(stages ?? []).map((stage) => {
+          {etapasVisiveis.map((stage) => {
             const items = byStage(stage.id);
             const stageTotal = items.reduce((s, l) => s + l.value_cents, 0);
             return (
@@ -166,6 +232,12 @@ function FunilPage() {
                           <p className="mt-1.5 text-sm font-medium text-primary">
                             {formatBRL(lead.value_cents)}
                           </p>
+                        )}
+                        {diasParado(lead.updated_at) >= DIAS_PARADO && (
+                          <Badge variant="destructive" className="mt-1.5">
+                            <Clock className="mr-1 h-3 w-3" />
+                            {diasParado(lead.updated_at)} dias sem movimento
+                          </Badge>
                         )}
                         <div className="mt-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100">
                           <Button

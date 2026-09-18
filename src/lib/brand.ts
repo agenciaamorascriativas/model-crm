@@ -24,13 +24,82 @@ export async function getBrandAsset(path: string | null) {
   return URL.createObjectURL(data);
 }
 
+function hexToRgb(hex: string) {
+  const clean = hex.replace("#", "");
+  const full =
+    clean.length === 3
+      ? clean
+          .split("")
+          .map((c) => c + c)
+          .join("")
+      : clean;
+  return {
+    r: parseInt(full.slice(0, 2), 16),
+    g: parseInt(full.slice(2, 4), 16),
+    b: parseInt(full.slice(4, 6), 16),
+  };
+}
+
+function toHex(r: number, g: number, b: number) {
+  const part = (v: number) => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, "0");
+  return `#${part(r)}${part(g)}${part(b)}`;
+}
+
+/** Mistura a cor da marca com branco (amount > 0) ou preto (amount < 0). */
+export function shade(hex: string, amount: number) {
+  const { r, g, b } = hexToRgb(hex);
+  const target = amount >= 0 ? 255 : 0;
+  const t = Math.abs(amount);
+  return toHex(r + (target - r) * t, g + (target - g) * t, b + (target - b) * t);
+}
+
+export function isDarkColor(hex: string) {
+  const { r, g, b } = hexToRgb(hex);
+  const lum = (0.299 * r + 0.587 * g + 0.114 * b) / 255;
+  return lum < 0.62;
+}
+
+/** Escala de nove tons da cor da marca, do mais claro ao mais escuro. */
+export function brandScale(hex: string) {
+  return [0.92, 0.8, 0.62, 0.38, 0, -0.16, -0.32, -0.48, -0.64].map((a) => shade(hex, a));
+}
+
+/** Aplica a identidade visual em todo o sistema (menu, telas, botões, gráficos). */
 export function applyBrandColor(color: string) {
   const root = document.documentElement;
-  root.style.setProperty("--primary", color);
-  root.style.setProperty("--ring", color);
-  root.style.setProperty("--sidebar-primary", color);
-  root.style.setProperty("--secondary", `color-mix(in srgb, ${color} 12%, var(--background))`);
-  root.style.setProperty("--secondary-foreground", `color-mix(in srgb, ${color} 72%, var(--foreground))`);
-  root.style.setProperty("--accent", `color-mix(in srgb, ${color} 16%, var(--background))`);
-  root.style.setProperty("--accent-foreground", `color-mix(in srgb, ${color} 76%, var(--foreground))`);
+  const onPrimary = isDarkColor(color) ? "#ffffff" : shade(color, -0.75);
+
+  const tokens: Record<string, string> = {
+    "--primary": color,
+    "--primary-foreground": onPrimary,
+    "--ring": color,
+
+    "--secondary": shade(color, 0.9),
+    "--secondary-foreground": shade(color, -0.45),
+    "--accent": shade(color, 0.86),
+    "--accent-foreground": shade(color, -0.5),
+    "--muted": shade(color, 0.95),
+    "--muted-foreground": shade(color, -0.3),
+    "--border": shade(color, 0.82),
+    "--input": shade(color, 0.82),
+
+    "--sidebar": shade(color, -0.58),
+    "--sidebar-foreground": "#ffffff",
+    "--sidebar-primary": color,
+    "--sidebar-primary-foreground": onPrimary,
+    "--sidebar-accent": shade(color, -0.42),
+    "--sidebar-accent-foreground": "#ffffff",
+    "--sidebar-border": shade(color, -0.46),
+    "--sidebar-ring": color,
+
+    "--chart-1": color,
+    "--chart-2": shade(color, 0.35),
+    "--chart-3": shade(color, -0.3),
+    "--chart-4": shade(color, 0.62),
+    "--chart-5": shade(color, -0.5),
+  };
+
+  for (const [name, value] of Object.entries(tokens)) {
+    root.style.setProperty(name, value);
+  }
 }

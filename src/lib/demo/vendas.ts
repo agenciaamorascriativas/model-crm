@@ -174,10 +174,13 @@ export const LINHA_DO_TEMPO: Record<string, EventoLinhaDoTempo[]> = {
   ],
 };
 
+export type TipoItem = "produto" | "servico";
+
 export type Produto = {
   id: string;
   nome: string;
   codigo: string;
+  tipo: TipoItem;
   categoria: string;
   precoCents: number;
   recorrencia: "unico" | "mensal" | "anual";
@@ -185,14 +188,14 @@ export type Produto = {
 };
 
 export const PRODUTOS: Produto[] = [
-  { id: "p1", nome: "Kit Hidratante Corporal 500ml", codigo: "COS-1001", categoria: "Cosméticos", precoCents: 8990, recorrencia: "unico", ativo: true },
-  { id: "p2", nome: "Perfume Bellazza Intense 100ml", codigo: "PER-2044", categoria: "Perfumaria", precoCents: 15900, recorrencia: "unico", ativo: true },
-  { id: "p3", nome: "Assinatura Beleza Mensal", codigo: "ASS-3010", categoria: "Assinaturas", precoCents: 6900, recorrencia: "mensal", ativo: true },
-  { id: "p4", nome: "Consultoria de Revenda", codigo: "SRV-4020", categoria: "Serviços", precoCents: 45000, recorrencia: "unico", ativo: false },
-  { id: "p5", nome: "Kit Atacado Sabonetes Artesanais", codigo: "COS-1050", categoria: "Cosméticos", precoCents: 32000, recorrencia: "unico", ativo: true },
-  { id: "p6", nome: "Plano Distribuidor Anual", codigo: "ASS-3099", categoria: "Assinaturas", precoCents: 480000, recorrencia: "anual", ativo: true },
-  { id: "p7", nome: "Sérum Facial Vitamina C 30ml", codigo: "COS-1077", categoria: "Cosméticos", precoCents: 12900, recorrencia: "unico", ativo: true },
-  { id: "p8", nome: "Suporte Prioritário", codigo: "SRV-4033", categoria: "Serviços", precoCents: 9900, recorrencia: "mensal", ativo: false },
+  { id: "p1", nome: "Kit Hidratante Corporal 500ml", codigo: "COS-1001", tipo: "produto", categoria: "Cosméticos", precoCents: 8990, recorrencia: "unico", ativo: true },
+  { id: "p2", nome: "Perfume Bellazza Intense 100ml", codigo: "PER-2044", tipo: "produto", categoria: "Perfumaria", precoCents: 15900, recorrencia: "unico", ativo: true },
+  { id: "p3", nome: "Assinatura Beleza Mensal", codigo: "ASS-3010", tipo: "servico", categoria: "Assinaturas", precoCents: 6900, recorrencia: "mensal", ativo: true },
+  { id: "p4", nome: "Consultoria de Revenda", codigo: "SRV-4020", tipo: "servico", categoria: "Serviços", precoCents: 45000, recorrencia: "unico", ativo: false },
+  { id: "p5", nome: "Kit Atacado Sabonetes Artesanais", codigo: "COS-1050", tipo: "produto", categoria: "Cosméticos", precoCents: 32000, recorrencia: "unico", ativo: true },
+  { id: "p6", nome: "Plano Distribuidor Anual", codigo: "ASS-3099", tipo: "servico", categoria: "Assinaturas", precoCents: 480000, recorrencia: "anual", ativo: true },
+  { id: "p7", nome: "Sérum Facial Vitamina C 30ml", codigo: "COS-1077", tipo: "produto", categoria: "Cosméticos", precoCents: 12900, recorrencia: "unico", ativo: true },
+  { id: "p8", nome: "Suporte Prioritário", codigo: "SRV-4033", tipo: "servico", categoria: "Serviços", precoCents: 9900, recorrencia: "mensal", ativo: false },
 ];
 
 export type ItemNegocio = {

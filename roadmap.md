@@ -27,3 +27,14 @@ Fora de escopo permanente: menções a Deskcomm, ao autor (Rafael), configuraç�
 ## Pendências com o usuário
 - [ ] Confirmação de e-mail no cadastro: manter ou desligar
 - [ ] Chaves das integrações externas (WhatsApp, Meta Ads, Google, e-mail)
+
+## Rodada tela por tela (marca, perfil, contatos, funis, agenda)
+- [x] Marca aplicada em todo o sistema (menu, botões, gráficos, contraste automático)
+- [x] Meu perfil real: foto, cargo, telefone, idioma, fuso, assinatura
+- [x] Contatos com cargo, categoria, origem, CPF, cidade, estado, endereço, LinkedIn, Instagram
+- [x] Funis em cartões (padrão, apelido, abertos, atrasados, valor) + etapas com fechamento/perda e chave do assistente
+- [x] Funil com busca, seleção de funil, filtro de atrasados e aviso de dias sem movimento
+- [x] Produtos e serviços em uma tela, com tipo e filtro
+- [x] Agenda com Google e Outlook (contas) e lembretes/avisos configuráveis
+- [ ] Envio real de e-mail/WhatsApp dos lembretes (depois do gateway)
+- [ ] Autorização definitiva Google/Outlook na instalação do cliente

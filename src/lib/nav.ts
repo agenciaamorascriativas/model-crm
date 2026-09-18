@@ -69,7 +69,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { to: "/contatos", label: "Contatos", icon: Users },
       { to: "/funil", label: "Funil de Vendas", icon: KanbanSquare },
       { to: "/funis", label: "Etapas do Funil", icon: GitBranch },
-      { to: "/produtos", label: "Produtos", icon: Package },
+      { to: "/produtos", label: "Produtos e serviços", icon: Package },
       { to: "/atividades", label: "Atividades", icon: ListChecks },
     ],
   },
