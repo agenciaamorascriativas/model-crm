@@ -6,7 +6,7 @@ Reorganizar Configurações para ficar mais amigável, clara e fiel às referên
 ## 1. Página inicial de Configurações
 - Substituir o menu lateral interno por uma visão geral em cards clicáveis, seguindo a composição da imagem 1.
 - Organizar os cards em três blocos:
-  - **Sua Empresa:** Tipos de agendamento, Equipe, Distribuição de atendimento, Organização, Conversões, Meta Ads e Marca.
+  - **Sua Empresa:** Tipos de agendamento, Equipe, Distribuição de atendimento, Organização e Marca.
   - **Sua Conta:** Perfil, Segurança e Notificações.
   - **Dados e Acesso:** LGPD e Chaves de API.
 - Cada card terá ícone, título e uma descrição curta, com boa adaptação para celular.
@@ -33,11 +33,12 @@ Reorganizar Configurações para ficar mais amigável, clara e fiel às referên
 - Manter horário de silêncio e resumo diário.
 - Ajustar apenas a entrada e a coerência visual com a nova página de cards.
 
-## 5. Integrações e recursos técnicos
+## 5. Marketing, integrações e recursos técnicos
+- Criar uma área própria **Marketing** no menu principal para Conversões e Meta Ads, retirando ambos de Configurações.
+- Usar Marketing como ponto de entrada para atribuição de vendas, eventos de conversão, campanhas e futuras ferramentas comerciais relacionadas.
 - Retirar Conexões, WhatsApp, Webhooks e Chaves de API da navegação interna de Configurações.
 - Criar uma área própria **Integrações** no menu principal para Conexões, WhatsApp, Webhooks e recursos técnicos relacionados.
 - Manter **Chaves de API** também acessível pelo card “Dados e Acesso”, por ser uma permissão da empresa, sem voltar ao antigo menu lateral desconfortável.
-- Manter **Conversões** em “Sua Empresa”, próxima de Meta Ads, conforme escolhido.
 
 ## 6. Organização das telas existentes
 - Reaproveitar as telas e recursos já criados, alterando principalmente a entrada, os nomes e a distribuição dos assuntos.
