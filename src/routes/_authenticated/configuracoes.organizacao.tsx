@@ -5,25 +5,25 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Panel } from "@/components/page-shell";
+import { Panel, PageHeader } from "@/components/page-shell";
 import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
-import type { AppSettings, Profile } from "@/lib/types";
+import type { AppSettings } from "@/lib/types";
 
 export const Route = createFileRoute("/_authenticated/configuracoes/organizacao")({
   ssr: false,
   head: () => ({
     meta: [
-      { title: "Geral — Amoras CRM" },
-      { name: "description", content: "Identidade visual do sistema e seu perfil." },
-      { property: "og:title", content: "Geral — Amoras CRM" },
-      { property: "og:description", content: "Identidade visual do sistema e seu perfil." },
+      { title: "Organização — Amoras CRM" },
+      { name: "description", content: "Dados gerais da empresa e do atendimento." },
+      { property: "og:title", content: "Organização — Amoras CRM" },
+      { property: "og:description", content: "Dados gerais da empresa e do atendimento." },
     ],
   }),
-  component: ConfiguracoesGeralPage,
+  component: OrganizacaoPage,
 });
 
-function ConfiguracoesGeralPage() {
+function OrganizacaoPage() {
   const user = Route.useRouteContext().user;
 
   const { data: settings } = useQuery({
@@ -49,8 +49,8 @@ function ConfiguracoesGeralPage() {
 
   return (
     <div className="space-y-6">
+      <PageHeader title="Organização" description="Dados gerais da empresa e do atendimento." demo />
       <SettingsCard isAdmin={myRole === "admin"} settings={settings} />
-      <ProfileCard />
     </div>
   );
 }
@@ -131,55 +131,3 @@ function SettingsCard({
   );
 }
 
-function ProfileCard() {
-  const queryClient = useQueryClient();
-  const user = Route.useRouteContext().user;
-
-  const { data: profile } = useQuery({
-    queryKey: ["profile", user.id],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("user_id", user.id)
-        .maybeSingle();
-      if (error) throw error;
-      return data as Profile | null;
-    },
-  });
-
-  const [fullName, setFullName] = useState<string | null>(null);
-  const [saving, setSaving] = useState(false);
-  const currentName = fullName ?? profile?.full_name ?? "";
-
-  return (
-    <Panel title="Seu perfil" description={user.email}>
-      <div className="space-y-4">
-        <div className="space-y-1.5">
-          <Label>Nome</Label>
-          <Input value={currentName} onChange={(e) => setFullName(e.target.value)} />
-        </div>
-        <Button
-          onClick={async () => {
-            setSaving(true);
-            const { error } = await supabase
-              .from("profiles")
-              .update({ full_name: currentName })
-              .eq("user_id", user.id);
-            setSaving(false);
-            if (error) {
-              toast.error("Não foi possível salvar seu perfil.");
-            } else {
-              toast.success("Perfil atualizado.");
-              queryClient.invalidateQueries({ queryKey: ["profile", user.id] });
-            }
-          }}
-          disabled={saving || !profile}
-        >
-          {saving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          Salvar
-        </Button>
-      </div>
-    </Panel>
-  );
-}
