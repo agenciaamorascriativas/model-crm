@@ -250,14 +250,17 @@ function RespostasRapidasPage() {
             <div className="space-y-1.5">
               <Label>Mensagem</Label>
               <Textarea
+                ref={mensagemRef}
                 rows={4}
-                placeholder="Use {{nome}} para personalizar a mensagem"
+                placeholder="Escreva a mensagem e escolha as variáveis abaixo"
                 value={form.mensagem}
                 onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
               />
-              <p className="text-xs text-muted-foreground">
-                Variáveis disponíveis: <code className="font-mono">{"{{nome}}"}</code>
-              </p>
+            </div>
+            <VariaveisPainel onInserir={inserirVariavel} />
+            <div className="space-y-1.5">
+              <Label>Prévia com valores de exemplo</Label>
+              <VariaveisPrevia texto={form.mensagem} />
             </div>
           </div>
           <DialogFooter>
