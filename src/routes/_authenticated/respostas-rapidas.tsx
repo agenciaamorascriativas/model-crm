@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { VariaveisPainel, VariaveisPrevia } from "@/components/variaveis-painel";
+import { inserirNaPosicao, variaveisInvalidas } from "@/lib/variaveis";
 import { PageHeader, PageContainer, EmptyState } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
