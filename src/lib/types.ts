@@ -1,3 +1,11 @@
+export interface AiProviderCredential {
+  provider: "openai" | "anthropic" | "google";
+  key_hint: string;
+  active: boolean;
+  models: Record<string, string>;
+  updated_at: string;
+}
+
 export interface Contact {
   id: string;
   name: string;

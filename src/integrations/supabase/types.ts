@@ -14,6 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_provider_credentials: {
+        Row: {
+          active: boolean
+          api_key: string
+          created_at: string
+          id: string
+          key_hint: string
+          models: Json
+          provider: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          api_key: string
+          created_at?: string
+          id?: string
+          key_hint: string
+          models?: Json
+          provider: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          api_key?: string
+          created_at?: string
+          id?: string
+          key_hint?: string
+          models?: Json
+          provider?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       app_settings: {
         Row: {
           antiban_settings: Json
