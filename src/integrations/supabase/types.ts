@@ -167,6 +167,7 @@ export type Database = {
           created_at: string
           id: string
           last_message_at: string
+          snoozed_until: string | null
           status: string
           updated_at: string
         }
@@ -176,6 +177,7 @@ export type Database = {
           created_at?: string
           id?: string
           last_message_at?: string
+          snoozed_until?: string | null
           status?: string
           updated_at?: string
         }
@@ -185,12 +187,93 @@ export type Database = {
           created_at?: string
           id?: string
           last_message_at?: string
+          snoozed_until?: string | null
           status?: string
           updated_at?: string
         }
         Relationships: [
           {
             foreignKeyName: "conversations_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      demanda_conversas: {
+        Row: {
+          conversation_id: string
+          created_at: string
+          demanda_id: string
+          id: string
+        }
+        Insert: {
+          conversation_id: string
+          created_at?: string
+          demanda_id: string
+          id?: string
+        }
+        Update: {
+          conversation_id?: string
+          created_at?: string
+          demanda_id?: string
+          id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "demanda_conversas_conversation_id_fkey"
+            columns: ["conversation_id"]
+            isOneToOne: false
+            referencedRelation: "conversations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "demanda_conversas_demanda_id_fkey"
+            columns: ["demanda_id"]
+            isOneToOne: false
+            referencedRelation: "demandas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      demandas: {
+        Row: {
+          closed_at: string | null
+          contact_id: string
+          created_at: string
+          id: string
+          owner_id: string | null
+          resolution: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          closed_at?: string | null
+          contact_id: string
+          created_at?: string
+          id?: string
+          owner_id?: string | null
+          resolution?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          closed_at?: string | null
+          contact_id?: string
+          created_at?: string
+          id?: string
+          owner_id?: string | null
+          resolution?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "demandas_contact_id_fkey"
             columns: ["contact_id"]
             isOneToOne: false
             referencedRelation: "contacts"

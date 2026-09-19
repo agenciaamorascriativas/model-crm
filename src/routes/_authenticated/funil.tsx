@@ -16,8 +16,26 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Plus, Loader2, Trophy, XCircle, GripVertical, Trash2, Search, Clock } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  Plus,
+  Loader2,
+  Trophy,
+  XCircle,
+  GripVertical,
+  Trash2,
+  Search,
+  Clock,
+  Flame,
+  RotateCcw,
+  Archive,
+} from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { Contact, Lead, Pipeline, PipelineStage } from "@/lib/types";
@@ -27,9 +45,15 @@ export const Route = createFileRoute("/_authenticated/funil")({
   head: () => ({
     meta: [
       { title: "Funil de Vendas — Amoras CRM" },
-      { name: "description", content: "Acompanhe seus negócios do primeiro contato ao fechamento." },
+      {
+        name: "description",
+        content: "Acompanhe seus negócios do primeiro contato ao fechamento.",
+      },
       { property: "og:title", content: "Funil de Vendas — Amoras CRM" },
-      { property: "og:description", content: "Acompanhe seus negócios do primeiro contato ao fechamento." },
+      {
+        property: "og:description",
+        content: "Acompanhe seus negócios do primeiro contato ao fechamento.",
+      },
     ],
   }),
   component: FunilPage,
@@ -46,6 +70,21 @@ function diasParado(iso: string | null | undefined) {
   return Math.floor((Date.now() - new Date(iso).getTime()) / 86400000);
 }
 
+function computeScore(lead: Lead, stageIndex: number, stageCount: number) {
+  const dias = diasParado(lead.updated_at);
+  const recencia = Math.max(0, 40 - dias * 4);
+  const valorReais = lead.value_cents / 100;
+  const valor = valorReais >= 5000 ? 30 : valorReais >= 1000 ? 20 : valorReais > 0 ? 10 : 0;
+  const progresso = stageCount > 1 ? Math.round((stageIndex / (stageCount - 1)) * 30) : 30;
+  return Math.min(100, recencia + valor + progresso);
+}
+
+function scoreClasses(score: number) {
+  if (score >= 70) return "border-emerald-500/50 text-emerald-700 dark:text-emerald-400";
+  if (score >= 40) return "border-amber-500/50 text-amber-700 dark:text-amber-400";
+  return "text-muted-foreground";
+}
+
 function FunilPage() {
   const queryClient = useQueryClient();
   const [dragLead, setDragLead] = useState<Lead | null>(null);
@@ -54,6 +93,7 @@ function FunilPage() {
   const [busca, setBusca] = useState("");
   const [soAtrasados, setSoAtrasados] = useState(false);
   const [funilId, setFunilId] = useState<string>("");
+  const [perdidosOpen, setPerdidosOpen] = useState(false);
 
   const { data: pipelines } = useQuery({
     queryKey: ["pipelines"],
@@ -68,15 +108,16 @@ function FunilPage() {
     },
   });
 
-  const funilAtivo = pipelines?.find((p) => p.id === funilId) ?? pipelines?.find((p) => p.is_default) ?? pipelines?.[0] ?? null;
+  const funilAtivo =
+    pipelines?.find((p) => p.id === funilId) ??
+    pipelines?.find((p) => p.is_default) ??
+    pipelines?.[0] ??
+    null;
 
   const { data: stages, isLoading: loadingStages } = useQuery({
     queryKey: ["stages"],
     queryFn: async () => {
-      const { data, error } = await supabase
-        .from("pipeline_stages")
-        .select("*")
-        .order("position");
+      const { data, error } = await supabase.from("pipeline_stages").select("*").order("position");
       if (error) throw error;
       return data as PipelineStage[];
     },
@@ -125,17 +166,37 @@ function FunilPage() {
   const q = busca.trim().toLowerCase();
   const visiveis = doFunil.filter((l) => {
     const combina =
-      !q || [l.title, l.contacts?.name, l.contacts?.company].some((f) => f?.toLowerCase().includes(q));
+      !q ||
+      [l.title, l.contacts?.name, l.contacts?.company].some((f) => f?.toLowerCase().includes(q));
     const atrasado = diasParado(l.updated_at) >= DIAS_PARADO;
     return combina && (!soAtrasados || atrasado);
   });
 
-  const byStage = (stageId: string) => visiveis.filter((l) => l.stage_id === stageId && l.status === "aberto");
+  const byStage = (stageId: string) =>
+    visiveis.filter((l) => l.stage_id === stageId && l.status === "aberto");
 
   const abertos = doFunil.filter((l) => l.status === "aberto");
   const atrasados = abertos.filter((l) => diasParado(l.updated_at) >= DIAS_PARADO);
-  const wonTotal = doFunil.filter((l) => l.status === "ganho").reduce((sum, l) => sum + l.value_cents, 0);
+  const wonTotal = doFunil
+    .filter((l) => l.status === "ganho")
+    .reduce((sum, l) => sum + l.value_cents, 0);
   const openTotal = abertos.reduce((sum, l) => sum + l.value_cents, 0);
+  const perdidos = doFunil.filter((l) => l.status === "perdido");
+
+  async function reativar(lead: Lead) {
+    const { error } = await supabase.from("leads").update({ status: "aberto" }).eq("id", lead.id);
+    if (error) {
+      toast.error("Não foi possível reativar o negócio.");
+      return;
+    }
+    await supabase.from("lead_events").insert({
+      lead_id: lead.id,
+      kind: "sistema",
+      content: "Negócio reativado.",
+    });
+    queryClient.invalidateQueries({ queryKey: ["leads"] });
+    toast.success("Negócio reativado.");
+  }
 
   if (loadingStages) {
     return (
@@ -156,9 +217,23 @@ function FunilPage() {
             <strong className="text-primary">{formatBRL(wonTotal)}</strong>
           </p>
         </div>
-        <Button onClick={() => { setCreatingIn(etapasVisiveis[0]?.id ?? null); setCreating(true); }}>
-          <Plus className="mr-2 h-4 w-4" /> Novo negócio
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="outline"
+            onClick={() => setPerdidosOpen(true)}
+            disabled={perdidos.length === 0}
+          >
+            <Archive className="mr-2 h-4 w-4" /> Perdidos ({perdidos.length})
+          </Button>
+          <Button
+            onClick={() => {
+              setCreatingIn(etapasVisiveis[0]?.id ?? null);
+              setCreating(true);
+            }}
+          >
+            <Plus className="mr-2 h-4 w-4" /> Novo negócio
+          </Button>
+        </div>
       </div>
 
       <div className="flex flex-wrap items-center gap-3 px-6 pb-4">
@@ -173,10 +248,14 @@ function FunilPage() {
         </div>
         {(pipelines?.length ?? 0) > 1 && (
           <Select value={funilAtivo?.id ?? ""} onValueChange={setFunilId}>
-            <SelectTrigger className="w-56"><SelectValue placeholder="Funil" /></SelectTrigger>
+            <SelectTrigger className="w-56">
+              <SelectValue placeholder="Funil" />
+            </SelectTrigger>
             <SelectContent>
               {(pipelines ?? []).map((p) => (
-                <SelectItem key={p.id} value={p.id}>{p.name}</SelectItem>
+                <SelectItem key={p.id} value={p.id}>
+                  {p.name}
+                </SelectItem>
               ))}
             </SelectContent>
           </Select>
@@ -187,10 +266,9 @@ function FunilPage() {
         </label>
       </div>
 
-
       <ScrollArea className="flex-1 px-6 pb-6">
         <div className="flex gap-4" style={{ minWidth: "max-content" }}>
-          {etapasVisiveis.map((stage) => {
+          {etapasVisiveis.map((stage, stageIndex) => {
             const items = byStage(stage.id);
             const stageTotal = items.reduce((s, l) => s + l.value_cents, 0);
             return (
@@ -211,7 +289,9 @@ function FunilPage() {
                   <span className="text-sm font-semibold">{stage.name}</span>
                   <span className="ml-auto text-xs text-muted-foreground">{items.length}</span>
                 </div>
-                <div className="px-2 pb-1 text-xs text-muted-foreground">{formatBRL(stageTotal)}</div>
+                <div className="px-2 pb-1 text-xs text-muted-foreground">
+                  {formatBRL(stageTotal)}
+                </div>
                 <ScrollArea className="max-h-[60vh] px-2 pb-3">
                   <div className="space-y-2">
                     {items.map((lead) => (
@@ -226,13 +306,25 @@ function FunilPage() {
                           <GripVertical className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground/40" />
                         </div>
                         {lead.contacts?.name && (
-                          <p className="mt-0.5 text-xs text-muted-foreground">{lead.contacts.name}</p>
+                          <p className="mt-0.5 text-xs text-muted-foreground">
+                            {lead.contacts.name}
+                          </p>
                         )}
                         {lead.value_cents > 0 && (
                           <p className="mt-1.5 text-sm font-medium text-primary">
                             {formatBRL(lead.value_cents)}
                           </p>
                         )}
+                        <Badge
+                          variant="outline"
+                          className={cn(
+                            "mt-1.5 h-5 text-[11px]",
+                            scoreClasses(computeScore(lead, stageIndex, etapasVisiveis.length)),
+                          )}
+                        >
+                          <Flame className="mr-1 h-3 w-3" />
+                          Score {computeScore(lead, stageIndex, etapasVisiveis.length)}
+                        </Badge>
                         {diasParado(lead.updated_at) >= DIAS_PARADO && (
                           <Badge variant="destructive" className="mt-1.5">
                             <Clock className="mr-1 h-3 w-3" />
@@ -245,7 +337,10 @@ function FunilPage() {
                             variant="outline"
                             className="h-7 px-2 text-xs text-emerald-700"
                             onClick={async () => {
-                              await supabase.from("leads").update({ status: "ganho" }).eq("id", lead.id);
+                              await supabase
+                                .from("leads")
+                                .update({ status: "ganho" })
+                                .eq("id", lead.id);
                               queryClient.invalidateQueries({ queryKey: ["leads"] });
                             }}
                           >
@@ -256,7 +351,10 @@ function FunilPage() {
                             variant="outline"
                             className="h-7 px-2 text-xs text-red-700"
                             onClick={async () => {
-                              await supabase.from("leads").update({ status: "perdido" }).eq("id", lead.id);
+                              await supabase
+                                .from("leads")
+                                .update({ status: "perdido" })
+                                .eq("id", lead.id);
                               queryClient.invalidateQueries({ queryKey: ["leads"] });
                             }}
                           >
@@ -300,7 +398,65 @@ function FunilPage() {
         onClose={() => setCreating(false)}
         onSaved={() => queryClient.invalidateQueries({ queryKey: ["leads"] })}
       />
+
+      <LostLeadsDialog
+        open={perdidosOpen}
+        onClose={() => setPerdidosOpen(false)}
+        leads={perdidos}
+        onReactivate={reativar}
+      />
     </div>
+  );
+}
+
+function LostLeadsDialog({
+  open,
+  onClose,
+  leads,
+  onReactivate,
+}: {
+  open: boolean;
+  onClose: () => void;
+  leads: Lead[];
+  onReactivate: (lead: Lead) => void;
+}) {
+  return (
+    <Dialog open={open} onOpenChange={(o) => !o && onClose()}>
+      <DialogContent className="max-w-lg">
+        <DialogHeader>
+          <DialogTitle>Negócios perdidos</DialogTitle>
+        </DialogHeader>
+        <div className="max-h-[60vh] space-y-2 overflow-y-auto">
+          {leads.length === 0 && (
+            <p className="py-6 text-center text-sm text-muted-foreground">
+              Nenhum negócio perdido.
+            </p>
+          )}
+          {leads.map((lead) => (
+            <div
+              key={lead.id}
+              className="flex items-center justify-between gap-3 rounded-xl border p-3"
+            >
+              <div className="min-w-0">
+                <p className="truncate text-sm font-medium">{lead.title}</p>
+                <p className="truncate text-xs text-muted-foreground">
+                  {lead.contacts?.name ?? "Sem contato"}
+                  {lead.value_cents > 0 && ` · ${formatBRL(lead.value_cents)}`}
+                </p>
+              </div>
+              <Button
+                size="sm"
+                variant="outline"
+                className="shrink-0"
+                onClick={() => onReactivate(lead)}
+              >
+                <RotateCcw className="mr-1.5 h-3.5 w-3.5" /> Reativar
+              </Button>
+            </div>
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
@@ -397,7 +553,11 @@ function NewLeadDialog({
             </div>
             <div className="space-y-1.5">
               <Label>Valor (R$)</Label>
-              <Input value={value} onChange={(e) => setValue(e.target.value)} placeholder="1500,00" />
+              <Input
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                placeholder="1500,00"
+              />
             </div>
           </div>
           <div className="space-y-1.5">

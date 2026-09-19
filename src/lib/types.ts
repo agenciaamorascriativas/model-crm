@@ -25,10 +25,23 @@ export interface Conversation {
   contact_id: string;
   status: "aberta" | "fechada";
   assignee: string | null;
+  snoozed_until: string | null;
   last_message_at: string;
   created_at: string;
   updated_at: string;
   contacts?: Contact | null;
+}
+
+export interface Demanda {
+  id: string;
+  contact_id: string;
+  title: string;
+  status: "aberta" | "resolvida" | "cancelada";
+  resolution: string | null;
+  owner_id: string | null;
+  closed_at: string | null;
+  created_at: string;
+  updated_at: string;
 }
 
 export interface Message {
