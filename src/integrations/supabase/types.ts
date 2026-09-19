@@ -94,6 +94,39 @@ export type Database = {
           },
         ]
       }
+      calendar_oauth_tokens: {
+        Row: {
+          access_token: string
+          account_email: string | null
+          created_at: string
+          expires_at: string
+          id: string
+          provider: string
+          refresh_token: string
+          updated_at: string
+        }
+        Insert: {
+          access_token: string
+          account_email?: string | null
+          created_at?: string
+          expires_at: string
+          id?: string
+          provider: string
+          refresh_token: string
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string
+          account_email?: string | null
+          created_at?: string
+          expires_at?: string
+          id?: string
+          provider?: string
+          refresh_token?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       contacts: {
         Row: {
           address: string | null

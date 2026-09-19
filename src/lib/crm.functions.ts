@@ -32,10 +32,9 @@ export const ensureProfile = createServerFn({ method: "POST" })
       .select("id", { count: "exact", head: true });
 
     if (!count) {
-      await supabaseAdmin.from("user_roles").upsert(
-        { user_id: userId, role: "admin" },
-        { onConflict: "user_id,role" },
-      );
+      await supabaseAdmin
+        .from("user_roles")
+        .upsert({ user_id: userId, role: "admin" }, { onConflict: "user_id,role" });
     } else {
       await supabaseAdmin
         .from("user_roles")
@@ -45,9 +44,10 @@ export const ensureProfile = createServerFn({ method: "POST" })
     return { ok: true };
   });
 
-async function requireAdmin(userId: string) {
-  const { data, error } = await (await import("@/integrations/supabase/client.server"))
-    .supabaseAdmin.rpc("has_role", { _user_id: userId, _role: "admin" });
+export async function requireAdmin(userId: string) {
+  const { data, error } = await (
+    await import("@/integrations/supabase/client.server")
+  ).supabaseAdmin.rpc("has_role", { _user_id: userId, _role: "admin" });
   if (error || !data) {
     throw new Error("Apenas administradores podem fazer isso.");
   }
@@ -56,7 +56,9 @@ async function requireAdmin(userId: string) {
 /** Define o cargo de um membro da equipe. Apenas administradores. */
 export const setUserRole = createServerFn({ method: "POST" })
   .middleware([requireSupabaseAuth])
-  .inputValidator((d) => z.object({ userId: z.string().uuid(), role: z.enum(["admin", "member"]) }).parse(d))
+  .inputValidator((d) =>
+    z.object({ userId: z.string().uuid(), role: z.enum(["admin", "member"]) }).parse(d),
+  )
   .handler(async ({ context, data }) => {
     await requireAdmin(context.userId);
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
@@ -116,10 +118,9 @@ export const inviteMember = createServerFn({ method: "POST" })
       email: data.email,
       full_name: data.fullName,
     });
-    await supabaseAdmin.from("user_roles").upsert(
-      { user_id: created.user.id, role: "member" },
-      { onConflict: "user_id,role" },
-    );
+    await supabaseAdmin
+      .from("user_roles")
+      .upsert({ user_id: created.user.id, role: "member" }, { onConflict: "user_id,role" });
 
     return { ok: true };
   });
