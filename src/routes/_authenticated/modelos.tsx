@@ -82,10 +82,28 @@ function ModelosPage() {
   const [modelos, setModelos] = useState<ModeloMensagem[]>(MODELOS_MENSAGEM);
   const [dialogAberto, setDialogAberto] = useState(false);
   const [form, setForm] = useState(MODELO_VAZIO);
+  const corpoRef = useRef<HTMLTextAreaElement | null>(null);
+
+  function inserirVariavel(chave: string) {
+    const campo = corpoRef.current;
+    const inicio = campo?.selectionStart ?? form.corpo.length;
+    const fim = campo?.selectionEnd ?? form.corpo.length;
+    const { texto, cursor } = inserirNaPosicao(form.corpo, inicio, fim, chave);
+    setForm({ ...form, corpo: texto });
+    requestAnimationFrame(() => {
+      campo?.focus();
+      campo?.setSelectionRange(cursor, cursor);
+    });
+  }
 
   function criarModelo() {
     if (!form.nome || !form.corpo) {
       toast.error("Preencha o nome e o corpo da mensagem.");
+      return;
+    }
+    const invalidas = variaveisInvalidas(form.corpo);
+    if (invalidas.length > 0) {
+      toast.error(`Variável não reconhecida: ${invalidas.map((c) => `{{${c}}}`).join(", ")}`);
       return;
     }
     setModelos((prev) => [
