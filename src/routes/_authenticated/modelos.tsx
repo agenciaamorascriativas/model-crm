@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { VariaveisPainel, VariaveisPrevia } from "@/components/variaveis-painel";
+import { inserirNaPosicao, paraNumeradas, variaveisInvalidas } from "@/lib/variaveis";
 import { PageHeader, PageContainer, Panel } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,10 +82,28 @@ function ModelosPage() {
   const [modelos, setModelos] = useState<ModeloMensagem[]>(MODELOS_MENSAGEM);
   const [dialogAberto, setDialogAberto] = useState(false);
   const [form, setForm] = useState(MODELO_VAZIO);
+  const corpoRef = useRef<HTMLTextAreaElement | null>(null);
+
+  function inserirVariavel(chave: string) {
+    const campo = corpoRef.current;
+    const inicio = campo?.selectionStart ?? form.corpo.length;
+    const fim = campo?.selectionEnd ?? form.corpo.length;
+    const { texto, cursor } = inserirNaPosicao(form.corpo, inicio, fim, chave);
+    setForm({ ...form, corpo: texto });
+    requestAnimationFrame(() => {
+      campo?.focus();
+      campo?.setSelectionRange(cursor, cursor);
+    });
+  }
 
   function criarModelo() {
     if (!form.nome || !form.corpo) {
       toast.error("Preencha o nome e o corpo da mensagem.");
+      return;
+    }
+    const invalidas = variaveisInvalidas(form.corpo);
+    if (invalidas.length > 0) {
+      toast.error(`Variável não reconhecida: ${invalidas.map((c) => `{{${c}}}`).join(", ")}`);
       return;
     }
     setModelos((prev) => [
@@ -185,28 +205,37 @@ function ModelosPage() {
               <div className="space-y-1.5">
                 <Label>Corpo da mensagem</Label>
                 <Textarea
+                  ref={corpoRef}
                   rows={6}
-                  placeholder="Use {{1}}, {{2}} para variáveis"
+                  placeholder="Escreva a mensagem e escolha as variáveis ao lado"
                   value={form.corpo}
                   onChange={(e) => setForm({ ...form, corpo: e.target.value })}
                 />
-                <p className="text-xs text-muted-foreground">
-                  Variáveis numeradas, ex.: <code className="font-mono">{"{{1}}"}</code>
-                </p>
               </div>
+              <VariaveisPainel onInserir={inserirVariavel} />
             </div>
 
-            <div>
-              <Label className="mb-1.5 block">Prévia ao vivo</Label>
-              <div className="flex h-full flex-col justify-end rounded-2xl bg-muted/50 p-4">
-                <div className="max-w-xs rounded-2xl rounded-bl-sm bg-card px-4 py-3 text-sm shadow-sm">
+            <div className="space-y-4">
+              <div>
+                <Label className="mb-1.5 block">Prévia ao vivo</Label>
+                <VariaveisPrevia texto={form.corpo} />
+              </div>
+              <div>
+                <Label className="mb-1.5 block">Como o WhatsApp oficial recebe</Label>
+                <div className="rounded-xl border bg-muted/30 p-3 text-sm">
                   {form.corpo ? (
-                    <p className="whitespace-pre-wrap">{form.corpo}</p>
+                    <p className="whitespace-pre-wrap">{paraNumeradas(form.corpo).corpo}</p>
                   ) : (
-                    <p className="text-muted-foreground">A prévia da mensagem aparece aqui…</p>
+                    <p className="text-muted-foreground">As variáveis viram números no envio oficial.</p>
                   )}
-                  <p className="mt-2 text-right text-[10px] text-muted-foreground">09:41</p>
                 </div>
+                {paraNumeradas(form.corpo).legenda.length > 0 && (
+                  <ul className="mt-2 space-y-0.5 text-xs text-muted-foreground">
+                    {paraNumeradas(form.corpo).legenda.map((item) => (
+                      <li key={item.numero}>{item.numero} = {item.rotulo}</li>
+                    ))}
+                  </ul>
+                )}
               </div>
             </div>
           </div>

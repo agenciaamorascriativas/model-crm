@@ -77,6 +77,7 @@ import { Route as AuthenticatedIaPropostasRouteImport } from './routes/_authenti
 import { Route as AuthenticatedIaProvedoresRouteImport } from './routes/_authenticated/ia.provedores'
 import { Route as AuthenticatedIaRoteamentoRouteImport } from './routes/_authenticated/ia.roteamento'
 import { Route as AuthenticatedIntegracoesIndexRouteImport } from './routes/_authenticated/integracoes.index'
+import { Route as AuthenticatedIntegracoesChatSiteRouteImport } from './routes/_authenticated/integracoes.chat-site'
 import { Route as AuthenticatedIntegracoesOutlookCallbackRouteImport } from './routes/_authenticated/integracoes.outlook-callback'
 import { Route as AuthenticatedIntegracoesWebhooksRouteImport } from './routes/_authenticated/integracoes.webhooks'
 import { Route as AuthenticatedIntegracoesWhatsappRouteImport } from './routes/_authenticated/integracoes.whatsapp'
@@ -453,6 +454,12 @@ const AuthenticatedIntegracoesIndexRoute =
     path: '/',
     getParentRoute: () => AuthenticatedIntegracoesRoute,
   } as any)
+const AuthenticatedIntegracoesChatSiteRoute =
+  AuthenticatedIntegracoesChatSiteRouteImport.update({
+    id: '/chat-site',
+    path: '/chat-site',
+    getParentRoute: () => AuthenticatedIntegracoesRoute,
+  } as any)
 const AuthenticatedIntegracoesOutlookCallbackRoute =
   AuthenticatedIntegracoesOutlookCallbackRouteImport.update({
     id: '/outlook-callback',
@@ -554,6 +561,7 @@ export interface FileRoutesByFullPath {
   '/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/ia/provedores': typeof AuthenticatedIaProvedoresRoute
   '/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
+  '/integracoes/chat-site': typeof AuthenticatedIntegracoesChatSiteRoute
   '/integracoes/outlook-callback': typeof AuthenticatedIntegracoesOutlookCallbackRoute
   '/integracoes/webhooks': typeof AuthenticatedIntegracoesWebhooksRoute
   '/integracoes/whatsapp': typeof AuthenticatedIntegracoesWhatsappRoute
@@ -627,6 +635,7 @@ export interface FileRoutesByTo {
   '/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/ia/provedores': typeof AuthenticatedIaProvedoresRoute
   '/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
+  '/integracoes/chat-site': typeof AuthenticatedIntegracoesChatSiteRoute
   '/integracoes/outlook-callback': typeof AuthenticatedIntegracoesOutlookCallbackRoute
   '/integracoes/webhooks': typeof AuthenticatedIntegracoesWebhooksRoute
   '/integracoes/whatsapp': typeof AuthenticatedIntegracoesWhatsappRoute
@@ -704,6 +713,7 @@ export interface FileRoutesById {
   '/_authenticated/ia/propostas': typeof AuthenticatedIaPropostasRoute
   '/_authenticated/ia/provedores': typeof AuthenticatedIaProvedoresRoute
   '/_authenticated/ia/roteamento': typeof AuthenticatedIaRoteamentoRoute
+  '/_authenticated/integracoes/chat-site': typeof AuthenticatedIntegracoesChatSiteRoute
   '/_authenticated/integracoes/outlook-callback': typeof AuthenticatedIntegracoesOutlookCallbackRoute
   '/_authenticated/integracoes/webhooks': typeof AuthenticatedIntegracoesWebhooksRoute
   '/_authenticated/integracoes/whatsapp': typeof AuthenticatedIntegracoesWhatsappRoute
@@ -781,6 +791,7 @@ export interface FileRouteTypes {
     | '/ia/propostas'
     | '/ia/provedores'
     | '/ia/roteamento'
+    | '/integracoes/chat-site'
     | '/integracoes/outlook-callback'
     | '/integracoes/webhooks'
     | '/integracoes/whatsapp'
@@ -854,6 +865,7 @@ export interface FileRouteTypes {
     | '/ia/propostas'
     | '/ia/provedores'
     | '/ia/roteamento'
+    | '/integracoes/chat-site'
     | '/integracoes/outlook-callback'
     | '/integracoes/webhooks'
     | '/integracoes/whatsapp'
@@ -930,6 +942,7 @@ export interface FileRouteTypes {
     | '/_authenticated/ia/propostas'
     | '/_authenticated/ia/provedores'
     | '/_authenticated/ia/roteamento'
+    | '/_authenticated/integracoes/chat-site'
     | '/_authenticated/integracoes/outlook-callback'
     | '/_authenticated/integracoes/webhooks'
     | '/_authenticated/integracoes/whatsapp'
@@ -1435,6 +1448,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedIntegracoesIndexRouteImport
       parentRoute: typeof AuthenticatedIntegracoesRoute
     }
+    '/_authenticated/integracoes/chat-site': {
+      id: '/_authenticated/integracoes/chat-site'
+      path: '/chat-site'
+      fullPath: '/integracoes/chat-site'
+      preLoaderRoute: typeof AuthenticatedIntegracoesChatSiteRouteImport
+      parentRoute: typeof AuthenticatedIntegracoesRoute
+    }
     '/_authenticated/integracoes/outlook-callback': {
       id: '/_authenticated/integracoes/outlook-callback'
       path: '/outlook-callback'
@@ -1555,6 +1575,7 @@ const AuthenticatedEquipeRouteWithChildren =
   AuthenticatedEquipeRoute._addFileChildren(AuthenticatedEquipeRouteChildren)
 
 interface AuthenticatedIntegracoesRouteChildren {
+  AuthenticatedIntegracoesChatSiteRoute: typeof AuthenticatedIntegracoesChatSiteRoute
   AuthenticatedIntegracoesOutlookCallbackRoute: typeof AuthenticatedIntegracoesOutlookCallbackRoute
   AuthenticatedIntegracoesWebhooksRoute: typeof AuthenticatedIntegracoesWebhooksRoute
   AuthenticatedIntegracoesWhatsappRoute: typeof AuthenticatedIntegracoesWhatsappRoute
@@ -1563,6 +1584,8 @@ interface AuthenticatedIntegracoesRouteChildren {
 
 const AuthenticatedIntegracoesRouteChildren: AuthenticatedIntegracoesRouteChildren =
   {
+    AuthenticatedIntegracoesChatSiteRoute:
+      AuthenticatedIntegracoesChatSiteRoute,
     AuthenticatedIntegracoesOutlookCallbackRoute:
       AuthenticatedIntegracoesOutlookCallbackRoute,
     AuthenticatedIntegracoesWebhooksRoute:
