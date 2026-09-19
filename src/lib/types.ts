@@ -164,6 +164,15 @@ export interface ReminderSettings {
   template: string;
 }
 
+export interface AntibanSettings {
+  enabled: boolean;
+  max_per_minute: number;
+  jitter_min_seconds: number;
+  jitter_max_seconds: number;
+  window_start: string;
+  window_end: string;
+}
+
 export interface AppSettings {
   id: number;
   brand_name: string;
@@ -173,5 +182,6 @@ export interface AppSettings {
   whatsapp_number: string | null;
   calendar_sync: CalendarSync;
   reminder_settings: ReminderSettings;
+  antiban_settings: AntibanSettings;
   updated_at: string;
 }

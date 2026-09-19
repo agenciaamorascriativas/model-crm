@@ -40,6 +40,7 @@ import {
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { Contact, Conversation, Demanda, Message } from "@/lib/types";
+import { sendWhatsappMessage } from "@/lib/whatsapp.functions";
 
 export const Route = createFileRoute("/_authenticated/whatsapp")({
   ssr: false,
@@ -341,25 +342,15 @@ function ChatPane({
 
   const send = useMutation({
     mutationFn: async (body: string) => {
-      const { data: userData } = await supabase.auth.getUser();
-      const { error } = await supabase.from("messages").insert({
-        conversation_id: conversation.id,
-        direction: "saida",
-        body,
-        author_id: userData.user?.id ?? null,
-      });
-      if (error) throw error;
-      await supabase
-        .from("conversations")
-        .update({ last_message_at: new Date().toISOString() })
-        .eq("id", conversation.id);
+      await sendWhatsappMessage({ data: { conversationId: conversation.id, body } });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["messages", conversation.id] });
       queryClient.invalidateQueries({ queryKey: ["conversations"] });
       setText("");
     },
-    onError: () => toast.error("Não foi possível enviar a mensagem."),
+    onError: (err) =>
+      toast.error(err instanceof Error ? err.message : "Não foi possível enviar a mensagem."),
   });
 
   const claim = useMutation({

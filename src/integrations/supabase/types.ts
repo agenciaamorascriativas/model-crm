@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       app_settings: {
         Row: {
+          antiban_settings: Json
           brand_name: string
           calendar_sync: Json
           favicon_url: string | null
@@ -27,6 +28,7 @@ export type Database = {
           whatsapp_number: string | null
         }
         Insert: {
+          antiban_settings?: Json
           brand_name?: string
           calendar_sync?: Json
           favicon_url?: string | null
@@ -38,6 +40,7 @@ export type Database = {
           whatsapp_number?: string | null
         }
         Update: {
+          antiban_settings?: Json
           brand_name?: string
           calendar_sync?: Json
           favicon_url?: string | null
