@@ -67,6 +67,19 @@ function RespostasRapidasPage() {
   const [editando, setEditando] = useState<RespostaRapida | null>(null);
   const [form, setForm] = useState(RESPOSTA_VAZIA);
   const [excluirAlvo, setExcluirAlvo] = useState<RespostaRapida | null>(null);
+  const mensagemRef = useRef<HTMLTextAreaElement | null>(null);
+
+  function inserirVariavel(chave: string) {
+    const campo = mensagemRef.current;
+    const inicio = campo?.selectionStart ?? form.mensagem.length;
+    const fim = campo?.selectionEnd ?? form.mensagem.length;
+    const { texto, cursor } = inserirNaPosicao(form.mensagem, inicio, fim, chave);
+    setForm({ ...form, mensagem: texto });
+    requestAnimationFrame(() => {
+      campo?.focus();
+      campo?.setSelectionRange(cursor, cursor);
+    });
+  }
 
   const respostasFiltradas = respostas.filter((r) => {
     const termo = busca.toLowerCase();
