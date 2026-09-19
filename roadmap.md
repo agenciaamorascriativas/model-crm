@@ -38,3 +38,9 @@ Fora de escopo permanente: menções a Deskcomm, ao autor (Rafael), configuraç�
 - [x] Agenda com Google e Outlook (contas) e lembretes/avisos configuráveis
 - [ ] Envio real de e-mail/WhatsApp dos lembretes (depois do gateway)
 - [ ] Autorização definitiva Google/Outlook na instalação do cliente
+
+## Chat do site + variáveis (feito)
+- Tela "Chat do site" em Integrações: código de instalação, aparência, perguntas de entrada, horário e avisos — salvos no banco (`app_settings.site_chat_settings`).
+- ChatBot: status aguardando/em atendimento/encerrada, tempo de espera, assumir/encerrar, painel com dados coletados.
+- Catálogo de variáveis do CRM (`src/lib/variaveis.ts`) usado em Modelos de mensagem e Respostas rápidas, com inserção por clique, prévia e conversão para numeradas no WhatsApp oficial.
+- Pendente na instalação no servidor do cliente: recebimento real das mensagens do site, widget público e envio das respostas ao visitante.
