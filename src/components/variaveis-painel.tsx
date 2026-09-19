@@ -1,4 +1,3 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { variaveisPorGrupo, preencherExemplo, variaveisInvalidas } from "@/lib/variaveis";
 import { AlertTriangle } from "lucide-react";
@@ -49,11 +48,7 @@ export function VariaveisPrevia({ texto }: { texto: string }) {
           <AlertTriangle className="mt-0.5 h-3.5 w-3.5 shrink-0" />
           <span>
             Variável não reconhecida:{" "}
-            {invalidas.map((chave, i) => (
-              <Badge key={chave} variant="outline" className="ml-1 font-mono text-[10px] font-normal">
-                {`{{${chave}}}`}
-              </Badge>
-            )).map((el, i) => <span key={i}>{el}</span>)}
+            <span className="font-mono">{invalidas.map((chave) => `{{${chave}}}`).join(", ")}</span>
           </span>
         </p>
       )}
