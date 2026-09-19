@@ -38,7 +38,12 @@ function ConexoesPage() {
                 {c.conectado ? "Conectado" : "Desconectado"}
               </Badge>
             </div>
-            <div className="mt-4">
+            <div className="mt-4 flex flex-wrap gap-2">
+              {c.id === "chat-site" && (
+                <Button variant="default" size="sm" asChild>
+                  <Link to="/integracoes/chat-site">Configurar</Link>
+                </Button>
+              )}
               <Button
                 variant={c.conectado ? "outline" : "default"}
                 size="sm"
