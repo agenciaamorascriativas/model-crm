@@ -57,6 +57,7 @@ export type Database = {
           logo_url: string | null
           primary_color: string
           reminder_settings: Json
+          site_chat_settings: Json
           updated_at: string
           whatsapp_number: string | null
         }
@@ -69,6 +70,7 @@ export type Database = {
           logo_url?: string | null
           primary_color?: string
           reminder_settings?: Json
+          site_chat_settings?: Json
           updated_at?: string
           whatsapp_number?: string | null
         }
@@ -81,6 +83,7 @@ export type Database = {
           logo_url?: string | null
           primary_color?: string
           reminder_settings?: Json
+          site_chat_settings?: Json
           updated_at?: string
           whatsapp_number?: string | null
         }
