@@ -218,7 +218,7 @@ function RespostasRapidasPage() {
       )}
 
       <Dialog open={dialogAberto} onOpenChange={setDialogAberto}>
-        <DialogContent>
+        <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editando ? "Editar resposta rápida" : "Nova resposta rápida"}</DialogTitle>
           </DialogHeader>
