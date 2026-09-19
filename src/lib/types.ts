@@ -181,6 +181,28 @@ export interface AntibanSettings {
   window_end: string;
 }
 
+export interface SiteChatField {
+  enabled: boolean;
+  required: boolean;
+}
+
+export interface SiteChatSettings {
+  enabled: boolean;
+  position: "direita" | "esquerda";
+  title: string;
+  welcome: string;
+  waiting_message: string;
+  offhours_message: string;
+  fields: {
+    name: SiteChatField;
+    email: SiteChatField;
+    phone: SiteChatField;
+    subject: SiteChatField;
+  };
+  hours: { start: string; end: string; days: string[] };
+  notify: { target: "todos" | "fila" | "pessoas"; people: string[]; channels: string[] };
+}
+
 export interface AppSettings {
   id: number;
   brand_name: string;

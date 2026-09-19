@@ -119,6 +119,7 @@ export const NAV_GROUPS: NavGroup[] = [
     items: [
       { to: "/integracoes", label: "Conexões", icon: Plug },
       { to: "/integracoes/whatsapp", label: "WhatsApp", icon: MessageCircle },
+      { to: "/integracoes/chat-site", label: "Chat do site", icon: MessagesSquare },
       { to: "/integracoes/webhooks", label: "Webhooks", icon: RouteIcon },
     ],
   },

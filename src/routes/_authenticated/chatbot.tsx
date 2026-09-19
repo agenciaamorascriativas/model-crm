@@ -62,7 +62,7 @@ function ChatBotPage() {
     <div className="flex min-h-[calc(100vh-3.5rem)] flex-col bg-background md:min-h-screen">
       <header className="flex flex-wrap items-start justify-between gap-4 border-b bg-card px-4 py-5 sm:px-6">
         <div><div className="flex items-center gap-2"><h1 className="font-display text-2xl font-bold">ChatBot</h1><Badge variant="secondary">dados de exemplo</Badge></div><p className="mt-1 text-sm text-muted-foreground">Conversas iniciadas pelo chat instalado no site.</p></div>
-        <Button variant="outline" asChild><Link to="/integracoes"><Settings2 className="mr-2 h-4 w-4" />Configurar canal</Link></Button>
+        <Button variant="outline" asChild><Link to="/integracoes/chat-site"><Settings2 className="mr-2 h-4 w-4" />Configurar canal</Link></Button>
       </header>
 
       <div className="grid min-h-0 flex-1 md:grid-cols-[21rem_minmax(0,1fr)]">
