@@ -122,6 +122,11 @@ function RespostasRapidasPage() {
       toast.error("Preencha nome, atalho e mensagem.");
       return;
     }
+    const invalidas = variaveisInvalidas(form.mensagem);
+    if (invalidas.length > 0) {
+      toast.error(`Variável não reconhecida: ${invalidas.map((c) => `{{${c}}}`).join(", ")}`);
+      return;
+    }
     if (editando) {
       setRespostas((prev) =>
         prev.map((r) => (r.id === editando.id ? { ...r, ...form } : r)),
