@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { VariaveisPainel, VariaveisPrevia } from "@/components/variaveis-painel";
+import { inserirNaPosicao, variaveisInvalidas } from "@/lib/variaveis";
 import { PageHeader, PageContainer, EmptyState } from "@/components/page-shell";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -65,6 +67,19 @@ function RespostasRapidasPage() {
   const [editando, setEditando] = useState<RespostaRapida | null>(null);
   const [form, setForm] = useState(RESPOSTA_VAZIA);
   const [excluirAlvo, setExcluirAlvo] = useState<RespostaRapida | null>(null);
+  const mensagemRef = useRef<HTMLTextAreaElement | null>(null);
+
+  function inserirVariavel(chave: string) {
+    const campo = mensagemRef.current;
+    const inicio = campo?.selectionStart ?? form.mensagem.length;
+    const fim = campo?.selectionEnd ?? form.mensagem.length;
+    const { texto, cursor } = inserirNaPosicao(form.mensagem, inicio, fim, chave);
+    setForm({ ...form, mensagem: texto });
+    requestAnimationFrame(() => {
+      campo?.focus();
+      campo?.setSelectionRange(cursor, cursor);
+    });
+  }
 
   const respostasFiltradas = respostas.filter((r) => {
     const termo = busca.toLowerCase();
@@ -105,6 +120,11 @@ function RespostasRapidasPage() {
   function salvar() {
     if (!form.nome || !form.atalho || !form.mensagem) {
       toast.error("Preencha nome, atalho e mensagem.");
+      return;
+    }
+    const invalidas = variaveisInvalidas(form.mensagem);
+    if (invalidas.length > 0) {
+      toast.error(`Variável não reconhecida: ${invalidas.map((c) => `{{${c}}}`).join(", ")}`);
       return;
     }
     if (editando) {
@@ -198,7 +218,7 @@ function RespostasRapidasPage() {
       )}
 
       <Dialog open={dialogAberto} onOpenChange={setDialogAberto}>
-        <DialogContent>
+        <DialogContent className="max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editando ? "Editar resposta rápida" : "Nova resposta rápida"}</DialogTitle>
           </DialogHeader>
@@ -235,14 +255,17 @@ function RespostasRapidasPage() {
             <div className="space-y-1.5">
               <Label>Mensagem</Label>
               <Textarea
+                ref={mensagemRef}
                 rows={4}
-                placeholder="Use {{nome}} para personalizar a mensagem"
+                placeholder="Escreva a mensagem e escolha as variáveis abaixo"
                 value={form.mensagem}
                 onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
               />
-              <p className="text-xs text-muted-foreground">
-                Variáveis disponíveis: <code className="font-mono">{"{{nome}}"}</code>
-              </p>
+            </div>
+            <VariaveisPainel onInserir={inserirVariavel} />
+            <div className="space-y-1.5">
+              <Label>Prévia com valores de exemplo</Label>
+              <VariaveisPrevia texto={form.mensagem} />
             </div>
           </div>
           <DialogFooter>

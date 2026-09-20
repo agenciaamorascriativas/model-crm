@@ -146,6 +146,7 @@ export const historicoEntregasWebhookDemo = [
 
 export const conexoesDemo = [
   { id: "whatsapp", nome: "WhatsApp", descricao: "Atendimento via gateway ou canal oficial.", conectado: true },
+  { id: "chat-site", nome: "Chat do site", descricao: "Recebe mensagens do site e avisa a equipe.", conectado: false },
   { id: "meta-ads", nome: "Meta Ads", descricao: "Campanhas do Facebook e Instagram.", conectado: true },
   { id: "google-calendar", nome: "Google Agenda", descricao: "Sincronize compromissos automaticamente.", conectado: false },
   { id: "email", nome: "E-mail", descricao: "Envio de mensagens e modelos por e-mail.", conectado: true },
