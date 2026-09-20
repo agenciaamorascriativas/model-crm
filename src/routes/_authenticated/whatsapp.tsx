@@ -36,11 +36,12 @@ import {
   RotateCcw,
   ClipboardList,
   X,
+  Sparkles,
 } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
 import type { Contact, Conversation, Demanda, Message } from "@/lib/types";
-import { sendWhatsappMessage } from "@/lib/whatsapp.functions";
+import { sendWhatsappMessage, generateWhatsappDraftReply } from "@/lib/whatsapp.functions";
 
 export const Route = createFileRoute("/_authenticated/whatsapp")({
   ssr: false,
@@ -353,6 +354,16 @@ function ChatPane({
       toast.error(err instanceof Error ? err.message : "Não foi possível enviar a mensagem."),
   });
 
+  const sugerir = useMutation({
+    mutationFn: async () => {
+      const res = await generateWhatsappDraftReply({ data: { conversationId: conversation.id } });
+      return res.text;
+    },
+    onSuccess: (texto) => setText(texto),
+    onError: (err) =>
+      toast.error(err instanceof Error ? err.message : "Não foi possível sugerir uma resposta."),
+  });
+
   const claim = useMutation({
     mutationFn: async () => {
       const { error } = await supabase
@@ -555,7 +566,21 @@ function ChatPane({
           />
           <Button
             size="icon"
-            className="h-[42px] w-[42px] rounded-xl"
+            variant="outline"
+            className="h-[42px] w-[42px] shrink-0 rounded-xl"
+            title="Sugerir resposta com IA"
+            disabled={sugerir.isPending}
+            onClick={() => sugerir.mutate()}
+          >
+            {sugerir.isPending ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <Sparkles className="h-4 w-4" />
+            )}
+          </Button>
+          <Button
+            size="icon"
+            className="h-[42px] w-[42px] shrink-0 rounded-xl"
             disabled={!text.trim() || send.isPending}
             onClick={() => text.trim() && send.mutate(text.trim())}
           >
